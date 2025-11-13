@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイページ - すごいAI道場</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .mypage-container {
+            max-width: 1200px;
+            margin: 120px auto 40px;
+            padding: 40px;
+            background: white;
+            border: 3px solid #625147;
+            border-radius: 8px;
+        }
+
+        .mypage-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #ffd700;
+        }
+
+        .mypage-header h1 {
+            font-size: 2.5rem;
+            color: #000814;
+            margin-bottom: 15px;
+        }
+
+        .mypage-header p {
+            font-size: 1.2rem;
+            color: #625147;
+        }
+
+        .badge-category {
+            margin: 50px 0;
+            padding: 30px;
+            background: #f8f8f8;
+            border-radius: 12px;
+            border-left: 6px solid;
+        }
+
+        .badge-category.ai-general {
+            border-left-color: #f46434;
+        }
+
+        .badge-category.startup {
+            border-left-color: #4a90e2;
+        }
+
+        .badge-category.creative {
+            border-left-color: #27ae60;
+        }
+
+        .badge-category.community {
+            border-left-color: #9b59b6;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .category-icon.ai-general {
+            background: #f46434;
+        }
+
+        .category-icon.startup {
+            background: #4a90e2;
+        }
+
+        .category-icon.creative {
+            background: #27ae60;
+        }
+
+        .category-icon.community {
+            background: #9b59b6;
+        }
+
+        .category-header h2 {
+            font-size: 2rem;
+            color: #000814;
+            margin: 0;
+        }
+
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 25px;
+        }
+
+        .badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 15px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .badge-item:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Category-specific hover colors for border */
+        .badge-category.ai-general .badge-item:hover {
+            border-color: #f46434;
+            box-shadow: 0 4px 15px rgba(244, 100, 52, 0.2);
+        }
+
+        .badge-category.startup .badge-item:hover {
+            border-color: #4a90e2;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+        }
+
+        .badge-category.creative .badge-item:hover {
+            border-color: #27ae60;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.2);
+        }
+
+        .badge-category.community .badge-item:hover {
+            border-color: #9b59b6;
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.2);
+        }
+
+        .badge-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge-circle.locked {
+            background: #d0d0d0;
+            color: #888;
+            border: 3px solid #b0b0b0;
+        }
+
+        .badge-circle.unlocked {
+            background: #ffd700;
+            border: 3px solid #ffed4e;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .badge-circle.unlocked img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge-label {
+            font-size: 0.9rem;
+            color: #625147;
+            font-weight: 600;
+            text-align: center;
+            word-break: keep-all;
+            line-height: 1.3;
+        }
+
+        .badge-status {
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .badge-status.locked {
+            background: #e0e0e0;
+            color: #888;
+        }
+
+        .badge-status.unlocked {
+            background: #ffd700;
+            color: #000;
+        }
+
+        /* Modal for enlarged badge */
+        .badge-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-modal.active {
+            display: flex;
+        }
+
+        .badge-modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .badge-modal-content img {
+            width: 100%;
+            height: auto;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.5);
+        }
+
+        .badge-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .badge-modal-close:hover {
+            color: #ffd700;
+        }
+
+        .badge-modal-info {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .progress-summary {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .progress-summary h3 {
+            font-size: 1.5rem;
+            color: #000814;
+            margin-bottom: 15px;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .progress-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .progress-stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #000814;
+        }
+
+        .progress-stat-label {
+            font-size: 1rem;
+            color: #625147;
+            font-weight: 600;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        /* Management Section */
+        .management-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .management-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .spell-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .spell-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #f46434 0%, #ff6b4a 100%);
+            color: white;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(244, 100, 52, 0.4);
+        }
+
+        /* Spell Modal */
+        .spell-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spell-modal.active {
+            display: flex;
+        }
+
+        .spell-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .spell-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #625147;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .spell-modal-close:hover {
+            color: #667eea;
+        }
+
+        .spell-modal-content h2 {
+            font-size: 2rem;
+            color: #000814;
+            margin-bottom: 20px;
+        }
+
+        .spell-instruction {
+            font-size: 1.1rem;
+            color: #625147;
+            margin-bottom: 20px;
+        }
+
+        .spell-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            box-sizing: border-box;
+        }
+
+        .spell-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .spell-submit-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .spell-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .spell-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            white-space: pre-line;
+            display: none;
+        }
+
+        .spell-message.success {
+            display: block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 2px solid #4caf50;
+        }
+
+        .spell-message.error {
+            display: block;
+            background: #ffebee;
+            color: #c62828;
+            border: 2px solid #f44336;
+        }
+
+        /* Reset Modal */
+        .reset-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reset-modal.active {
+            display: flex;
+        }
+
+        .reset-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(244, 100, 52, 0.5);
+        }
+
+        .reset-modal-content h2 {
+            font-size: 2rem;
+            color: #000814;
+            margin-bottom: 20px;
+        }
+
+        .reset-warning {
+            font-size: 1.1rem;
+            color: #625147;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .reset-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .reset-confirm-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .yes-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .yes-btn:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+        }
+
+        .no-btn {
+            background: #e0e0e0;
+            color: #000814;
+        }
+
+        .no-btn:hover {
+            background: #c0c0c0;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mypage-container {
+                margin: 100px 15px 40px;
+                padding: 20px 15px;
+            }
+
+            .mypage-header h1 {
+                font-size: 2rem;
+            }
+
+            .badge-category {
+                padding: 20px;
+            }
+
+            .category-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .badge-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 20px;
+            }
+
+            .badge-circle {
+                width: 80px;
+                height: 80px;
+                font-size: 1.5rem;
+            }
+
+            .badge-label {
+                font-size: 0.85rem;
+            }
+
+            .badge-status {
+                font-size: 0.75rem;
+                padding: 3px 10px;
+            }
+
+            .progress-stats {
+                gap: 20px;
+            }
+
+            .progress-stat-number {
+                font-size: 2.5rem;
+            }
+
+            /* Category-specific hover for tablet */
+            .badge-category.ai-general .badge-item:hover {
+                border-color: #f46434;
+                box-shadow: 0 4px 15px rgba(244, 100, 52, 0.2);
+            }
+
+            .badge-category.startup .badge-item:hover {
+                border-color: #4a90e2;
+                box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+            }
+
+            .badge-category.creative .badge-item:hover {
+                border-color: #27ae60;
+                box-shadow: 0 4px 15px rgba(39, 174, 96, 0.2);
+            }
+
+            .badge-category.community .badge-item:hover {
+                border-color: #9b59b6;
+                box-shadow: 0 4px 15px rgba(155, 89, 182, 0.2);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mypage-container {
+                margin: 90px 10px 30px;
+                padding: 15px 10px;
+            }
+
+            .mypage-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .mypage-header p {
+                font-size: 1rem;
+            }
+
+            .category-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .category-header h2 {
+                font-size: 1.3rem;
+            }
+
+            .badge-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .badge-item {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                padding: 15px;
+                background: white;
+                border: 2px solid #e0e0e0;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+            }
+
+            .badge-item:hover {
+                transform: translateY(-2px);
+            }
+
+            .badge-circle {
+                width: 80px;
+                height: 80px;
+                font-size: 1.5rem;
+                flex-shrink: 0;
+            }
+
+            .badge-label {
+                font-size: 0.9rem;
+                line-height: 1.3;
+                min-height: auto;
+                text-align: center;
+                flex: initial;
+                display: block;
+            }
+
+            .badge-status {
+                font-size: 0.75rem;
+                padding: 4px 10px;
+                flex-shrink: initial;
+            }
+
+            .progress-stat-number {
+                font-size: 2rem;
+            }
+
+            /* Category-specific hover for mobile horizontal cards */
+            .badge-category.ai-general .badge-item:hover {
+                border-color: #f46434;
+                box-shadow: 0 2px 8px rgba(244, 100, 52, 0.2);
+            }
+
+            .badge-category.startup .badge-item:hover {
+                border-color: #4a90e2;
+                box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2);
+            }
+
+            .badge-category.creative .badge-item:hover {
+                border-color: #27ae60;
+                box-shadow: 0 2px 8px rgba(39, 174, 96, 0.2);
+            }
+
+            .badge-category.community .badge-item:hover {
+                border-color: #9b59b6;
+                box-shadow: 0 2px 8px rgba(155, 89, 182, 0.2);
+            }
+
+            /* Override circle hover shadow for mobile */
+            .badge-category .badge-item:hover .badge-circle {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-logo">すごいAI道場</div>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#ai-general" class="nav-ai">AI全般</a></li>
+                <li><a href="index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                <li><a href="index.html#creative" class="nav-creative">クリエイティブ</a></li>
+                <li><a href="index.html#community" class="nav-community">コミュニティ</a></li>
+                <li><a href="mypage.html" class="nav-mypage">マイページ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="mypage-container">
+        <div class="mypage-header">
+            <h1>🏆 マイページ</h1>
+            <p>あなたの学習進捗とバッジコレクション</p>
+        </div>
+
+        <div class="progress-summary">
+            <h3>学習進捗</h3>
+            <div class="progress-stats">
+                <div class="progress-stat">
+                    <div class="progress-stat-number" id="totalBadges">0</div>
+                    <div class="progress-stat-label">獲得バッジ</div>
+                </div>
+                <div class="progress-stat">
+                    <div class="progress-stat-number" id="totalLessons">19</div>
+                    <div class="progress-stat-label">総レッスン数</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI全般 Category -->
+        <div class="badge-category ai-general">
+            <div class="category-header">
+                <div class="category-icon ai-general">AI</div>
+                <h2>AI全般</h2>
+            </div>
+            <div class="badge-grid" id="aiGeneralBadges">
+                <!-- Lessons 1-7 -->
+                <div class="badge-item" data-lesson="1" data-badge-image="images/AIBasics.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">01</span>
+                    </div>
+                    <div class="badge-label">AI基礎</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="2" data-badge-image="images/AIPrompt.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">02</span>
+                    </div>
+                    <div class="badge-label">プロンプト技術</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="3" data-badge-image="images/AIIroiro.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">03</span>
+                    </div>
+                    <div class="badge-label">AIツール</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="4" data-badge-image="images/AIAgent.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">04</span>
+                    </div>
+                    <div class="badge-label">AIエージェント</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="5" data-badge-image="images/AIRisk.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">05</span>
+                    </div>
+                    <div class="badge-label">リスク対処</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="6" data-badge-image="images/AIModel.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">06</span>
+                    </div>
+                    <div class="badge-label">モデル利用</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="7" data-badge-image="images/AIShikaku.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">07</span>
+                    </div>
+                    <div class="badge-label">AI資格試験</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 起業・ビジコン Category -->
+        <div class="badge-category startup">
+            <div class="category-header">
+                <div class="category-icon startup">起</div>
+                <h2>起業・ビジコン</h2>
+            </div>
+            <div class="badge-grid" id="startupBadges">
+                <!-- Lessons 8-13 -->
+                <div class="badge-item" data-lesson="8" data-badge-image="images/BizBasics.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">08</span>
+                    </div>
+                    <div class="badge-label">起業基礎</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="9" data-badge-image="images/BizModel.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">09</span>
+                    </div>
+                    <div class="badge-label">ビジネスモデル</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="10" data-badge-image="images/BizFunding.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">10</span>
+                    </div>
+                    <div class="badge-label">資金調達</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="11" data-badge-image="images/BizCanvas.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">11</span>
+                    </div>
+                    <div class="badge-label">アイデア精度向上</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="12" data-badge-image="images/BizWorks.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">12</span>
+                    </div>
+                    <div class="badge-label">起業実務</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="13" data-badge-image="images/BizTools.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">13</span>
+                    </div>
+                    <div class="badge-label">AIツール活用</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- クリエイティブ Category -->
+        <div class="badge-category creative">
+            <div class="category-header">
+                <div class="category-icon creative">創</div>
+                <h2>クリエイティブ</h2>
+            </div>
+            <div class="badge-grid" id="creativeBadges">
+                <!-- Lessons 14-18 -->
+                <div class="badge-item" data-lesson="14" data-badge-image="images/CreBasics.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">14</span>
+                    </div>
+                    <div class="badge-label">基礎</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="15" data-badge-image="images/CreImage.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">15</span>
+                    </div>
+                    <div class="badge-label">画像生成</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="16" data-badge-image="images/CreMovie.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">16</span>
+                    </div>
+                    <div class="badge-label">動画生成</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="17" data-badge-image="images/CreMusic.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">17</span>
+                    </div>
+                    <div class="badge-label">音楽生成</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+                <div class="badge-item" data-lesson="18" data-badge-image="images/CrePost.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">18</span>
+                    </div>
+                    <div class="badge-label">投稿と注意</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- コミュニティ Category -->
+        <div class="badge-category community">
+            <div class="category-header">
+                <div class="category-icon community">👥</div>
+                <h2>コミュニティ</h2>
+            </div>
+            <div class="badge-grid" id="communityBadges">
+                <!-- Lesson 19 -->
+                <div class="badge-item" data-lesson="19" data-badge-image="images/Community.png">
+                    <div class="badge-circle locked">
+                        <span class="badge-number">19</span>
+                    </div>
+                    <div class="badge-label">Discord参加</div>
+                    <span class="badge-status locked">未取得</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Management Buttons -->
+        <div class="management-section">
+            <button class="management-btn spell-btn" id="spellBtn">ふっかつのじゅもん</button>
+            <button class="management-btn reset-btn" id="resetBtn">リセット</button>
+        </div>
+    </div>
+
+    <!-- Spell Modal -->
+    <div class="spell-modal" id="spellModal">
+        <div class="spell-modal-content">
+            <span class="spell-modal-close" id="spellModalClose">&times;</span>
+            <h2>ふっかつのじゅもん</h2>
+            <p class="spell-instruction">じゅもんを　いれてください</p>
+            <input type="text" id="spellInput" class="spell-input" placeholder="じゅもんを　ここに">
+            <button class="spell-submit-btn" id="spellSubmitBtn">じっこう</button>
+            <div class="spell-message" id="spellMessage"></div>
+        </div>
+    </div>
+
+    <!-- Reset Confirmation Modal -->
+    <div class="reset-modal" id="resetModal">
+        <div class="reset-modal-content">
+            <h2>リセット確認</h2>
+            <p class="reset-warning">今までのバッジが全て消えてしまいます！<br>よろしいですか？</p>
+            <div class="reset-buttons">
+                <button class="reset-confirm-btn yes-btn" id="resetYesBtn">はい</button>
+                <button class="reset-confirm-btn no-btn" id="resetNoBtn">いいえ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Badge Modal -->
+    <div class="badge-modal" id="badgeModal">
+        <div class="badge-modal-content">
+            <span class="badge-modal-close" id="modalClose">&times;</span>
+            <img id="modalBadgeImage" src="" alt="Badge">
+            <div class="badge-modal-info" id="modalBadgeInfo"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 すごいAI道場. All rights reserved.</p>
+            <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Badge Management System for MyPage
+        class MyPageBadgeManager {
+            constructor() {
+                this.completedLessons = this.loadCompletedLessons();
+                this.spells = {
+                    'あかいもも': { category: 'AI全般', lessons: [1, 2, 3, 4, 5, 6, 7] },
+                    'あおいはすかっぷ': { category: '起業・ビジコン', lessons: [8, 9, 10, 11, 12, 13] },
+                    'みどりのみかん': { category: 'クリエイティブ', lessons: [14, 15, 16, 17, 18] },
+                    'むらさきのぶどう': { category: 'コミュニティ', lessons: [19] }
+                };
+                this.init();
+            }
+
+            loadCompletedLessons() {
+                const saved = localStorage.getItem('completedLessons');
+                return saved ? JSON.parse(saved) : [];
+            }
+
+            saveCompletedLessons() {
+                localStorage.setItem('completedLessons', JSON.stringify(this.completedLessons));
+            }
+
+            init() {
+                this.updateAllBadges();
+                this.updateProgressSummary();
+                this.setupBadgeClickHandlers();
+                this.setupModalHandlers();
+                this.setupManagementHandlers();
+            }
+
+            updateAllBadges() {
+                const badgeItems = document.querySelectorAll('.badge-item');
+                badgeItems.forEach(item => {
+                    const lessonNumber = parseInt(item.dataset.lesson);
+                    const badgeImagePath = item.dataset.badgeImage;
+                    const circle = item.querySelector('.badge-circle');
+                    const status = item.querySelector('.badge-status');
+                    const number = item.querySelector('.badge-number');
+
+                    if (this.completedLessons.includes(lessonNumber)) {
+                        // Unlocked badge
+                        circle.classList.remove('locked');
+                        circle.classList.add('unlocked');
+                        status.classList.remove('locked');
+                        status.classList.add('unlocked');
+                        status.textContent = '取得済み';
+
+                        // Replace number with image
+                        if (number) {
+                            number.style.display = 'none';
+                        }
+
+                        // Add badge image
+                        let img = circle.querySelector('img');
+                        if (!img) {
+                            img = document.createElement('img');
+                            img.src = badgeImagePath;
+                            img.alt = `Badge ${lessonNumber}`;
+                            circle.appendChild(img);
+                        }
+                    } else {
+                        // Locked badge
+                        circle.classList.add('locked');
+                        circle.classList.remove('unlocked');
+                        status.classList.add('locked');
+                        status.classList.remove('unlocked');
+                        status.textContent = '未取得';
+
+                        // Remove image if exists
+                        const img = circle.querySelector('img');
+                        if (img) {
+                            img.remove();
+                        }
+                        if (number) {
+                            number.style.display = 'flex';
+                        }
+                    }
+                });
+            }
+
+            updateProgressSummary() {
+                const totalBadgesElement = document.getElementById('totalBadges');
+                const totalLessonsElement = document.getElementById('totalLessons');
+
+                if (totalBadgesElement) {
+                    totalBadgesElement.textContent = this.completedLessons.length;
+                }
+            }
+
+            setupBadgeClickHandlers() {
+                const badgeItems = document.querySelectorAll('.badge-item');
+                badgeItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const lessonNumber = parseInt(item.dataset.lesson);
+                        const badgeImagePath = item.dataset.badgeImage;
+
+                        if (this.completedLessons.includes(lessonNumber)) {
+                            this.showBadgeModal(lessonNumber, badgeImagePath);
+                        }
+                    });
+                });
+            }
+
+            showBadgeModal(lessonNumber, imagePath) {
+                const modal = document.getElementById('badgeModal');
+                const modalImage = document.getElementById('modalBadgeImage');
+                const modalInfo = document.getElementById('modalBadgeInfo');
+
+                modalImage.src = imagePath;
+                modalInfo.textContent = `レッスン ${lessonNumber.toString().padStart(2, '0')} 鍔バッジ`;
+
+                modal.classList.add('active');
+            }
+
+            setupModalHandlers() {
+                const modal = document.getElementById('badgeModal');
+                const closeBtn = document.getElementById('modalClose');
+                const modalBadgeImage = document.getElementById('modalBadgeImage');
+
+                closeBtn.addEventListener('click', () => {
+                    modal.classList.remove('active');
+                });
+
+                // Close when clicking on the badge image
+                modalBadgeImage.addEventListener('click', () => {
+                    modal.classList.remove('active');
+                });
+
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+
+                // Close on ESC key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.classList.contains('active')) {
+                        modal.classList.remove('active');
+                    }
+                });
+            }
+
+            setupManagementHandlers() {
+                // Spell button
+                const spellBtn = document.getElementById('spellBtn');
+                const spellModal = document.getElementById('spellModal');
+                const spellModalClose = document.getElementById('spellModalClose');
+                const spellSubmitBtn = document.getElementById('spellSubmitBtn');
+                const spellInput = document.getElementById('spellInput');
+                const spellMessage = document.getElementById('spellMessage');
+
+                if (!spellBtn || !spellModal || !spellModalClose || !spellSubmitBtn || !spellInput || !spellMessage) {
+                    console.error('Spell modal elements not found');
+                    return;
+                }
+
+                spellBtn.addEventListener('click', () => {
+                    spellModal.classList.add('active');
+                    spellInput.value = '';
+                    spellMessage.className = 'spell-message';
+                });
+
+                spellModalClose.addEventListener('click', () => {
+                    spellModal.classList.remove('active');
+                });
+
+                spellModal.addEventListener('click', (e) => {
+                    if (e.target === spellModal) {
+                        spellModal.classList.remove('active');
+                    }
+                });
+
+                spellSubmitBtn.addEventListener('click', () => {
+                    this.handleSpell(spellInput.value.trim());
+                });
+
+                spellInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.handleSpell(spellInput.value.trim());
+                    }
+                });
+
+                // Reset button
+                const resetBtn = document.getElementById('resetBtn');
+                const resetModal = document.getElementById('resetModal');
+                const resetYesBtn = document.getElementById('resetYesBtn');
+                const resetNoBtn = document.getElementById('resetNoBtn');
+
+                if (!resetBtn || !resetModal || !resetYesBtn || !resetNoBtn) {
+                    console.error('Reset modal elements not found');
+                    return;
+                }
+
+                resetBtn.addEventListener('click', () => {
+                    resetModal.classList.add('active');
+                });
+
+                resetNoBtn.addEventListener('click', () => {
+                    resetModal.classList.remove('active');
+                });
+
+                resetModal.addEventListener('click', (e) => {
+                    if (e.target === resetModal) {
+                        resetModal.classList.remove('active');
+                    }
+                });
+
+                resetYesBtn.addEventListener('click', () => {
+                    this.resetAllBadges();
+                    resetModal.classList.remove('active');
+                });
+            }
+
+            handleSpell(spell) {
+                const spellMessage = document.getElementById('spellMessage');
+
+                if (this.spells[spell]) {
+                    // Correct spell
+                    const spellData = this.spells[spell];
+                    const newLessons = spellData.lessons.filter(lesson => !this.completedLessons.includes(lesson));
+
+                    // Add lessons to completed
+                    this.completedLessons = [...this.completedLessons, ...newLessons];
+                    this.saveCompletedLessons();
+
+                    // Update display
+                    this.updateAllBadges();
+                    this.updateProgressSummary();
+
+                    // Show success message
+                    spellMessage.className = 'spell-message success';
+                    spellMessage.textContent = 'おお　AIサムライ！\nよくぞ　もどってきてくれた！\nわしは　とても　うれしいぞ。';
+                } else {
+                    // Incorrect spell
+                    spellMessage.className = 'spell-message error';
+                    spellMessage.textContent = 'じゅもんが　ちがいます。\nじつは　こみゅにてぃーで　きけるよ。';
+                }
+            }
+
+            resetAllBadges() {
+                // Clear all badges
+                this.completedLessons = [];
+                this.saveCompletedLessons();
+
+                // Update display
+                this.updateAllBadges();
+                this.updateProgressSummary();
+            }
+        }
+
+        // Initialize MyPage Badge Manager
+        document.addEventListener('DOMContentLoaded', () => {
+            const myPageBadgeManager = new MyPageBadgeManager();
+        });
+    </script>
+</body>
+</html>

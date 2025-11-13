@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>起業の実作業 - すごいAI道場</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .lesson-page {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            padding: 40px;
+            background: white;
+            border: 3px solid #625147;
+            border-radius: 8px;
+        }
+
+        .lesson-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4a90e2;
+        }
+
+        .lesson-title-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-number-badge {
+            display: inline-block;
+            background: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #000814;
+            margin: 0;
+        }
+
+        .lesson-description {
+            font-size: 1.2rem;
+            color: #625147;
+            line-height: 1.8;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            margin: 30px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe,
+        .video-container #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-section {
+            margin: 40px 0;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: #000814;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #4a90e2;
+        }
+
+        .content-section h3 {
+            font-size: 1.4rem;
+            color: #000814;
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 10px;
+        }
+
+        .reference-links {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #4a90e2;
+            margin: 30px 0;
+        }
+
+        .reference-links h3 {
+            font-size: 1.3rem;
+            color: #000814;
+            margin-bottom: 15px;
+        }
+
+        .reference-links a {
+            display: inline-block;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #4a90e2;
+            border-radius: 6px;
+            margin: 5px 10px 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .reference-links a:hover {
+            background: #4a90e2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-btn.prev {
+            background: #e0e0e0;
+            color: #000814;
+        }
+
+        .nav-btn.prev:hover {
+            background: #c0c0c0;
+            transform: translateX(-5px);
+        }
+
+        .nav-btn.next {
+            background: #4a90e2;
+            color: white;
+        }
+
+        .nav-btn.next:hover {
+            background: #357abd;
+            transform: translateX(5px);
+        }
+
+        .highlight-box {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #4a90e2;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #4a90e2;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        .accordion-container {
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .accordion-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #4a90e2 0%, #5ba3f5 100%);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .accordion-toggle:hover {
+            background: linear-gradient(135deg, #357abd 0%, #4a90e2 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+        }
+
+        .accordion-toggle:active {
+            transform: translateY(0);
+        }
+
+        .accordion-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .accordion-toggle.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f8f8f8;
+            border-radius: 0 0 8px 8px;
+            margin-top: -5px;
+            width: 100%;
+        }
+
+        .accordion-content.active {
+            max-height: 8000px;
+            transition: max-height 0.8s ease-in;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .accordion-content .content-section {
+            margin: 0;
+            width: 100%;
+        }
+
+        .accordion-content .content-section h2:first-child {
+            margin-top: 0;
+        }
+
+        .lesson-page {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-page {
+                margin: 100px 15px 40px;
+                padding: 20px 15px;
+            }
+
+            .lesson-title-row {
+                gap: 15px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .lesson-title {
+                font-size: 1.8rem;
+            }
+
+            .lesson-description {
+                font-size: 1rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .reference-links {
+                padding: 20px;
+            }
+
+            .reference-links a {
+                display: block;
+                margin: 8px 0;
+            }
+
+            .accordion-toggle {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .accordion-content.active {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-page {
+                margin: 90px 10px 30px;
+                padding: 15px 10px;
+            }
+
+            .lesson-title-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .lesson-description {
+                font-size: 0.95rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.3rem;
+                padding-left: 10px;
+            }
+
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 0.95rem;
+            }
+
+            .highlight-box {
+                padding: 15px;
+            }
+
+            .reference-links {
+                padding: 15px;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .accordion-toggle {
+                padding: 12px 15px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+
+            .accordion-content.active {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-logo">すごいAI道場</div>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html#ai-general" class="nav-ai">AI全般</a></li>
+                <li><a href="../index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                <li><a href="../index.html#creative" class="nav-creative">クリエイティブ</a></li>
+                <li><a href="../index.html#community" class="nav-community">コミュニティ</a></li>
+                <li><a href="../mypage.html" class="nav-mypage">マイページ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="lesson-page">
+        <div class="lesson-header">
+            <div class="lesson-title-row">
+                <span class="lesson-number-badge">レッスン 12</span>
+                <h1 class="lesson-title">起業の実作業</h1>
+            </div>
+            <p class="lesson-description">開業届から確定申告まで、実務的な手続きと運営方法を学びます</p>
+        </div>
+
+        <div class="content-section">
+            <h2>学習動画</h2>
+            <div class="video-container">
+                <div id="player"></div>
+            </div>
+            <p style="margin-top: 20px;">💡動画をピクチャインピクチャ機能で再生しながら、学習を進めてください。</p>
+        </div>
+
+        <div class="reference-links">
+            <h3>参考リンク - 実際に使ってみよう</h3>
+            <a href="https://www.yayoi-kk.co.jp/" target="_blank">やよいの青色申告</a>
+            <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
+            <a href="https://claude.ai/" target="_blank">Claude</a>
+        </div>
+
+        <div class="accordion-container">
+            <button class="accordion-toggle" id="textContentToggle">
+                <span class="accordion-icon">▶</span>
+                <span>テキストでの詳細解説を表示</span>
+            </button>
+            <div class="accordion-content" id="textContent">
+                <div class="content-section">
+                    <h2>個人事業主か法人か</h2>
+                    <p>起業する際、まず決めるのは<strong>個人事業主</strong>として始めるか、<strong>法人</strong>を設立するかです。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>結論：まずは個人事業主がおすすめ</strong></p>
+                        <p>法人化は年間収益が500万円程度になってから検討すれば十分です。最初から法人を作ると手間とコストがかかりすぎます。</p>
+                    </div>
+
+                    <h3>個人事業主のメリット</h3>
+                    <ul>
+                        <li><strong>開業が簡単：</strong>紙2枚を税務署に提出するだけ</li>
+                        <li><strong>費用ゼロ：</strong>開業にお金がかからない</li>
+                        <li><strong>会計が簡単：</strong>確定申告も比較的シンプル</li>
+                        <li><strong>すぐ始められる：</strong>今日提出すれば今日から起業家</li>
+                    </ul>
+
+                    <h3>法人のメリット（収益が大きくなったら）</h3>
+                    <ul>
+                        <li><strong>税制面の優遇：</strong>一定額以上の収益で税率が有利に</li>
+                        <li><strong>社会的信用：</strong>取引先からの信頼度が高い</li>
+                        <li><strong>経費の範囲：</strong>認められる経費の幅が広い</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>個人事業主として開業する</h2>
+                    <p>驚くほど簡単です。必要なのは<strong>たった2枚の書類</strong>だけ。</p>
+
+                    <h3>提出書類</h3>
+                    <div class="highlight-box">
+                        <p><strong>1. 開業届（個人事業の開業・廃業等届出書）</strong></p>
+                        <ul style="margin: 10px 0;">
+                            <li>事業を始めることを税務署に知らせる書類</li>
+                            <li>開業から1ヶ月以内に提出（実際は遅れても問題なし）</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <p><strong>2. 所得税の青色申告承認申請書</strong></p>
+                        <ul style="margin: 10px 0;">
+                            <li>青色申告で最大65万円の特別控除を受けるための書類</li>
+                            <li>開業から2ヶ月以内に提出</li>
+                            <li>節税効果が大きいので必ず提出しよう</li>
+                        </ul>
+                    </div>
+
+                    <h3>提出方法</h3>
+                    <ul>
+                        <li><strong>窓口持参：</strong>管轄の税務署に直接持っていく</li>
+                        <li><strong>郵送：</strong>管轄の税務署に郵送（控えの返送用封筒も同封）</li>
+                        <li><strong>e-Tax：</strong>オンラインで提出（マイナンバーカード必要）</li>
+                    </ul>
+
+                    <p>これだけで、あなたは起業家です。おめでとうございます！</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>日常の会計管理</h2>
+                    <p>起業したら、お金の流れをきちんと記録する必要があります。</p>
+
+                    <h3>やよいの青色申告オンラインがおすすめ</h3>
+                    <div class="highlight-box">
+                        <p><strong>特徴</strong></p>
+                        <ul style="margin: 10px 0;">
+                            <li>初年度：完全無料</li>
+                            <li>次年度以降：年額約12,000円</li>
+                            <li>操作が簡単で初心者でも使いやすい</li>
+                            <li>確定申告書の作成まで自動化</li>
+                        </ul>
+                    </div>
+
+                    <h3>日々の記録</h3>
+                    <ul>
+                        <li><strong>収入：</strong>売上が発生したら記録</li>
+                        <li><strong>支出：</strong>事業に関連する支出を記録</li>
+                        <li><strong>レシート保管：</strong>経費のレシートは必ず保管（7年間）</li>
+                    </ul>
+
+                    <h3>必要経費にできるもの</h3>
+                    <ul>
+                        <li>事務所の家賃（自宅兼用の場合は按分）</li>
+                        <li>通信費（スマホ、ネット回線）</li>
+                        <li>交通費、打ち合わせの飲食費</li>
+                        <li>書籍、ソフトウェア、サブスクリプション</li>
+                        <li>広告宣伝費</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 AIの活用</strong></p>
+                        <p>「あなたは税理士です。[この支出]は個人事業主の経費として認められますか？」とAIに聞いてみましょう。基本的な判断の参考になります。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>確定申告</h2>
+                    <p>毎年2月16日〜3月15日に、前年の所得を申告します。</p>
+
+                    <h3>青色申告のメリット</h3>
+                    <ul>
+                        <li><strong>65万円の特別控除：</strong>課税所得から65万円引ける（e-Taxの場合）</li>
+                        <li><strong>赤字の繰越：</strong>損失を3年間繰り越せる</li>
+                        <li><strong>専従者給与：</strong>家族への給与を経費にできる</li>
+                    </ul>
+
+                    <h3>やよいの青色申告で簡単に</h3>
+                    <p>日々の記帳をきちんとしていれば、確定申告書はほぼ自動で作成されます。</p>
+                    <ul>
+                        <li>会計ソフトで「確定申告書作成」をクリック</li>
+                        <li>質問に答えていくだけで完成</li>
+                        <li>e-Taxで提出（またはPDF印刷して郵送）</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>不明点はAIに相談</strong></p>
+                        <p>「あなたは経験豊富な税理士です。青色申告の[具体的な質問]について教えてください」と聞けば、基本的なことは教えてもらえます。ただし、複雑なケースは実際の税理士に相談しましょう。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>事業を辞める時</h2>
+                    <p>もし事業を辞めることになっても、手続きは簡単です。</p>
+
+                    <h3>廃業届を提出</h3>
+                    <ul>
+                        <li><strong>個人事業の開業・廃業等届出書</strong>を提出</li>
+                        <li>今度は「廃業」にチェックを入れて提出</li>
+                        <li>これだけで完了</li>
+                    </ul>
+
+                    <p>起業も廃業も、驚くほどシンプルです。だから、気軽に挑戦できるのです。</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>法人化を検討するタイミング</h2>
+                    <p>年間収益が500万円前後になったら、法人化を検討しましょう。</p>
+
+                    <h3>法人化の目安</h3>
+                    <ul>
+                        <li><strong>年間収益500万円以上：</strong>税制面でメリットが出始める</li>
+                        <li><strong>従業員を雇う予定：</strong>社会保険の面でメリット</li>
+                        <li><strong>大きな取引先：</strong>法人でないと取引できない場合</li>
+                    </ul>
+
+                    <h3>法人化の手続き</h3>
+                    <p>司法書士や行政書士に依頼するのが一般的（費用：20〜30万円程度）。AIに相談しながら自分でやることも可能ですが、時間がかかります。</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>実践のコツ</h2>
+                    <ul>
+                        <li><strong>今すぐ開業届を出す：</strong>副業でも提出OK</li>
+                        <li><strong>やよいの青色申告を使う：</strong>初年度無料、簡単</li>
+                        <li><strong>経費のレシートは必ず保管：</strong>節税の基本</li>
+                        <li><strong>不明点はAIに相談：</strong>税理士役で質問する</li>
+                        <li><strong>複雑な場合は専門家へ：</strong>税理士は月1〜3万円程度</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 今すぐ始めよう！</strong></p>
+                        <p>開業届と青色申告承認申請書をダウンロードして、記入してみましょう。わからないことがあればAIに聞きながら進めれば、30分もあれば完成します。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="11_business-canvas.html" class="nav-btn prev">
+                ← 前のレッスン
+            </a>
+            <a href="13_ai-tools-business.html" class="nav-btn next">
+                次のレッスン →
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 すごいAI道場. All rights reserved.</p>
+            <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionToggle = document.getElementById('textContentToggle');
+            const accordionContent = document.getElementById('textContent');
+
+            if (accordionToggle && accordionContent) {
+                accordionToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    accordionContent.classList.toggle('active');
+
+                    const buttonText = this.querySelector('span:last-child');
+                    if (accordionContent.classList.contains('active')) {
+                        buttonText.textContent = 'テキストでの詳細解説を非表示';
+                    } else {
+                        buttonText.textContent = 'テキストでの詳細解説を表示';
+                    }
+
+                    if (accordionContent.classList.contains('active')) {
+                        setTimeout(() => {
+                            accordionToggle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
+                });
+            }
+        });
+
+        let player;
+        const LESSON_NUMBER = 12;
+        const VIDEO_ID = 'aICfDX0P26Q';
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'playsinline': 1,
+                    'rel': 0
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                console.log('Video completed!');
+                if (typeof trackVideoCompletion !== 'undefined') {
+                    trackVideoCompletion(LESSON_NUMBER);
+                } else {
+                    console.error('trackVideoCompletion function not found');
+                }
+            }
+        }
+
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        } else {
+            onYouTubeIframeAPIReady();
+        }
+    </script>
+</body>
+</html>

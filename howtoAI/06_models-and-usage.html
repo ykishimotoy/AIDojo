@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIモデルとその利用方法 - すごいAI道場</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .lesson-page {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            padding: 40px;
+            background: white;
+            border: 3px solid #625147;
+            border-radius: 8px;
+        }
+
+        .lesson-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f46434;
+        }
+
+        .lesson-title-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-number-badge {
+            display: inline-block;
+            background: #f46434;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #000814;
+            margin: 0;
+        }
+
+        .lesson-description {
+            font-size: 1.2rem;
+            color: #625147;
+            line-height: 1.8;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 30px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe,
+        .video-container #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-section {
+            margin: 40px 0;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: #000814;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #f46434;
+        }
+
+        .content-section h3 {
+            font-size: 1.4rem;
+            color: #000814;
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 10px;
+        }
+
+        .reference-links {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #4a90e2;
+            margin: 30px 0;
+        }
+
+        .reference-links h3 {
+            font-size: 1.3rem;
+            color: #000814;
+            margin-bottom: 15px;
+        }
+
+        .reference-links a {
+            display: inline-block;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #4a90e2;
+            border-radius: 6px;
+            margin: 5px 10px 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .reference-links a:hover {
+            background: #4a90e2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-btn.prev {
+            background: #e0e0e0;
+            color: #000814;
+        }
+
+        .nav-btn.prev:hover {
+            background: #c0c0c0;
+            transform: translateX(-5px);
+        }
+
+        .nav-btn.next {
+            background: #f46434;
+            color: white;
+        }
+
+        .nav-btn.next:hover {
+            background: #d84a1b;
+            transform: translateX(5px);
+        }
+
+        .nav-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-btn.disabled:hover {
+            transform: none;
+        }
+
+        .highlight-box {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ffd700;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #f46434;
+        }
+
+        .model-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .model-card:hover {
+            border-color: #4a90e2;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+        }
+
+        .model-card h4 {
+            color: #4a90e2;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: #f46434;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f8f8;
+        }
+
+        .pros {
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        .cons {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        .accordion-container {
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .accordion-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #f46434 0%, #ff6b4a 100%);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(244, 100, 52, 0.3);
+        }
+
+        .accordion-toggle:hover {
+            background: linear-gradient(135deg, #d84a1b 0%, #f46434 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(244, 100, 52, 0.4);
+        }
+
+        .accordion-toggle:active {
+            transform: translateY(0);
+        }
+
+        .accordion-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .accordion-toggle.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f8f8f8;
+            border-radius: 0 0 8px 8px;
+            margin-top: -5px;
+            width: 100%;
+        }
+
+        .accordion-content.active {
+            max-height: 10000px;
+            transition: max-height 0.8s ease-in;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .accordion-content .content-section {
+            margin: 0;
+            width: 100%;
+        }
+
+        .accordion-content .content-section h2:first-child {
+            margin-top: 0;
+        }
+
+        .lesson-page {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-page {
+                margin: 100px 15px 40px;
+                padding: 20px 15px;
+            }
+
+            .lesson-title-row {
+                gap: 15px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .lesson-title {
+                font-size: 1.8rem;
+            }
+
+            .lesson-description {
+                font-size: 1rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .reference-links {
+                padding: 20px;
+            }
+
+            .reference-links a {
+                display: block;
+                margin: 8px 0;
+            }
+
+            .accordion-toggle {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .accordion-content.active {
+                padding: 20px;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-page {
+                margin: 90px 10px 30px;
+                padding: 15px 10px;
+            }
+
+            .lesson-title-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .lesson-description {
+                font-size: 0.95rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.3rem;
+                padding-left: 10px;
+            }
+
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 0.95rem;
+            }
+
+            .highlight-box {
+                padding: 15px;
+            }
+
+            .reference-links {
+                padding: 15px;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .accordion-toggle {
+                padding: 12px 15px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+
+            .accordion-content.active {
+                padding: 15px;
+            }
+
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-logo">すごいAI道場</div>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html#ai-general" class="nav-ai">AI全般</a></li>
+                <li><a href="../index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                <li><a href="../index.html#creative" class="nav-creative">クリエイティブ</a></li>
+                <li><a href="../index.html#community" class="nav-community">コミュニティ</a></li>
+                <li><a href="../mypage.html" class="nav-mypage">マイページ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="lesson-page">
+        <div class="lesson-header">
+            <div class="lesson-title-row">
+                <span class="lesson-number-badge">レッスン 06</span>
+                <h1 class="lesson-title">AIモデルとその利用方法</h1>
+            </div>
+            <p class="lesson-description">AIの「脳」であるモデルの仕組みと、クラウド型・ローカル型の違いを理解しましょう</p>
+        </div>
+
+        <div class="content-section">
+            <h2>学習動画</h2>
+            <div class="video-container">
+                <div id="player"></div>
+            </div>
+            <p style="margin-top: 20px;">💡動画をピクチャインピクチャ機能で再生しながら、学習を進めてください。</p>
+        </div>
+
+        <div class="reference-links">
+            <h3>参考リンク - 実際に使ってみよう</h3>
+            <a href="https://chat.openai.com/" target="_blank">ChatGPT (GPT-4)</a>
+            <a href="https://claude.ai/" target="_blank">Claude</a>
+            <a href="https://gemini.google.com/" target="_blank">Gemini</a>
+            <a href="https://huggingface.co/models" target="_blank">Hugging Face (ローカルモデル)</a>
+        </div>
+
+        <div class="accordion-container">
+            <button class="accordion-toggle" id="textContentToggle">
+                <span class="accordion-icon">▶</span>
+                <span>テキストでの詳細解説を表示</span>
+            </button>
+            <div class="accordion-content" id="textContent">
+                <div class="content-section">
+                    <h2>AIモデルとは何か</h2>
+                    <p>AIモデルは、人工知能の<strong>「脳」そのもの</strong>と考えることができます。ChatGPTの裏で動いているGPT-4、Claudeの基盤となるClaude、GoogleのGeminiなど、これらはすべて異なるAIモデルです。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>モデル vs サービス</strong></p>
+                        <p>「ChatGPT」はサービス名で、その裏で動いているのが「GPT-4」というモデルです。同じモデルでも、異なるサービスで使われることがあります。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>主要なAIモデル</h2>
+
+                    <div class="model-card">
+                        <h4>🤖 GPT (Generative Pre-trained Transformer)</h4>
+                        <p><strong>開発元：</strong>OpenAI</p>
+                        <p><strong>主なサービス：</strong>ChatGPT、API経由で多数のアプリケーション</p>
+                        <p><strong>特徴：</strong>最も広く使われているモデル。自然な文章生成、幅広い知識、コーディング支援に強み</p>
+                    </div>
+
+                    <div class="model-card">
+                        <h4>🧠 Claude</h4>
+                        <p><strong>開発元：</strong>Anthropic</p>
+                        <p><strong>主なサービス：</strong>Claude.ai、Claude API</p>
+                        <p><strong>特徴：</strong>長文の理解と生成に優れ、より安全性を重視した設計。プログラミング支援やドキュメント分析に強み</p>
+                    </div>
+
+                    <div class="model-card">
+                        <h4>💎 Gemini</h4>
+                        <p><strong>開発元：</strong>Google</p>
+                        <p><strong>主なサービス：</strong>Gemini、Google検索への統合</p>
+                        <p><strong>特徴：</strong>Googleのサービスとの統合が強力。最新情報へのアクセス、マルチモーダル（テキスト・画像・音声）処理に強み</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>モデルを活用したサービスの広がり</h2>
+                    <p>AIモデルは、様々なサービスの裏側で使われています。例えば：</p>
+
+                    <ul>
+                        <li><strong>ビジネスツール：</strong>Microsoft Copilot（GPT-4ベース）、Notion AI、Slack AI</li>
+                        <li><strong>開発ツール：</strong>GitHub Copilot（Codexベース）、Cursor、Replit</li>
+                        <li><strong>クリエイティブツール：</strong>Canva Magic Write、Adobe Firefly</li>
+                        <li><strong>検索エンジン：</strong>Bing AI、Perplexity AI</li>
+                    </ul>
+
+                    <p>これらのサービスは、GPT、Claude、Geminiなどのモデルを基盤として、特定の用途に最適化されています。</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>クラウド型 vs ローカル型モデル</h2>
+                    <p>AIモデルの利用方法は、大きく分けて2つの形態があります。</p>
+
+                    <h3>クラウド型モデル（主流）</h3>
+                    <p>ChatGPT、Claude、Geminiなど、インターネット経由でサービスにアクセスして利用するタイプです。</p>
+
+                    <h3>ローカル型モデル（玄人向け）</h3>
+                    <p>自分のパソコン上でAIモデルを動かすタイプです。以下のようなオープンソースモデルがあります：</p>
+                    <ul>
+                        <li><strong>Llama：</strong>Meta（旧Facebook）が開発したオープンソースモデル</li>
+                        <li><strong>DeepSeek：</strong>中国発の高性能オープンソースモデル</li>
+                        <li><strong>Qwen：</strong>Alibabaが開発した多言語対応モデル</li>
+                        <li><strong>GPT-OSS：</strong>GPTアーキテクチャのオープンソース実装</li>
+                    </ul>
+
+                    <p>これらのモデルは<strong>Hugging Face</strong>というプラットフォームで配布されており、無料でダウンロード・利用できます。</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>クラウド型 vs ローカル型の比較</h2>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>項目</th>
+                                <th>クラウド型</th>
+                                <th>ローカル型</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>導入の容易さ</strong></td>
+                                <td><span class="pros">◎</span> ブラウザですぐ利用可能</td>
+                                <td><span class="cons">△</span> 技術的知識が必要</td>
+                            </tr>
+                            <tr>
+                                <td><strong>コスト</strong></td>
+                                <td><span class="cons">△</span> 月額課金または従量課金</td>
+                                <td><span class="pros">◎</span> 無料（電気代のみ）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>性能</strong></td>
+                                <td><span class="pros">◎</span> 最先端の高性能モデル</td>
+                                <td><span class="cons">△</span> PCスペックに依存</td>
+                            </tr>
+                            <tr>
+                                <td><strong>データプライバシー</strong></td>
+                                <td><span class="cons">△</span> 外部サーバーに送信される</td>
+                                <td><span class="pros">◎</span> すべてローカルで処理</td>
+                            </tr>
+                            <tr>
+                                <td><strong>情報漏洩リスク</strong></td>
+                                <td><span class="cons">△</span> サービス提供者に依存</td>
+                                <td><span class="pros">◎</span> 外部に送信されない</td>
+                            </tr>
+                            <tr>
+                                <td><strong>最新情報</strong></td>
+                                <td><span class="pros">◎</span> 常に最新モデルを利用</td>
+                                <td><span class="cons">△</span> 手動でアップデート必要</td>
+                            </tr>
+                            <tr>
+                                <td><strong>必要な技術力</strong></td>
+                                <td><span class="pros">◎</span> 不要</td>
+                                <td><span class="cons">△</span> プログラミング知識が必要</td>
+                            </tr>
+                            <tr>
+                                <td><strong>インターネット接続</strong></td>
+                                <td><span class="cons">×</span> 必須</td>
+                                <td><span class="pros">◎</span> オフラインでも動作</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-section">
+                    <h2>ローカルモデルのメリット・デメリット</h2>
+
+                    <h3>メリット</h3>
+                    <ul>
+                        <li><strong>プライバシーの保護：</strong>機密情報を外部に送信せず、ローカルで処理</li>
+                        <li><strong>コストの削減：</strong>月額料金やAPI料金が不要（電気代のみ）</li>
+                        <li><strong>リスクの低減：</strong>レッスン05で学んだ多くのリスクを回避できる</li>
+                        <li><strong>カスタマイズ性：</strong>特定の業務に合わせてモデルを調整可能</li>
+                        <li><strong>オフライン利用：</strong>インターネット接続がなくても使用可能</li>
+                    </ul>
+
+                    <h3>デメリット</h3>
+                    <ul>
+                        <li><strong>技術的ハードル：</strong>セットアップにプログラミングの知識が必要</li>
+                        <li><strong>ハードウェア要件：</strong>高性能なPC（特にGPU）が必要な場合がある</li>
+                        <li><strong>性能の制限：</strong>クラウド型の最新モデルには性能で劣ることが多い</li>
+                        <li><strong>メンテナンス負担：</strong>モデルの更新や管理を自分で行う必要がある</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 初心者への推奨</strong></p>
+                        <p>まずはクラウド型のサービス（ChatGPT、Claude、Gemini）で経験を積みましょう。ローカルモデルは、AIの基本的な使い方を理解し、特定のニーズ（高度なプライバシー要件、コスト削減など）が明確になってから検討するのがおすすめです。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>ローカルモデルに興味がある方へ</h2>
+                    <p>もし技術的な挑戦に興味がある場合、以下のステップで始められます：</p>
+
+                    <h3>1. Hugging Faceを探索</h3>
+                    <p><a href="https://huggingface.co/models" target="_blank" style="color: #4a90e2;">Hugging Face</a>にアクセスして、様々なオープンソースモデルを閲覧してみましょう。</p>
+
+                    <h3>2. 軽量モデルから始める</h3>
+                    <p>最初は小型のモデルから試すことをおすすめします：</p>
+                    <ul>
+                        <li>Llama 2 7B（比較的軽量）</li>
+                        <li>Mistral 7B（高性能かつ軽量）</li>
+                        <li>Qwen 7B（多言語対応）</li>
+                    </ul>
+
+                    <h3>3. ツールを活用する</h3>
+                    <p>以下のようなツールを使うと、ローカルモデルの導入が簡単になります：</p>
+                    <ul>
+                        <li><strong>Ollama：</strong>ローカルモデルを簡単に実行できるツール</li>
+                        <li><strong>LM Studio：</strong>GUI でローカルモデルを管理・実行</li>
+                        <li><strong>text-generation-webui：</strong>ブラウザベースのインターフェース</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>⚠️ 注意点</strong></p>
+                        <p>ローカルモデルの運用には、ある程度のPCスペック（特にGPUメモリ）が必要です。また、セットアップにはコマンドライン操作の知識が求められます。興味がある方は、まず情報収集から始めることをおすすめします。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>あなたに合った選択を</h2>
+                    <p>AIモデルの選択は、目的や状況によって異なります：</p>
+
+                    <ul>
+                        <li><strong>ビジネス利用、初心者：</strong>クラウド型（ChatGPT、Claude、Gemini）</li>
+                        <li><strong>高度なプライバシー要件：</strong>ローカル型を検討</li>
+                        <li><strong>大量利用でコスト削減：</strong>ローカル型を検討</li>
+                        <li><strong>最新機能を常に利用：</strong>クラウド型</li>
+                        <li><strong>技術的挑戦を楽しみたい：</strong>ローカル型を試してみる</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 ハイブリッド活用もあり</strong></p>
+                        <p>普段はクラウド型を使い、機密性の高いタスクだけローカル型を使うなど、両方を使い分けるアプローチも有効です。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>まとめ</h2>
+                    <p>AIモデルは「脳」であり、それを使うサービスは「インターフェース」です。自分の目的に合わせて適切なモデルとサービスを選択することが、AIを効果的に活用する鍵となります。</p>
+
+                    <p>AI全般のレッスンはこれで完了です。次は起業・ビジコン、クリエイティブなど、興味のある分野のレッスンに進んでみましょう！</p>
+
+                    <div class="highlight-box">
+                        <p><strong>🎉 AI全般レッスン完了おめでとうございます！</strong></p>
+                        <p>ここまでの学習で、AIの基礎から実用的な活用方法まで、一通りの知識を習得しました。実践を通じて、さらにスキルを磨いていきましょう。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="05_risks-and-solutions.html" class="nav-btn prev">
+                ← 前のレッスン
+            </a>
+            <a href="07_ai-certifications.html" class="nav-btn next">
+                次のレッスン →
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 すごいAI道場. All rights reserved.</p>
+            <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionToggle = document.getElementById('textContentToggle');
+            const accordionContent = document.getElementById('textContent');
+
+            if (accordionToggle && accordionContent) {
+                accordionToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    accordionContent.classList.toggle('active');
+
+                    const buttonText = this.querySelector('span:last-child');
+                    if (accordionContent.classList.contains('active')) {
+                        buttonText.textContent = 'テキストでの詳細解説を非表示';
+                    } else {
+                        buttonText.textContent = 'テキストでの詳細解説を表示';
+                    }
+
+                    if (accordionContent.classList.contains('active')) {
+                        setTimeout(() => {
+                            accordionToggle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
+                });
+            }
+        });
+
+        // YouTube Player for this lesson
+        let player;
+        const LESSON_NUMBER = 6;
+        const VIDEO_ID = 'aICfDX0P26Q'; // Placeholder - replace with actual video ID
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'playsinline': 1,
+                    'rel': 0
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                console.log('Video completed!');
+                if (typeof trackVideoCompletion !== 'undefined') {
+                    trackVideoCompletion(LESSON_NUMBER);
+                } else {
+                    console.error('trackVideoCompletion function not found');
+                }
+            }
+        }
+
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        } else {
+            onYouTubeIframeAPIReady();
+        }
+    </script>
+</body>
+</html>

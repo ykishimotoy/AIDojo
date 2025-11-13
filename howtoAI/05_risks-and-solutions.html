@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>実用上のリスクと対処法 - すごいAI道場</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .lesson-page {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            padding: 40px;
+            background: white;
+            border: 3px solid #625147;
+            border-radius: 8px;
+        }
+
+        .lesson-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f46434;
+        }
+
+        .lesson-title-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-number-badge {
+            display: inline-block;
+            background: #f46434;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #000814;
+            margin: 0;
+        }
+
+        .lesson-description {
+            font-size: 1.2rem;
+            color: #625147;
+            line-height: 1.8;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 30px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe,
+        .video-container #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-section {
+            margin: 40px 0;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: #000814;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #f46434;
+        }
+
+        .content-section h3 {
+            font-size: 1.4rem;
+            color: #000814;
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 10px;
+        }
+
+        .reference-links {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #4a90e2;
+            margin: 30px 0;
+        }
+
+        .reference-links h3 {
+            font-size: 1.3rem;
+            color: #000814;
+            margin-bottom: 15px;
+        }
+
+        .reference-links a {
+            display: inline-block;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #4a90e2;
+            border-radius: 6px;
+            margin: 5px 10px 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .reference-links a:hover {
+            background: #4a90e2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-btn.prev {
+            background: #e0e0e0;
+            color: #000814;
+        }
+
+        .nav-btn.prev:hover {
+            background: #c0c0c0;
+            transform: translateX(-5px);
+        }
+
+        .nav-btn.next {
+            background: #f46434;
+            color: white;
+        }
+
+        .nav-btn.next:hover {
+            background: #d84a1b;
+            transform: translateX(5px);
+        }
+
+        .nav-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-btn.disabled:hover {
+            transform: none;
+        }
+
+        .highlight-box {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ffd700;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #f46434;
+        }
+
+        .risk-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .risk-card:hover {
+            border-color: #ff6b6b;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+        }
+
+        .risk-card h4 {
+            color: #ff6b6b;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .risk-icon {
+            font-size: 1.5rem;
+        }
+
+        .solution-box {
+            background: #e8f5e9;
+            padding: 15px 20px;
+            border-radius: 6px;
+            border-left: 4px solid #27ae60;
+            margin-top: 15px;
+        }
+
+        .solution-box strong {
+            color: #27ae60;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        .accordion-container {
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .accordion-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #f46434 0%, #ff6b4a 100%);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(244, 100, 52, 0.3);
+        }
+
+        .accordion-toggle:hover {
+            background: linear-gradient(135deg, #d84a1b 0%, #f46434 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(244, 100, 52, 0.4);
+        }
+
+        .accordion-toggle:active {
+            transform: translateY(0);
+        }
+
+        .accordion-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .accordion-toggle.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f8f8f8;
+            border-radius: 0 0 8px 8px;
+            margin-top: -5px;
+            width: 100%;
+        }
+
+        .accordion-content.active {
+            max-height: 10000px;
+            transition: max-height 0.8s ease-in;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .accordion-content .content-section {
+            margin: 0;
+            width: 100%;
+        }
+
+        .accordion-content .content-section h2:first-child {
+            margin-top: 0;
+        }
+
+        .lesson-page {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-page {
+                margin: 100px 15px 40px;
+                padding: 20px 15px;
+            }
+
+            .lesson-title-row {
+                gap: 15px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .lesson-title {
+                font-size: 1.8rem;
+            }
+
+            .lesson-description {
+                font-size: 1rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .reference-links {
+                padding: 20px;
+            }
+
+            .reference-links a {
+                display: block;
+                margin: 8px 0;
+            }
+
+            .accordion-toggle {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .accordion-content.active {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-page {
+                margin: 90px 10px 30px;
+                padding: 15px 10px;
+            }
+
+            .lesson-title-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .lesson-description {
+                font-size: 0.95rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.3rem;
+                padding-left: 10px;
+            }
+
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 0.95rem;
+            }
+
+            .highlight-box {
+                padding: 15px;
+            }
+
+            .reference-links {
+                padding: 15px;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .accordion-toggle {
+                padding: 12px 15px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+
+            .accordion-content.active {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-logo">すごいAI道場</div>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html#ai-general" class="nav-ai">AI全般</a></li>
+                <li><a href="../index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                <li><a href="../index.html#creative" class="nav-creative">クリエイティブ</a></li>
+                <li><a href="../index.html#community" class="nav-community">コミュニティ</a></li>
+                <li><a href="../mypage.html" class="nav-mypage">マイページ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="lesson-page">
+        <div class="lesson-header">
+            <div class="lesson-title-row">
+                <span class="lesson-number-badge">レッスン 05</span>
+                <h1 class="lesson-title">実用上のリスクと対処法</h1>
+            </div>
+            <p class="lesson-description">AIを安全に活用するための主要なリスクと、その具体的な対処方法を学びます</p>
+        </div>
+
+        <div class="content-section">
+            <h2>学習動画</h2>
+            <div class="video-container">
+                <div id="player"></div>
+            </div>
+            <p style="margin-top: 20px;">💡動画をピクチャインピクチャ機能で再生しながら、学習を進めてください。</p>
+        </div>
+
+        <div class="reference-links">
+            <h3>参考リンク - 実際に使ってみよう</h3>
+            <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
+            <a href="https://claude.ai/" target="_blank">Claude</a>
+            <a href="https://gemini.google.com/" target="_blank">Gemini</a>
+        </div>
+
+        <div class="accordion-container">
+            <button class="accordion-toggle" id="textContentToggle">
+                <span class="accordion-icon">▶</span>
+                <span>テキストでの詳細解説を表示</span>
+            </button>
+            <div class="accordion-content" id="textContent">
+                <div class="content-section">
+                    <h2>はじめに：リスクを知ることが安全な活用の第一歩</h2>
+                    <p>AIは強力なツールですが、適切に理解せずに使うと思わぬトラブルに繋がることがあります。このレッスンでは、実務で遭遇しやすいリスクと、その現実的な対処法を学びます。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>リスクを恐れすぎる必要はありません</strong></p>
+                        <p>重要なのは、どんなリスクがあるかを知り、適切に対処することです。車の運転と同じで、ルールと注意点を知っていれば安全に使いこなせます。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>主要なリスクと対処法</h2>
+
+                    <div class="risk-card">
+                        <h4><span class="risk-icon">💭</span>情報の信頼性リスク（ハルシネーション）</h4>
+                        <p><strong>リスクの内容：</strong></p>
+                        <p>AIが自信満々に嘘の情報を生成することがあります。これを「ハルシネーション（幻覚）」と呼びます。特に、存在しない論文の引用や、間違った数値データなどに注意が必要です。</p>
+                        <ul>
+                            <li>存在しない統計データや研究結果を引用する</li>
+                            <li>もっともらしいが間違った事実を述べる</li>
+                            <li>古い情報をそのまま現在の情報として提示する</li>
+                        </ul>
+                        <div class="solution-box">
+                            <strong>✅ 対処法：AIによるクロスチェック</strong>
+                            <p>別のAIに「上記の情報に事実誤認がないか確認してください」と依頼する、または重要な情報は公式ソースで確認するクセをつけましょう。複数のAIで同じ質問をして結果を比較するのも有効です。</p>
+                        </div>
+                    </div>
+
+                    <div class="risk-card">
+                        <h4><span class="risk-icon">💰</span>コスト面のリスク</h4>
+                        <p><strong>リスクの内容：</strong></p>
+                        <p>気づかないうちに課金額が膨らむことがあります。特に、API利用時のトークン従量課金や、複数のサブスクリプションサービスの合計金額に注意が必要です。</p>
+                        <ul>
+                            <li>API使用量が想定以上に増え、請求額が跳ね上がる</li>
+                            <li>複数のAIサービスを契約し、総額が把握できなくなる</li>
+                            <li>無料期間終了後の自動課金に気づかない</li>
+                        </ul>
+                        <div class="solution-box">
+                            <strong>✅ 対処法：予算管理と設定</strong>
+                            <p>API利用時は必ず課金上限を設定しましょう。また、使用しているサブスクリプションを定期的に見直し、本当に必要なものだけを残します。ローカルモデルの活用も選択肢の一つです（次のレッスンで詳しく説明）。</p>
+                        </div>
+                    </div>
+
+                    <div class="risk-card">
+                        <h4><span class="risk-icon">🔒</span>情報漏洩リスク</h4>
+                        <p><strong>リスクの内容：</strong></p>
+                        <p>AIサービスに入力した情報が、外部に保存されたり、学習データとして利用される可能性があります。機密情報や個人情報を安易に入力するのは危険です。</p>
+                        <ul>
+                            <li>顧客情報や社内機密を含むデータをAIに入力してしまう</li>
+                            <li>入力データがサービス提供者のサーバーに保存される</li>
+                            <li>AIの学習データとして使われ、他のユーザーに情報が漏れる可能性</li>
+                        </ul>
+                        <div class="solution-box">
+                            <strong>✅ 対処法：入力情報の厳格な管理</strong>
+                            <p>基本方針は「機密情報は入れない」です。どうしても必要な場合は、データの匿名化や、オンプレミス型のAIサービスを検討しましょう。各サービスの利用規約で、データの保存期間と利用目的を必ず確認してください。</p>
+                        </div>
+                    </div>
+
+                    <div class="risk-card">
+                        <h4><span class="risk-icon">©️</span>著作権・ライセンスリスク</h4>
+                        <p><strong>リスクの内容：</strong></p>
+                        <p>AIが生成したコンテンツが、既存の著作物に酷似していたり、使用しているライセンスに違反している可能性があります。</p>
+                        <ul>
+                            <li>生成された画像や文章が既存作品の模倣になっている</li>
+                            <li>AIが生成したコードが特定のライセンス条件に違反</li>
+                            <li>商用利用が許可されていない素材を使ってしまう</li>
+                        </ul>
+                        <div class="solution-box">
+                            <strong>✅ 対処法：AIによる権利チェック</strong>
+                            <p>重要な成果物は、AIに「この内容に著作権侵害の可能性はないか確認してください」と依頼しましょう。オープンソースのライセンスを使用する場合は、ライセンス全文をAIに読み込ませ、成果物がライセンス条件に適合しているか確認してもらいます。</p>
+                        </div>
+                    </div>
+
+                    <div class="risk-card">
+                        <h4><span class="risk-icon">🛡️</span>個人情報・プライバシーリスク</h4>
+                        <p><strong>リスクの内容：</strong></p>
+                        <p>AIが生成したコンテンツに、意図せず個人情報が含まれてしまうことがあります。特に、学習データに含まれていた個人情報が出力される可能性に注意が必要です。</p>
+                        <ul>
+                            <li>AIの回答に実在する人物の個人情報が含まれる</li>
+                            <li>プロンプトに含めた個人情報が予期せぬ形で出力される</li>
+                            <li>データ処理の過程で個人情報が第三者に渡る</li>
+                        </ul>
+                        <div class="solution-box">
+                            <strong>✅ 対処法：個人情報の除外と規約確認</strong>
+                            <p>プロンプトには個人情報を含めない、または仮名化することを徹底しましょう。各サービスの利用規約を読み、データがどこに保存され、誰がアクセスできるのかを理解することが重要です。</p>
+                        </div>
+                    </div>
+
+                    <div class="risk-card">
+                        <h4><span class="risk-icon">⚖️</span>公平性・バイアスリスク</h4>
+                        <p><strong>リスクの内容：</strong></p>
+                        <p>AIの学習データは主に英語圏（特にアメリカ）や中国のデータが多く、特定の文化や価値観が無意識に優先される傾向があります。</p>
+                        <ul>
+                            <li>日本の文化や慣習が正しく反映されない</li>
+                            <li>特定の人種、性別、地域に対するステレオタイプが含まれる</li>
+                            <li>グローバルスタンダードと称して欧米基準を押し付けられる</li>
+                        </ul>
+                        <div class="solution-box">
+                            <strong>✅ 対処法：明確な指示と文脈の提供</strong>
+                            <p>「日本の文化に基づいて」「日本のビジネス慣習を考慮して」など、自分が求める文化的背景をプロンプトに明示しましょう。バイアスの存在を理解した上で、AIの出力を批判的に評価することが大切です。</p>
+                        </div>
+                    </div>
+
+                    <div class="risk-card">
+                        <h4><span class="risk-icon">📜</span>法務・コンプライアンスリスク</h4>
+                        <p><strong>リスクの内容：</strong></p>
+                        <p>多くのAIサービスは海外（特にアメリカ）の企業が提供しており、利用規約に「カリフォルニア州法に準拠」などの条項が含まれています。また、「AI生成」であることがレピュテーションリスクになる場合もあります。</p>
+                        <ul>
+                            <li>紛争時に外国法で裁判を行う必要が生じる</li>
+                            <li>日本の法律と異なる規定が適用される</li>
+                            <li>AI生成コンテンツであることが信頼性を損なう</li>
+                        </ul>
+                        <div class="solution-box">
+                            <strong>✅ 対処法：利用規約の理解と透明性の確保</strong>
+                            <p>利用規約を必ず確認し、不明点は法務担当者や弁護士に相談しましょう。AI生成物を公開する際は、適切な表示（「AIで生成」など）を行い、透明性を保つことが信頼につながります。</p>
+                        </div>
+                    </div>
+
+                    <div class="risk-card">
+                        <h4><span class="risk-icon">🌍</span>国際リスク</h4>
+                        <p><strong>リスクの内容：</strong></p>
+                        <p>AIサービスの多くは海外クラウドでデータを処理・保管しており、国際的な政治情勢の影響を受ける可能性があります。</p>
+                        <ul>
+                            <li>データが海外サーバーに転送・保管される</li>
+                            <li>米中対立などの外交問題でサービスが突然停止する可能性</li>
+                            <li>外国政府によるデータアクセスのリスク</li>
+                        </ul>
+                        <div class="solution-box">
+                            <strong>✅ 対処法：データの所在地確認とリスク分散</strong>
+                            <p>重要なデータは複数のサービスに分散させ、特定のプラットフォームへの依存度を下げましょう。可能であれば、日本国内でデータ処理が完結するサービスや、ローカル環境で動作するモデルの利用も検討してください。</p>
+                        </div>
+                    </div>
+
+                    <div class="risk-card">
+                        <h4><span class="risk-icon">🤝</span>倫理・社会的リスク、運用面・組織リスク</h4>
+                        <p><strong>リスクの内容：</strong></p>
+                        <p>AIの使用が倫理的な問題を引き起こしたり、組織内での運用ルールが不明確で混乱が生じることがあります。</p>
+                        <ul>
+                            <li>AIによる判断が倫理的に問題になる場合がある</li>
+                            <li>従業員間でAI利用のルールが統一されていない</li>
+                            <li>責任の所在が不明確になる</li>
+                        </ul>
+                        <div class="solution-box">
+                            <strong>✅ 対処法：ガイドライン策定と責任の明確化</strong>
+                            <p>組織でAIを使う場合は、利用ガイドラインを作成し、全員が同じルールで運用できるようにしましょう。最終的な判断と責任は必ず人間が負うことを明確にし、AIは「判断を補助するツール」として位置づけることが重要です。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>リスク管理の基本原則</h2>
+                    <ul>
+                        <li><strong>リスクを知る：</strong>どんなリスクがあるかを理解することが第一歩</li>
+                        <li><strong>適切に恐れる：</strong>過度に恐れず、適度に警戒する</li>
+                        <li><strong>段階的に導入：</strong>小さなタスクから始め、徐々に範囲を広げる</li>
+                        <li><strong>ダブルチェック：</strong>重要な出力は必ず人間が確認する</li>
+                        <li><strong>記録を残す：</strong>どんな指示をして何を生成したか記録しておく</li>
+                        <li><strong>継続的な学習：</strong>AIのリスクと対策は日々進化するので、情報をアップデートし続ける</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 最も重要なこと</strong></p>
+                        <p>リスクを恐れてAIを使わないのではなく、リスクを理解した上で賢く使いこなすことが重要です。適切な知識と対策があれば、AIは安全で強力なパートナーになります。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>実践のコツ</h2>
+                    <ul>
+                        <li><strong>チェックリストを作る：</strong>公開前に確認すべき項目をリスト化</li>
+                        <li><strong>テスト環境を用意：</strong>本番前に安全な環境で試す</li>
+                        <li><strong>定期的な見直し：</strong>月に一度、利用状況とリスクを確認</li>
+                        <li><strong>情報共有：</strong>チーム内でリスク事例と対策を共有する</li>
+                        <li><strong>専門家への相談：</strong>不安な点は法務や情報セキュリティの専門家に相談</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 今すぐできること</strong></p>
+                        <p>まずは、現在使っているAIサービスの利用規約を一度読んでみましょう。「データはどこに保存されるか」「学習に使われるか」「商用利用は可能か」の3点を確認するだけでも、大きな一歩です。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="04_ai-agents.html" class="nav-btn prev">
+                ← 前のレッスン
+            </a>
+            <a href="06_models-and-usage.html" class="nav-btn next">
+                次のレッスン →
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 すごいAI道場. All rights reserved.</p>
+            <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionToggle = document.getElementById('textContentToggle');
+            const accordionContent = document.getElementById('textContent');
+
+            if (accordionToggle && accordionContent) {
+                accordionToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    accordionContent.classList.toggle('active');
+
+                    const buttonText = this.querySelector('span:last-child');
+                    if (accordionContent.classList.contains('active')) {
+                        buttonText.textContent = 'テキストでの詳細解説を非表示';
+                    } else {
+                        buttonText.textContent = 'テキストでの詳細解説を表示';
+                    }
+
+                    if (accordionContent.classList.contains('active')) {
+                        setTimeout(() => {
+                            accordionToggle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
+                });
+            }
+        });
+
+        // YouTube Player for this lesson
+        let player;
+        const LESSON_NUMBER = 5;
+        const VIDEO_ID = 'aICfDX0P26Q'; // Placeholder - replace with actual video ID
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'playsinline': 1,
+                    'rel': 0
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                console.log('Video completed!');
+                if (typeof trackVideoCompletion !== 'undefined') {
+                    trackVideoCompletion(LESSON_NUMBER);
+                } else {
+                    console.error('trackVideoCompletion function not found');
+                }
+            }
+        }
+
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        } else {
+            onYouTubeIframeAPIReady();
+        }
+    </script>
+</body>
+</html>

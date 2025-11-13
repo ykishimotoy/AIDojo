@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIエージェント - すごいAI道場</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .lesson-page {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            padding: 40px;
+            background: white;
+            border: 3px solid #625147;
+            border-radius: 8px;
+        }
+
+        .lesson-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f46434;
+        }
+
+        .lesson-title-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-number-badge {
+            display: inline-block;
+            background: #f46434;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #000814;
+            margin: 0;
+        }
+
+        .lesson-description {
+            font-size: 1.2rem;
+            color: #625147;
+            line-height: 1.8;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 30px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe,
+        .video-container #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-section {
+            margin: 40px 0;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: #000814;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #f46434;
+        }
+
+        .content-section h3 {
+            font-size: 1.4rem;
+            color: #000814;
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 10px;
+        }
+
+        .reference-links {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #4a90e2;
+            margin: 30px 0;
+        }
+
+        .reference-links h3 {
+            font-size: 1.3rem;
+            color: #000814;
+            margin-bottom: 15px;
+        }
+
+        .reference-links a {
+            display: inline-block;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #4a90e2;
+            border-radius: 6px;
+            margin: 5px 10px 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .reference-links a:hover {
+            background: #4a90e2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-btn.prev {
+            background: #e0e0e0;
+            color: #000814;
+        }
+
+        .nav-btn.prev:hover {
+            background: #c0c0c0;
+            transform: translateX(-5px);
+        }
+
+        .nav-btn.next {
+            background: #f46434;
+            color: white;
+        }
+
+        .nav-btn.next:hover {
+            background: #d84a1b;
+            transform: translateX(5px);
+        }
+
+        .nav-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-btn.disabled:hover {
+            transform: none;
+        }
+
+        .highlight-box {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ffd700;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #f46434;
+        }
+
+        .element-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .element-card:hover {
+            border-color: #f46434;
+            box-shadow: 0 4px 12px rgba(244, 100, 52, 0.2);
+        }
+
+        .element-card h4 {
+            color: #f46434;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .element-icon {
+            font-size: 1.6rem;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        .accordion-container {
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .accordion-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #f46434 0%, #ff6b4a 100%);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(244, 100, 52, 0.3);
+        }
+
+        .accordion-toggle:hover {
+            background: linear-gradient(135deg, #d84a1b 0%, #f46434 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(244, 100, 52, 0.4);
+        }
+
+        .accordion-toggle:active {
+            transform: translateY(0);
+        }
+
+        .accordion-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .accordion-toggle.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f8f8f8;
+            border-radius: 0 0 8px 8px;
+            margin-top: -5px;
+            width: 100%;
+        }
+
+        .accordion-content.active {
+            max-height: 8000px;
+            transition: max-height 0.8s ease-in;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .accordion-content .content-section {
+            margin: 0;
+            width: 100%;
+        }
+
+        .accordion-content .content-section h2:first-child {
+            margin-top: 0;
+        }
+
+        .lesson-page {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-page {
+                margin: 100px 15px 40px;
+                padding: 20px 15px;
+            }
+
+            .lesson-title-row {
+                gap: 15px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .lesson-title {
+                font-size: 1.8rem;
+            }
+
+            .lesson-description {
+                font-size: 1rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .reference-links {
+                padding: 20px;
+            }
+
+            .reference-links a {
+                display: block;
+                margin: 8px 0;
+            }
+
+            .accordion-toggle {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .accordion-content.active {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-page {
+                margin: 90px 10px 30px;
+                padding: 15px 10px;
+            }
+
+            .lesson-title-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .lesson-description {
+                font-size: 0.95rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.3rem;
+                padding-left: 10px;
+            }
+
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 0.95rem;
+            }
+
+            .highlight-box {
+                padding: 15px;
+            }
+
+            .reference-links {
+                padding: 15px;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .accordion-toggle {
+                padding: 12px 15px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+
+            .accordion-content.active {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-logo">すごいAI道場</div>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html#ai-general" class="nav-ai">AI全般</a></li>
+                <li><a href="../index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                <li><a href="../index.html#creative" class="nav-creative">クリエイティブ</a></li>
+                <li><a href="../index.html#community" class="nav-community">コミュニティ</a></li>
+                <li><a href="../mypage.html" class="nav-mypage">マイページ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="lesson-page">
+        <div class="lesson-header">
+            <div class="lesson-title-row">
+                <span class="lesson-number-badge">レッスン 04</span>
+                <h1 class="lesson-title">AIエージェント</h1>
+            </div>
+            <p class="lesson-description">自律的に動作するAIエージェントの仕組みと活用方法を理解しましょう</p>
+        </div>
+
+        <div class="content-section">
+            <h2>学習動画</h2>
+            <div class="video-container">
+                <div id="player"></div>
+            </div>
+            <p style="margin-top: 20px;">💡動画をピクチャインピクチャ機能で再生しながら、学習を進めてください。</p>
+        </div>
+
+        <div class="reference-links">
+            <h3>参考リンク - 実際に使ってみよう</h3>
+            <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
+            <a href="https://claude.ai/" target="_blank">Claude</a>
+            <a href="https://gemini.google.com/" target="_blank">Gemini</a>
+        </div>
+
+        <div class="accordion-container">
+            <button class="accordion-toggle" id="textContentToggle">
+                <span class="accordion-icon">▶</span>
+                <span>テキストでの詳細解説を表示</span>
+            </button>
+            <div class="accordion-content" id="textContent">
+                <div class="content-section">
+                    <h2>AIエージェントとは</h2>
+                    <p>AIエージェントは、<strong>自律的に動作を行うAI</strong>の総称です。単純に質問に答えるだけでなく、目標を与えられると自分で考えて行動し、タスクを完遂しようとします。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>従来のAI vs AIエージェント</strong></p>
+                        <p>従来のAI：「質問に答える」「指示されたことを実行する」</p>
+                        <p>AIエージェント：「目標に向かって自分で考え、複数のステップを自律的に実行する」</p>
+                    </div>
+
+                    <p>実際のところ、定義は曖昧で、<strong>「自律的に動くようなやつ」をエージェントと呼ぶ</strong>ことが多いです。厳密な定義にこだわるより、その仕組みと活用方法を理解することが重要です。</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>AIエージェントの4要素</h2>
+                    <p>AIエージェントは、以下の4つの要素で構成されています。これらが組み合わさることで、自律的な動作が可能になります。</p>
+
+                    <div class="element-card">
+                        <h4><span class="element-icon">👤</span>Profile（役割）</h4>
+                        <p><strong>各エージェントの役割と目的を定義</strong></p>
+                        <p>エージェントが「何者」として振る舞うかを決定します。例えば、「マーケティング専門家」「プログラマー」「データアナリスト」といった役割を与えることで、その分野の知識と視点で行動します。</p>
+                        <ul>
+                            <li>専門分野の設定</li>
+                            <li>得意なタスクの明確化</li>
+                            <li>判断基準の定義</li>
+                        </ul>
+                    </div>
+
+                    <div class="element-card">
+                        <h4><span class="element-icon">🧠</span>Memory（記憶）</h4>
+                        <p><strong>各エージェントの経験を蓄積し、次の行動のために記憶を活用</strong></p>
+                        <p>過去のやり取りや実行結果を記憶し、それを次の判断に活かします。会話の文脈を理解したり、過去の失敗から学習したりできます。</p>
+                        <ul>
+                            <li>短期記憶：現在の会話や作業の文脈</li>
+                            <li>長期記憶：過去の経験や学習内容</li>
+                            <li>作業履歴：実行したタスクとその結果</li>
+                        </ul>
+                    </div>
+
+                    <div class="element-card">
+                        <h4><span class="element-icon">📋</span>Planning（計画）</h4>
+                        <p><strong>タスクをサブタスクに分割し、目標達成のための計画を立てる</strong></p>
+                        <p>大きな目標を小さなステップに分解し、実行可能な計画を作成します。人間が「タスクを細かく指示する」必要がなく、エージェントが自分で計画を立てます。</p>
+                        <ul>
+                            <li>目標の分析と理解</li>
+                            <li>サブタスクへの分解</li>
+                            <li>実行順序の決定</li>
+                            <li>必要なリソースの特定</li>
+                        </ul>
+                    </div>
+
+                    <div class="element-card">
+                        <h4><span class="element-icon">⚡</span>Action（行動）</h4>
+                        <p><strong>Profile / Memory / Planningの結果に基づきタスクを実行し、結果を取得</strong></p>
+                        <p>計画に基づいて実際に行動を起こします。Web検索、ファイル操作、コード実行、外部APIの呼び出しなど、様々なツールを使って目標を達成します。</p>
+                        <ul>
+                            <li>ツールの選択と使用</li>
+                            <li>タスクの実行</li>
+                            <li>結果の評価</li>
+                            <li>必要に応じた計画の修正</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 4要素の連携</strong></p>
+                        <p>これら4つの要素は独立しているのではなく、相互に作用します。役割に基づいて計画を立て、記憶を参照しながら行動し、その結果を再び記憶に蓄積する、という循環が起こります。</p>
+                    </div>
+
+                    <p style="margin-top: 25px; font-size: 0.95rem; color: #888;">
+                        <em>参考：A Survey on Large Language Model based Autonomous Agents (Fig.2)</em>
+                    </p>
+                </div>
+
+                <div class="content-section">
+                    <h2>AIエージェントの実例</h2>
+                    <p>具体的にどのような場面でAIエージェントが活躍するか、例を見てみましょう。</p>
+
+                    <h3>例1：市場調査エージェント</h3>
+                    <p><strong>目標：</strong>「新商品の市場規模を調査してレポートを作成して」</p>
+                    <ul>
+                        <li><strong>Profile：</strong>マーケットリサーチャーとして振る舞う</li>
+                        <li><strong>Planning：</strong>①競合調査 ②市場規模の推定 ③ターゲット層の分析 ④レポート作成、と計画</li>
+                        <li><strong>Action：</strong>Web検索で情報収集、データを分析、レポートを生成</li>
+                        <li><strong>Memory：</strong>調査結果を記憶し、次の分析に活用</li>
+                    </ul>
+
+                    <h3>例2：プログラミングアシスタントエージェント</h3>
+                    <p><strong>目標：</strong>「ログイン機能を実装して」</p>
+                    <ul>
+                        <li><strong>Profile：</strong>Webエンジニアとして振る舞う</li>
+                        <li><strong>Planning：</strong>①仕様の確認 ②データベース設計 ③認証ロジックの実装 ④テスト、と計画</li>
+                        <li><strong>Action：</strong>コードを書き、ファイルを作成・編集、テストを実行</li>
+                        <li><strong>Memory：</strong>プロジェクトの構造を記憶し、一貫性のあるコードを生成</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>AIエージェントを使う上でのポイント</h2>
+                    <ul>
+                        <li><strong>明確な目標を設定：</strong>「〇〇を達成して」という形で、ゴールを明確に伝える</li>
+                        <li><strong>適切な役割を与える：</strong>タスクに合った専門家としての役割を設定する</li>
+                        <li><strong>中間確認を入れる：</strong>完全に任せきりにせず、重要なポイントで確認を入れる</li>
+                        <li><strong>制約条件を伝える：</strong>予算、期限、使用可能なツールなどの制約を明示する</li>
+                        <li><strong>結果を検証：</strong>エージェントの出力は必ず人間が最終チェックを行う</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>⚠️ 注意点</strong></p>
+                        <p>AIエージェントは便利ですが、完璧ではありません。特に重要な判断や最終的な意思決定は、必ず人間が行いましょう。エージェントは「超優秀なアシスタント」であり、「完全に任せられる社員」ではありません。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>実践のコツ</h2>
+                    <ul>
+                        <li><strong>小さなタスクから始める：</strong>いきなり複雑な業務を任せず、簡単なタスクで動作を確認</li>
+                        <li><strong>フィードバックを与える：</strong>結果を見て、改善点を伝えることで精度が向上</li>
+                        <li><strong>テンプレート化：</strong>うまくいった指示の仕方はメモして再利用</li>
+                        <li><strong>定期的な見直し：</strong>エージェントが正しい方向に進んでいるか、途中で確認</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 今すぐ試してみよう！</strong></p>
+                        <p>ChatGPTやClaudeを開いて、「あなたはマーケティング専門家です。私の事業アイデアについて、市場規模を推定し、ターゲット層を分析してください」と指示してみましょう。エージェント的な振る舞いを体験できます。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="03_ai-tools.html" class="nav-btn prev">
+                ← 前のレッスン
+            </a>
+            <a href="05_risks-and-solutions.html" class="nav-btn next">
+                次のレッスン →
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 すごいAI道場. All rights reserved.</p>
+            <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionToggle = document.getElementById('textContentToggle');
+            const accordionContent = document.getElementById('textContent');
+
+            if (accordionToggle && accordionContent) {
+                accordionToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    accordionContent.classList.toggle('active');
+
+                    const buttonText = this.querySelector('span:last-child');
+                    if (accordionContent.classList.contains('active')) {
+                        buttonText.textContent = 'テキストでの詳細解説を非表示';
+                    } else {
+                        buttonText.textContent = 'テキストでの詳細解説を表示';
+                    }
+
+                    if (accordionContent.classList.contains('active')) {
+                        setTimeout(() => {
+                            accordionToggle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
+                });
+            }
+        });
+
+        // YouTube Player for this lesson
+        let player;
+        const LESSON_NUMBER = 4;
+        const VIDEO_ID = 'aICfDX0P26Q'; // Placeholder - replace with actual video ID
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'playsinline': 1,
+                    'rel': 0
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                console.log('Video completed!');
+                if (typeof trackVideoCompletion !== 'undefined') {
+                    trackVideoCompletion(LESSON_NUMBER);
+                } else {
+                    console.error('trackVideoCompletion function not found');
+                }
+            }
+        }
+
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        } else {
+            onYouTubeIframeAPIReady();
+        }
+    </script>
+</body>
+</html>

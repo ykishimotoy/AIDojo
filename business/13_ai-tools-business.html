@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIツールで起業を加速 - すごいAI道場</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .lesson-page {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            padding: 40px;
+            background: white;
+            border: 3px solid #625147;
+            border-radius: 8px;
+        }
+
+        .lesson-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4a90e2;
+        }
+
+        .lesson-title-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-number-badge {
+            display: inline-block;
+            background: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #000814;
+            margin: 0;
+        }
+
+        .lesson-description {
+            font-size: 1.2rem;
+            color: #625147;
+            line-height: 1.8;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            margin: 30px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe,
+        .video-container #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-section {
+            margin: 40px 0;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: #000814;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #4a90e2;
+        }
+
+        .content-section h3 {
+            font-size: 1.4rem;
+            color: #000814;
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 10px;
+        }
+
+        .content-section ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section ol li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 10px;
+        }
+
+        .reference-links {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #4a90e2;
+            margin: 30px 0;
+        }
+
+        .reference-links h3 {
+            font-size: 1.3rem;
+            color: #000814;
+            margin-bottom: 15px;
+        }
+
+        .reference-links a {
+            display: inline-block;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #4a90e2;
+            border-radius: 6px;
+            margin: 5px 10px 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .reference-links a:hover {
+            background: #4a90e2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-btn.prev {
+            background: #e0e0e0;
+            color: #000814;
+        }
+
+        .nav-btn.prev:hover {
+            background: #c0c0c0;
+            transform: translateX(-5px);
+        }
+
+        .nav-btn.next {
+            background: #4a90e2;
+            color: white;
+        }
+
+        .nav-btn.next:hover {
+            background: #357abd;
+            transform: translateX(5px);
+        }
+
+        .highlight-box {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #4a90e2;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #4a90e2;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ffc107;
+            margin: 20px 0;
+        }
+
+        .warning-box strong {
+            color: #856404;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        .accordion-container {
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .accordion-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #4a90e2 0%, #5ba3f5 100%);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .accordion-toggle:hover {
+            background: linear-gradient(135deg, #357abd 0%, #4a90e2 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+        }
+
+        .accordion-toggle:active {
+            transform: translateY(0);
+        }
+
+        .accordion-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .accordion-toggle.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f8f8f8;
+            border-radius: 0 0 8px 8px;
+            margin-top: -5px;
+            width: 100%;
+        }
+
+        .accordion-content.active {
+            max-height: 8000px;
+            transition: max-height 0.8s ease-in;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .accordion-content .content-section {
+            margin: 0;
+            width: 100%;
+        }
+
+        .accordion-content .content-section h2:first-child {
+            margin-top: 0;
+        }
+
+        .lesson-page {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-page {
+                margin: 100px 15px 40px;
+                padding: 20px 15px;
+            }
+
+            .lesson-title-row {
+                gap: 15px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .lesson-title {
+                font-size: 1.8rem;
+            }
+
+            .lesson-description {
+                font-size: 1rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .reference-links {
+                padding: 20px;
+            }
+
+            .reference-links a {
+                display: block;
+                margin: 8px 0;
+            }
+
+            .accordion-toggle {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .accordion-content.active {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-page {
+                margin: 90px 10px 30px;
+                padding: 15px 10px;
+            }
+
+            .lesson-title-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .lesson-description {
+                font-size: 0.95rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.3rem;
+                padding-left: 10px;
+            }
+
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 0.95rem;
+            }
+
+            .highlight-box,
+            .warning-box {
+                padding: 15px;
+            }
+
+            .reference-links {
+                padding: 15px;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .accordion-toggle {
+                padding: 12px 15px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+
+            .accordion-content.active {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-logo">すごいAI道場</div>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html#ai-general" class="nav-ai">AI全般</a></li>
+                <li><a href="../index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                <li><a href="../index.html#creative" class="nav-creative">クリエイティブ</a></li>
+                <li><a href="../index.html#community" class="nav-community">コミュニティ</a></li>
+                <li><a href="../mypage.html" class="nav-mypage">マイページ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="lesson-page">
+        <div class="lesson-header">
+            <div class="lesson-title-row">
+                <span class="lesson-number-badge">レッスン 13</span>
+                <h1 class="lesson-title">AIツールで起業を加速</h1>
+            </div>
+            <p class="lesson-description">AIを使ってWebサイト、プレゼンスライド、Webサービスを作成する方法を学びます</p>
+        </div>
+
+        <div class="content-section">
+            <h2>学習動画</h2>
+            <div class="video-container">
+                <div id="player"></div>
+            </div>
+            <p style="margin-top: 20px;">💡動画をピクチャインピクチャ機能で再生しながら、学習を進めてください。</p>
+        </div>
+
+        <div class="reference-links">
+            <h3>参考リンク - 実際に使ってみよう</h3>
+            <a href="https://claude.ai/" target="_blank">Claude（Artifacts機能）</a>
+            <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+            <a href="https://chat.openai.com/" target="_blank">ChatGPT（DALL-E）</a>
+        </div>
+
+        <div class="accordion-container">
+            <button class="accordion-toggle" id="textContentToggle">
+                <span class="accordion-icon">▶</span>
+                <span>テキストでの詳細解説を表示</span>
+            </button>
+            <div class="accordion-content" id="textContent">
+                <div class="content-section">
+                    <h2>1. Webサイト生成</h2>
+                    <p>非エンジニアでも、AIを使えば本格的なWebサイトを作成できます。</p>
+
+                    <h3>Claudeを使ったWebサイト作成</h3>
+                    <p><strong>Claude</strong>の<strong>Artifacts機能</strong>を使えば、簡単にWebサイトが作れます。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>作成の流れ</strong></p>
+                        <ol style="margin: 10px 0;">
+                            <li>Markdownで要件を書く</li>
+                            <li>Claudeに「このWebサイトを作ってください」と依頼</li>
+                            <li>Artifactsでプレビュー表示される</li>
+                            <li>修正点を伝えて改善</li>
+                            <li>コードをダウンロードして公開</li>
+                        </ol>
+                    </div>
+
+                    <h3>プロンプト例</h3>
+                    <div class="highlight-box">
+                        <p>「[ビジネス名]の紹介Webサイトを作成してください。<br>
+                        - トップページにヒーローイメージ<br>
+                        - サービス紹介セクション<br>
+                        - お問い合わせフォーム<br>
+                        - レスポンシブデザイン対応<br>
+                        カラーテーマは青系で、モダンなデザインでお願いします。」</p>
+                    </div>
+
+                    <h3>GitHub Pagesで公開</h3>
+                    <p>作成したWebサイトは<strong>GitHub Pages</strong>で無料公開できます。</p>
+                    <ol>
+                        <li>GitHubアカウントを作成</li>
+                        <li>新しいリポジトリを作成（[username].github.io）</li>
+                        <li>HTMLファイルをアップロード</li>
+                        <li>Settings > Pages で公開設定</li>
+                        <li>https://[username].github.io でアクセス可能に</li>
+                    </ol>
+
+                    <div class="warning-box">
+                        <p><strong>注意点</strong></p>
+                        <p>Webサイトの作成は比較的簡単ですが、細かいデザイン調整には試行錯誤が必要です。完璧を目指さず、まずは公開することを優先しましょう。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>2. スライド生成</h2>
+                    <p>プレゼンテーション資料もAIで効率的に作成できます。</p>
+
+                    <h3>Claudeでスライド作成</h3>
+                    <p>ClaudeにMarkdown形式で内容を書いてもらい、それをスライドに変換します。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>プロンプト例</strong></p>
+                        <p>「[テーマ]についての10枚のプレゼンスライドの内容をMarkdown形式で作成してください。各スライドには以下を含めてください：<br>
+                        - タイトル<br>
+                        - 3-5個の箇条書き<br>
+                        - 簡潔でインパクトのある内容」</p>
+                    </div>
+
+                    <h3>実際の作業フロー</h3>
+                    <ol>
+                        <li><strong>Claudeで内容作成：</strong>Markdown形式で骨組みを作る</li>
+                        <li><strong>PowerPointに変換：</strong>手動でコピペ、またはAIに依頼</li>
+                        <li><strong>画像を追加：</strong>ChatGPT（DALL-E）で画像生成</li>
+                        <li><strong>デザイン調整：</strong>手動で配置やレイアウトを整える</li>
+                    </ol>
+
+                    <h3>スライド用の画像生成</h3>
+                    <p>ChatGPTのDALL-Eを使うと、スライドに最適な画像を生成できます。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>画像生成のコツ</strong></p>
+                        <p>「背景透過のアイコン画像を作成してください：[内容の説明]、シンプルなフラットデザイン、白背景」</p>
+                        <p>※実際には背景透過はできないので、白背景で生成して画像編集ソフトで透過処理します</p>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>現状の限界</strong></p>
+                        <p>AIスライド生成は補助ツールとしては優秀ですが、完全自動化は難しいです。一般的な内容はAIで作り、魂を込める部分は手作業で調整するバランスが重要です。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>3. Webサービス生成</h2>
+                    <p>本格的なWebサービスを作りたい場合は、Claude Codeを使います。</p>
+
+                    <h3>Claude Codeとは</h3>
+                    <p>ClaudeのCLI版で、エージェント的に動作してWebサービスを開発できます。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>開発の流れ</strong></p>
+                        <ol style="margin: 10px 0;">
+                            <li><strong>requirements.mdを作成：</strong>サービスの要件を詳しく記述</li>
+                            <li><strong>Todo.mdを作成依頼：</strong>AIにタスクリストを作ってもらう</li>
+                            <li><strong>エージェント実行：</strong>AIが自動的にコードを書いていく</li>
+                            <li><strong>テスト・修正：</strong>動作確認しながら改善</li>
+                        </ol>
+                    </div>
+
+                    <h3>必要なスキル</h3>
+                    <ul>
+                        <li>基本的なプログラミング知識（AIに聞きながら学べる）</li>
+                        <li>GitHubの使い方</li>
+                        <li>ターミナル/コマンドラインの基礎</li>
+                        <li>デバッグの根気</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>重要な自問自答</strong></p>
+                        <p>「本当にWebサービスとして全てをインターネット上でやる必要があるのか？」<br>
+                        <br>
+                        多くの場合、以下で十分です：<br>
+                        - 静的なWebサイト（GitHub Pages）<br>
+                        - スプレッドシート + Googleフォーム<br>
+                        - 既存のSaaS（Notion、Airtableなど）の組み合わせ<br>
+                        <br>
+                        フル機能のWebサービスは技術的ハードルが高いため、本当に必要な機能だけを実装しましょう。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>実装の難易度比較</h2>
+
+                    <h3>簡単：Webサイト</h3>
+                    <ul>
+                        <li>非エンジニアでも実現可能</li>
+                        <li>Claudeで作成、GitHub Pagesで公開</li>
+                        <li>数時間〜1日で完成</li>
+                    </ul>
+
+                    <h3>中程度：スライド</h3>
+                    <ul>
+                        <li>AIで骨組み作成、手動で仕上げ</li>
+                        <li>画像生成と組み合わせ</li>
+                        <li>半日〜1日で完成</li>
+                    </ul>
+
+                    <h3>難しい：Webサービス</h3>
+                    <ul>
+                        <li>技術的な知識が必要</li>
+                        <li>デバッグに時間がかかる</li>
+                        <li>数日〜数週間かかる可能性</li>
+                        <li>本当に必要か検討すべき</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>実践のコツ</h2>
+
+                    <h3>Webサイト作成</h3>
+                    <ul>
+                        <li><strong>シンプルに始める：</strong>1ページから始めて徐々に拡張</li>
+                        <li><strong>テンプレート活用：</strong>既存のデザインを参考に</li>
+                        <li><strong>モバイル対応：</strong>レスポンシブデザインは必須</li>
+                    </ul>
+
+                    <h3>スライド作成</h3>
+                    <ul>
+                        <li><strong>内容重視：</strong>まずは内容をAIで作成</li>
+                        <li><strong>デザインは後回し：</strong>最初はシンプルなテンプレート使用</li>
+                        <li><strong>画像は控えめに：</strong>多すぎると逆に見づらい</li>
+                    </ul>
+
+                    <h3>Webサービス開発</h3>
+                    <ul>
+                        <li><strong>MVP思考：</strong>最小機能だけで作る</li>
+                        <li><strong>代替案検討：</strong>本当にフルスクラッチ開発が必要か再考</li>
+                        <li><strong>学びながら進める：</strong>AIに質問しながら技術習得</li>
+                        <li><strong>挫折を恐れない：</strong>機能を減らすことを恐れない</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 今すぐ試してみよう！</strong></p>
+                        <p>まずはClaudeを使って、自分のビジネスの簡単なWebサイトを作ってみましょう。1ページ、3セクション程度の簡単なものから始めれば、1時間もあれば形になります。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>起業・ビジコンセクションのまとめ</h2>
+                    <p>これで起業・ビジネスコンテストに関する全てのレッスンが完了しました。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>学んだこと</strong></p>
+                        <ul style="margin: 10px 0;">
+                            <li>起業のハードルは思ったより低い</li>
+                            <li>AIを相談相手・実務パートナーとして活用</li>
+                            <li>小さく始めて素早く改善する</li>
+                            <li>必要最小限の機能で始める</li>
+                            <li>実務的な手続きは意外と簡単</li>
+                        </ul>
+                    </div>
+
+                    <p>次はクリエイティブセクションで、AIを使った創作活動について学びます。音楽、画像、動画など、あなたの創造性を拡張する方法を探求していきましょう。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="12_operations.html" class="nav-btn prev">
+                ← 前のレッスン
+            </a>
+            <a href="../creative/14_creative-intro.html" class="nav-btn next">
+                次のレッスン →
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 すごいAI道場. All rights reserved.</p>
+            <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionToggle = document.getElementById('textContentToggle');
+            const accordionContent = document.getElementById('textContent');
+
+            if (accordionToggle && accordionContent) {
+                accordionToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    accordionContent.classList.toggle('active');
+
+                    const buttonText = this.querySelector('span:last-child');
+                    if (accordionContent.classList.contains('active')) {
+                        buttonText.textContent = 'テキストでの詳細解説を非表示';
+                    } else {
+                        buttonText.textContent = 'テキストでの詳細解説を表示';
+                    }
+
+                    if (accordionContent.classList.contains('active')) {
+                        setTimeout(() => {
+                            accordionToggle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
+                });
+            }
+        });
+
+        let player;
+        const LESSON_NUMBER = 13;
+        const VIDEO_ID = 'aICfDX0P26Q';
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'playsinline': 1,
+                    'rel': 0
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                console.log('Video completed!');
+                if (typeof trackVideoCompletion !== 'undefined') {
+                    trackVideoCompletion(LESSON_NUMBER);
+                } else {
+                    console.error('trackVideoCompletion function not found');
+                }
+            }
+        }
+
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        } else {
+            onYouTubeIframeAPIReady();
+        }
+    </script>
+</body>
+</html>

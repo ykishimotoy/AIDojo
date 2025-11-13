@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI基礎 - すごいAI道場</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .lesson-page {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            padding: 40px;
+            background: white;
+            border: 3px solid #625147;
+            border-radius: 8px;
+        }
+
+        .lesson-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f46434;
+        }
+
+        .lesson-title-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-number-badge {
+            display: inline-block;
+            background: #f46434;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #000814;
+            margin: 0;
+        }
+
+        .lesson-description {
+            font-size: 1.2rem;
+            color: #625147;
+            line-height: 1.8;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 30px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe,
+        .video-container #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-section {
+            margin: 40px 0;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: #000814;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #f46434;
+        }
+
+        .content-section h3 {
+            font-size: 1.4rem;
+            color: #000814;
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 10px;
+        }
+
+        .reference-links {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #4a90e2;
+            margin: 30px 0;
+        }
+
+        .reference-links h3 {
+            font-size: 1.3rem;
+            color: #000814;
+            margin-bottom: 15px;
+        }
+
+        .reference-links a {
+            display: inline-block;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #4a90e2;
+            border-radius: 6px;
+            margin: 5px 10px 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .reference-links a:hover {
+            background: #4a90e2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-btn.prev {
+            background: #e0e0e0;
+            color: #000814;
+        }
+
+        .nav-btn.prev:hover {
+            background: #c0c0c0;
+            transform: translateX(-5px);
+        }
+
+        .nav-btn.next {
+            background: #f46434;
+            color: white;
+        }
+
+        .nav-btn.next:hover {
+            background: #d84a1b;
+            transform: translateX(5px);
+        }
+
+        .nav-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-btn.disabled:hover {
+            transform: none;
+        }
+
+
+        .highlight-box {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ffd700;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #f46434;
+        }
+
+        /* Prevent layout shift from scrollbar */
+        html {
+            overflow-y: scroll;
+        }
+
+        /* Accordion Styles */
+        .accordion-container {
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .accordion-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #f46434 0%, #ff6b4a 100%);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(244, 100, 52, 0.3);
+        }
+
+        .accordion-toggle:hover {
+            background: linear-gradient(135deg, #d84a1b 0%, #f46434 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(244, 100, 52, 0.4);
+        }
+
+        .accordion-toggle:active {
+            transform: translateY(0);
+        }
+
+        .accordion-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .accordion-toggle.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f8f8f8;
+            border-radius: 0 0 8px 8px;
+            margin-top: -5px;
+            width: 100%;
+        }
+
+        .accordion-content.active {
+            max-height: 5000px;
+            transition: max-height 0.8s ease-in;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .accordion-content .content-section {
+            margin: 0;
+            width: 100%;
+        }
+
+        .accordion-content .content-section h2:first-child {
+            margin-top: 0;
+        }
+
+        /* Prevent width changes during animation */
+        .lesson-page {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .lesson-page {
+                margin: 100px 15px 40px;
+                padding: 20px 15px;
+            }
+
+            .lesson-title-row {
+                gap: 15px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .lesson-title {
+                font-size: 1.8rem;
+            }
+
+            .lesson-description {
+                font-size: 1rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .reference-links {
+                padding: 20px;
+            }
+
+            .reference-links a {
+                display: block;
+                margin: 8px 0;
+            }
+
+            .accordion-toggle {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .accordion-content.active {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-page {
+                margin: 90px 10px 30px;
+                padding: 15px 10px;
+            }
+
+            .lesson-title-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .lesson-description {
+                font-size: 0.95rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.3rem;
+                padding-left: 10px;
+            }
+
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 0.95rem;
+            }
+
+            .highlight-box {
+                padding: 15px;
+            }
+
+            .reference-links {
+                padding: 15px;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .accordion-toggle {
+                padding: 12px 15px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+
+            .accordion-content.active {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-logo">すごいAI道場</div>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html#ai-general" class="nav-ai">AI全般</a></li>
+                <li><a href="../index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                <li><a href="../index.html#creative" class="nav-creative">クリエイティブ</a></li>
+                <li><a href="../index.html#community" class="nav-community">コミュニティ</a></li>
+                <li><a href="../mypage.html" class="nav-mypage">マイページ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="lesson-page">
+        <div class="lesson-header">
+            <div class="lesson-title-row">
+                <span class="lesson-number-badge">レッスン 01</span>
+                <h1 class="lesson-title">AI基礎</h1>
+            </div>
+            <p class="lesson-description">進め方と目的、AIの概要とイメージを学びます</p>
+        </div>
+
+        <div class="content-section">
+            <h2>学習動画</h2>
+            <div class="video-container">
+                <!-- YouTube埋め込み - enablejsapi=1とidが必要 -->
+                <div id="player"></div>
+            </div>
+            <p style="margin-top: 20px;">💡動画をピクチャインピクチャ機能で再生しながら、学習を進めてください。</p>
+        </div>
+
+        <div class="reference-links">
+            <h3>参考リンク - 実際に使ってみよう</h3>
+            <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
+            <a href="https://claude.ai/" target="_blank">Claude</a>
+            <a href="https://gemini.google.com/" target="_blank">Gemini</a>
+        </div>
+
+        <div class="accordion-container">
+            <button class="accordion-toggle" id="textContentToggle">
+                <span class="accordion-icon">▶</span>
+                <span>テキストでの詳細解説を表示</span>
+            </button>
+            <div class="accordion-content" id="textContent">
+                <div class="content-section">
+                    <h2>この講座の進め方</h2>
+                    <div class="highlight-box">
+                        <p><strong>推奨：ピクチャインピクチャ機能の活用</strong></p>
+                        <p>動画をピクチャインピクチャ（PiP）で再生しながら、実際にChatGPTなどのAIツールを別タブで開いて操作してみましょう。見るだけでなく、手を動かすことで理解が深まります。</p>
+                    </div>
+
+                    <h3>目的</h3>
+                    <p>AIを使いこなすための基礎知識を習得し、実務で活用できるスキルを身につけます。</p>
+
+                    <h3>この講座のゴール</h3>
+                    <ul>
+                        <li>自分の業務に合わせたAIの使い方と注意点を理解する</li>
+                        <li>このレッスンで少なくとも1回、AIを思い通りに使えるようになる</li>
+                        <li>次のレッスン以降で提示される方法論やツールのイメージを掴む</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>生成AIの概要</h2>
+                    <p>生成AIは、あなたの能力を劇的に拡張する強力なツールです。言うなれば、<strong>超優秀なインターンを無料で雇えた</strong>ような状況を実現します。</p>
+
+                    <h3>生成AIができること</h3>
+                    <ul>
+                        <li>文章の作成・編集・要約</li>
+                        <li>アイデアの創出とブレインストーミング</li>
+                        <li>複雑な問題の分析と解決策の提案</li>
+                        <li>専門知識の提供とアドバイス</li>
+                        <li>コードの生成やデバッグ</li>
+                    </ul>
+
+                    <h3>具体例：専門家を召喚する</h3>
+                    <p>例えば、起業について相談したい場合：</p>
+                    <div class="highlight-box">
+                        <p>「あなたは経験豊富な起業コンサルタントです。私は〇〇のビジネスを始めたいと考えていますが、どのようなステップで進めればよいでしょうか？具体的なアクションプランを提示してください。」</p>
+                    </div>
+                    <p>このように役割と具体的な質問を組み合わせることで、実用的なアドバイスが得られます。</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>AIの仕組み：類推による生成</h2>
+                    <p>AIは入力された情報をもとに、<strong>最も適切と思われる回答を類推して生成</strong>します。この仕組みを理解することが、効果的な活用の第一歩です。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>重要な原則：情報が多いほど精度が上がる</strong></p>
+                        <p>曖昧な指示では曖昧な結果しか得られません。詳細な情報を提供することで、AIはより正確で有用な回答を生成できます。</p>
+                    </div>
+
+                    <h3>実験：桃太郎の現代風アレンジ</h3>
+                    <p>試しにAIに「桃太郎の物語を現代風にアレンジしてください」と指示してみましょう。情報量を変えると結果がどう変わるか確認できます：</p>
+                    <ul>
+                        <li>シンプルな指示：「桃太郎を現代風にして」</li>
+                        <li>詳細な指示：「桃太郎を現代の東京を舞台にしたスタートアップ物語にアレンジしてください。登場人物は現代の職業に、鬼退治はビジネスの成功に置き換えてください」</li>
+                    </ul>
+                    <p>後者の方が、より具体的で面白い結果が得られるはずです。</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>基本的なプロンプトの構成</h2>
+                    <p>効果的なプロンプト（AIへの指示文）には、以下の要素を含めることをおすすめします：</p>
+
+                    <ul>
+                        <li><strong>命令：</strong>AIに何をしてほしいか明確に指示</li>
+                        <li><strong>背景：</strong>どのような状況・目的で使用するのか</li>
+                        <li><strong>入力情報：</strong>AIが類推するための具体的な情報</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>完璧を目指さなくて大丈夫</strong></p>
+                        <p>最初から完璧なプロンプトを作る必要はありません。試行錯誤を繰り返しながら、少しずつ改善していくのが実践的なアプローチです。失敗も学びの一部として楽しみましょう。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>基本的なリスクと注意点</h2>
+                    <p>AIは強力なツールですが、いくつかのリスクも存在します。安全に活用するために、以下の点に注意しましょう。</p>
+
+                    <h3>ハルシネーション（幻覚）</h3>
+                    <p>AIが事実ではない情報をもっともらしく回答することがあります。重要な情報は必ず他のソースで確認しましょう。</p>
+
+                    <h3>著作権とデータ利用権</h3>
+                    <p>AIが生成したコンテンツの著作権や、使用したデータの権利関係には注意が必要です。商用利用前には必ず確認してください。</p>
+
+                    <h3>データの機密性</h3>
+                    <p>機密情報や個人情報をAIに入力すると、サービス提供者のサーバーに保存されたり、学習データとして使用される可能性があります。</p>
+
+                    <h3>ライセンス条件</h3>
+                    <p>各AIサービスの利用規約は異なります。特に商用利用やデータの取り扱いについては、事前に確認しておきましょう。</p>
+
+                    <p style="margin-top: 20px;"><em>※ これらのリスクと対処法については、レッスン05で詳しく学習します。</em></p>
+                </div>
+
+                <div class="content-section">
+                    <h2>AIツールの種類</h2>
+                    <p>現在、様々な用途に特化したAIツールが存在します。主なカテゴリーは以下の通りです：</p>
+
+                    <ul>
+                        <li><strong>文章生成：</strong>ChatGPT、Claude、Gemini など</li>
+                        <li><strong>画像生成：</strong>DALL-E、Midjourney、Stable Diffusion など</li>
+                        <li><strong>動画生成：</strong>Runway、Pika、Sora など</li>
+                        <li><strong>音楽生成：</strong>Suno、Udio など</li>
+                        <li><strong>スライド生成：</strong>Claude、Gamma など</li>
+                    </ul>
+
+                    <p style="margin-top: 20px;"><em>※ 各ツールの詳細な使い方については、レッスン03で学習します。</em></p>
+                </div>
+
+                <div class="content-section">
+                    <h2>課金について賢く考える</h2>
+                    <p>多くのAIサービスには無料プランと有料プランがあります。効果的な活用のために、以下の点を押さえておきましょう。</p>
+
+                    <h3>基本方針</h3>
+                    <ul>
+                        <li><strong>まずは無料で試す：</strong>無料プランで機能を理解してから課金を検討</li>
+                        <li><strong>必要な機能だけ課金：</strong>無料版で不足を感じた機能に絞って課金</li>
+                        <li><strong>月額プランを選ぶ：</strong>年額契約は避けることを推奨</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>⚠️ 年額課金に注意</strong></p>
+                        <p>AI分野の進化速度は極めて速く、半年後には全く新しいサービスが登場している可能性があります。年額契約をすると、より良いサービスが出ても乗り換えにくくなるため、柔軟に対応できる月額プランがおすすめです。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>さあ、始めましょう</h2>
+                    <p>準備が整いました。参考リンクからChatGPT、Claude、Geminiのいずれかを開いて、実際に使ってみましょう。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 最初の一歩におすすめの質問</strong></p>
+                        <p>「あなたは親切なAIアシスタントです。初めてAIを使う私に、どのようにあなたを活用すれば業務効率が上がるか、具体例を3つ教えてください。」</p>
+                    </div>
+
+                    <p>失敗を恐れず、積極的に試してみることが上達への近道です。次のレッスンでは、より高度なプロンプトエンジニアリングの技術を学びます。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="../index.html" class="nav-btn prev">
+                ← トップページへ
+            </a>
+            <a href="02_prompt-engineering.html" class="nav-btn next">
+                次のレッスン →
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 すごいAI道場. All rights reserved.</p>
+            <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionToggle = document.getElementById('textContentToggle');
+            const accordionContent = document.getElementById('textContent');
+
+            if (accordionToggle && accordionContent) {
+                accordionToggle.addEventListener('click', function() {
+                    // Toggle active class
+                    this.classList.toggle('active');
+                    accordionContent.classList.toggle('active');
+
+                    // Update button text
+                    const buttonText = this.querySelector('span:last-child');
+                    if (accordionContent.classList.contains('active')) {
+                        buttonText.textContent = 'テキストでの詳細解説を非表示';
+                    } else {
+                        buttonText.textContent = 'テキストでの詳細解説を表示';
+                    }
+
+                    // Smooth scroll to accordion if opening
+                    if (accordionContent.classList.contains('active')) {
+                        setTimeout(() => {
+                            accordionToggle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
+                });
+            }
+        });
+
+        // YouTube Player for this lesson
+        let player;
+        const LESSON_NUMBER = 1;
+        const VIDEO_ID = 'dQw4w9WgXcQ'; // Replace with actual YouTube video ID
+
+        // YouTube IFrame API Ready
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'playsinline': 1,
+                    'rel': 0
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // Track when video ends
+        function onPlayerStateChange(event) {
+            // YT.PlayerState.ENDED = 0
+            if (event.data === YT.PlayerState.ENDED) {
+                console.log('Video completed!');
+
+                // Track video completion
+                if (typeof trackVideoCompletion !== 'undefined') {
+                    trackVideoCompletion(LESSON_NUMBER);
+                } else {
+                    console.error('trackVideoCompletion function not found');
+                }
+            }
+        }
+
+        // Load YouTube API if not already loaded
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        } else {
+            // API already loaded, initialize player
+            onYouTubeIframeAPIReady();
+        }
+    </script>
+</body>
+</html>

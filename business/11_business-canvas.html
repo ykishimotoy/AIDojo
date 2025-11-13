@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アイデアの精度を上げる - すごいAI道場</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .lesson-page {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            padding: 40px;
+            background: white;
+            border: 3px solid #625147;
+            border-radius: 8px;
+        }
+
+        .lesson-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4a90e2;
+        }
+
+        .lesson-title-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-number-badge {
+            display: inline-block;
+            background: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #000814;
+            margin: 0;
+        }
+
+        .lesson-description {
+            font-size: 1.2rem;
+            color: #625147;
+            line-height: 1.8;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            margin: 30px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe,
+        .video-container #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-section {
+            margin: 40px 0;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: #000814;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #4a90e2;
+        }
+
+        .content-section h3 {
+            font-size: 1.4rem;
+            color: #000814;
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 10px;
+        }
+
+        .content-section ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section ol li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #625147;
+            margin-bottom: 10px;
+        }
+
+        .reference-links {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #4a90e2;
+            margin: 30px 0;
+        }
+
+        .reference-links h3 {
+            font-size: 1.3rem;
+            color: #000814;
+            margin-bottom: 15px;
+        }
+
+        .reference-links a {
+            display: inline-block;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #4a90e2;
+            border-radius: 6px;
+            margin: 5px 10px 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .reference-links a:hover {
+            background: #4a90e2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-btn.prev {
+            background: #e0e0e0;
+            color: #000814;
+        }
+
+        .nav-btn.prev:hover {
+            background: #c0c0c0;
+            transform: translateX(-5px);
+        }
+
+        .nav-btn.next {
+            background: #4a90e2;
+            color: white;
+        }
+
+        .nav-btn.next:hover {
+            background: #357abd;
+            transform: translateX(5px);
+        }
+
+        .highlight-box {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #4a90e2;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #4a90e2;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        .accordion-container {
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .accordion-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #4a90e2 0%, #5ba3f5 100%);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .accordion-toggle:hover {
+            background: linear-gradient(135deg, #357abd 0%, #4a90e2 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+        }
+
+        .accordion-toggle:active {
+            transform: translateY(0);
+        }
+
+        .accordion-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .accordion-toggle.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f8f8f8;
+            border-radius: 0 0 8px 8px;
+            margin-top: -5px;
+            width: 100%;
+        }
+
+        .accordion-content.active {
+            max-height: 8000px;
+            transition: max-height 0.8s ease-in;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .accordion-content .content-section {
+            margin: 0;
+            width: 100%;
+        }
+
+        .accordion-content .content-section h2:first-child {
+            margin-top: 0;
+        }
+
+        .lesson-page {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-page {
+                margin: 100px 15px 40px;
+                padding: 20px 15px;
+            }
+
+            .lesson-title-row {
+                gap: 15px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .lesson-title {
+                font-size: 1.8rem;
+            }
+
+            .lesson-description {
+                font-size: 1rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .reference-links {
+                padding: 20px;
+            }
+
+            .reference-links a {
+                display: block;
+                margin: 8px 0;
+            }
+
+            .accordion-toggle {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .accordion-content.active {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-page {
+                margin: 90px 10px 30px;
+                padding: 15px 10px;
+            }
+
+            .lesson-title-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .lesson-description {
+                font-size: 0.95rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.3rem;
+                padding-left: 10px;
+            }
+
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 0.95rem;
+            }
+
+            .highlight-box {
+                padding: 15px;
+            }
+
+            .reference-links {
+                padding: 15px;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .accordion-toggle {
+                padding: 12px 15px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+
+            .accordion-content.active {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-logo">すごいAI道場</div>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html#ai-general" class="nav-ai">AI全般</a></li>
+                <li><a href="../index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                <li><a href="../index.html#creative" class="nav-creative">クリエイティブ</a></li>
+                <li><a href="../index.html#community" class="nav-community">コミュニティ</a></li>
+                <li><a href="../mypage.html" class="nav-mypage">マイページ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="lesson-page">
+        <div class="lesson-header">
+            <div class="lesson-title-row">
+                <span class="lesson-number-badge">レッスン 11</span>
+                <h1 class="lesson-title">アイデアの精度を上げる</h1>
+            </div>
+            <p class="lesson-description">事業の全体像を可視化し、成功確率を高める方法を学びます</p>
+        </div>
+
+        <div class="content-section">
+            <h2>学習動画</h2>
+            <div class="video-container">
+                <div id="player"></div>
+            </div>
+            <p style="margin-top: 20px;">💡動画をピクチャインピクチャ機能で再生しながら、学習を進めてください。</p>
+        </div>
+
+        <div class="reference-links">
+            <h3>参考リンク - 実際に使ってみよう</h3>
+            <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
+            <a href="https://claude.ai/" target="_blank">Claude</a>
+            <a href="https://www.strategyzer.com/canvas/business-model-canvas" target="_blank">Business Model Canvas</a>
+        </div>
+
+        <div class="accordion-container">
+            <button class="accordion-toggle" id="textContentToggle">
+                <span class="accordion-icon">▶</span>
+                <span>テキストでの詳細解説を表示</span>
+            </button>
+            <div class="accordion-content" id="textContent">
+                <div class="content-section">
+                    <h2>ビジネスモデルキャンバスとは</h2>
+                    <p>ビジネスモデルキャンバス（BMC）は、<strong>事業のビジネスモデルを1枚の図で表現するフレームワーク</strong>です。9つの要素で構成され、事業の全体像を俯瞰できます。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>こんな時に使う</strong></p>
+                        <ul style="margin: 10px 0;">
+                            <li>会社内でビジネスアイデアを提案する時</li>
+                            <li>投資家やコンテストで説明する時</li>
+                            <li>事業の精度を高めたい時</li>
+                            <li>チームでビジョンを共有したい時</li>
+                        </ul>
+                    </div>
+
+                    <p><strong>注意：</strong>個人で小さく起業する場合は、ここまで詳しく作る必要はありません。実際に始めながら学ぶ方が効率的です。</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>9つの構成要素</h2>
+                    <p>ビジネスモデルキャンバスは以下の9つの要素で構成されています。</p>
+
+                    <h3>1. 顧客セグメント（Customer Segments）</h3>
+                    <p><strong>誰に価値を提供するか？</strong></p>
+                    <ul>
+                        <li>ターゲット顧客は誰か</li>
+                        <li>どのような特徴や課題を持っているか</li>
+                        <li>複数のセグメントがある場合はそれぞれ明確に</li>
+                    </ul>
+
+                    <h3>2. 価値提案（Value Propositions）</h3>
+                    <p><strong>顧客にどんな価値を提供するか？</strong></p>
+                    <ul>
+                        <li>どんな問題を解決するのか</li>
+                        <li>どんなニーズを満たすのか</li>
+                        <li>競合と何が違うのか</li>
+                    </ul>
+
+                    <h3>3. チャネル（Channels）</h3>
+                    <p><strong>どうやって価値を届けるか？</strong></p>
+                    <ul>
+                        <li>どのように顧客に認知してもらうか</li>
+                        <li>どのように購入してもらうか</li>
+                        <li>どのように届けるか（配送、ダウンロード等）</li>
+                    </ul>
+
+                    <h3>4. 顧客との関係（Customer Relationships）</h3>
+                    <p><strong>顧客とどんな関係を築くか？</strong></p>
+                    <ul>
+                        <li>個別対応か自動化か</li>
+                        <li>コミュニティを作るか</li>
+                        <li>長期的な関係をどう維持するか</li>
+                    </ul>
+
+                    <h3>5. 収益の流れ（Revenue Streams）</h3>
+                    <p><strong>どうやってお金を得るか？</strong></p>
+                    <ul>
+                        <li>販売、サブスク、広告、手数料など</li>
+                        <li>価格設定の方法</li>
+                        <li>複数の収益源がある場合はそれぞれ明示</li>
+                    </ul>
+
+                    <h3>6. 主要リソース（Key Resources）</h3>
+                    <p><strong>何が必要か？</strong></p>
+                    <ul>
+                        <li>物理的リソース（設備、在庫など）</li>
+                        <li>知的リソース（技術、ブランド、データなど）</li>
+                        <li>人的リソース（スタッフ、専門家など）</li>
+                        <li>資金</li>
+                    </ul>
+
+                    <h3>7. 主要活動（Key Activities）</h3>
+                    <p><strong>何をするか？</strong></p>
+                    <ul>
+                        <li>製品開発</li>
+                        <li>マーケティング</li>
+                        <li>顧客サポート</li>
+                        <li>運営・管理</li>
+                    </ul>
+
+                    <h3>8. 主要パートナー（Key Partners）</h3>
+                    <p><strong>誰と協力するか？</strong></p>
+                    <ul>
+                        <li>サプライヤー</li>
+                        <li>協業パートナー</li>
+                        <li>外注先</li>
+                    </ul>
+
+                    <h3>9. コスト構造（Cost Structure）</h3>
+                    <p><strong>何にお金がかかるか？</strong></p>
+                    <ul>
+                        <li>固定費（家賃、給与など）</li>
+                        <li>変動費（材料費、広告費など）</li>
+                        <li>主要なコスト項目</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>AIを使った作成方法</h2>
+                    <p>ビジネスモデルキャンバスの作成にAIを活用すると、効率的に抜け漏れなく整理できます。</p>
+
+                    <div class="highlight-box">
+                        <p><strong>AIへの質問例</strong></p>
+                        <p>「あなたは経験豊富なビジネスコンサルタントです。以下のビジネスアイデアについて、ビジネスモデルキャンバスの9要素を埋めてください：<br>
+                        [あなたのビジネスアイデアの説明]<br><br>
+                        各要素について、具体的で実現可能な内容を提案してください。」</p>
+                    </div>
+
+                    <h3>作成の手順</h3>
+                    <ol>
+                        <li><strong>AIに全体を作成してもらう</strong>
+                            <ul>
+                                <li>まずは叩き台を作ってもらう</li>
+                            </ul>
+                        </li>
+                        <li><strong>各要素を深掘りする</strong>
+                            <ul>
+                                <li>「顧客セグメントをもっと具体的に」など、個別に質問</li>
+                            </ul>
+                        </li>
+                        <li><strong>整合性をチェックする</strong>
+                            <ul>
+                                <li>「この価値提案とコスト構造は整合性がありますか？」</li>
+                            </ul>
+                        </li>
+                        <li><strong>視覚化する</strong>
+                            <ul>
+                                <li>PowerPointやGoogleスライドでキャンバスを作成</li>
+                                <li>AIに作成を依頼してもOK</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="content-section">
+                    <h2>東京都のサービスデザイン実践ガイドブック</h2>
+                    <p>より本格的にサービスを設計したい方向けに、東京都が提供するフレームワークもあります。</p>
+
+                    <h3>特徴</h3>
+                    <ul>
+                        <li>公共サービスの開発ノウハウを体系化</li>
+                        <li>ユーザー中心設計の手法</li>
+                        <li>ステップバイステップのガイド</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>注意点</strong></p>
+                        <p>このガイドブックは非常に詳細で有用ですが、<strong>最初から完璧を目指すと疲弊します</strong>。まずは小さく始めて、必要に応じて参照する姿勢がおすすめです。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>使い分けのポイント</h2>
+
+                    <h3>個人で小さく起業する場合</h3>
+                    <ul>
+                        <li>ビジネスモデルキャンバスは不要</li>
+                        <li>まずやってみて、経験から学ぶ</li>
+                        <li>必要に応じてAIに相談しながら進める</li>
+                    </ul>
+
+                    <h3>会社内で提案する場合</h3>
+                    <ul>
+                        <li>ビジネスモデルキャンバスで全体像を示す</li>
+                        <li>想定される質問に備えて各要素を詳しく検討</li>
+                        <li>数字やデータで裏付けを用意</li>
+                    </ul>
+
+                    <h3>投資家に説明する場合</h3>
+                    <ul>
+                        <li>ビジネスモデルキャンバスは必須</li>
+                        <li>市場規模や成長性のデータが重要</li>
+                        <li>競合分析と差別化を明確に</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 実践のコツ</strong></p>
+                        <p>最初から完璧を目指さず、「今の時点での仮説」として作成しましょう。実際にビジネスを始めると、多くの前提が変わります。それは失敗ではなく、学びのプロセスです。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>まとめ</h2>
+                    <ul>
+                        <li>ビジネスモデルキャンバスは事業の全体像を可視化するツール</li>
+                        <li>必要な場面（提案、投資家説明など）で使う</li>
+                        <li>個人で小さく始めるなら、詳細な計画より実践が重要</li>
+                        <li>AIを活用すれば、効率的に作成・改善できる</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 今すぐ試してみよう！</strong></p>
+                        <p>AIを使って、あなたのビジネスアイデアのビジネスモデルキャンバスを作成してみましょう。完璧を目指さず、まずは全体の流れを掴むことが目的です。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="10_funding.html" class="nav-btn prev">
+                ← 前のレッスン
+            </a>
+            <a href="12_operations.html" class="nav-btn next">
+                次のレッスン →
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 すごいAI道場. All rights reserved.</p>
+            <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionToggle = document.getElementById('textContentToggle');
+            const accordionContent = document.getElementById('textContent');
+
+            if (accordionToggle && accordionContent) {
+                accordionToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    accordionContent.classList.toggle('active');
+
+                    const buttonText = this.querySelector('span:last-child');
+                    if (accordionContent.classList.contains('active')) {
+                        buttonText.textContent = 'テキストでの詳細解説を非表示';
+                    } else {
+                        buttonText.textContent = 'テキストでの詳細解説を表示';
+                    }
+
+                    if (accordionContent.classList.contains('active')) {
+                        setTimeout(() => {
+                            accordionToggle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
+                });
+            }
+        });
+
+        let player;
+        const LESSON_NUMBER = 11;
+        const VIDEO_ID = 'aICfDX0P26Q';
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'playsinline': 1,
+                    'rel': 0
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                console.log('Video completed!');
+                if (typeof trackVideoCompletion !== 'undefined') {
+                    trackVideoCompletion(LESSON_NUMBER);
+                } else {
+                    console.error('trackVideoCompletion function not found');
+                }
+            }
+        }
+
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        } else {
+            onYouTubeIframeAPIReady();
+        }
+    </script>
+</body>
+</html>
