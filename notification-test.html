@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通知テスト - すごいAI道場</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #000814;
+            border-bottom: 3px solid #f46434;
+            padding-bottom: 15px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            border-left: 4px solid #4a90e2;
+        }
+        button {
+            background: #f46434;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #d84a1b;
+            transform: translateY(-2px);
+        }
+        button.secondary {
+            background: #4a90e2;
+        }
+        button.secondary:hover {
+            background: #3a7bc8;
+        }
+        .info {
+            padding: 15px;
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            padding: 15px;
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .success {
+            padding: 15px;
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        pre {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+            background: #263238;
+            color: #aed581;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 通知システムテスト</h1>
+
+        <div class="info">
+            <strong>このページの目的:</strong><br>
+            レッスン完了時にどの通知が表示されるかを確認します。
+        </div>
+
+        <div class="test-section">
+            <h2>📋 現在の設定状態</h2>
+            <p>script.jsの通知設定を確認します：</p>
+            <button onclick="checkNotificationStatus()">通知状態を確認</button>
+            <div id="statusResult" style="margin-top: 15px;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎬 通知のシミュレーション</h2>
+
+            <h3>1. 動画完了メッセージ（残すべき通知）</h3>
+            <p>この通知は<strong>表示されるべき</strong>です：</p>
+            <button onclick="testVideoCompletion()">動画完了メッセージをテスト</button>
+
+            <h3>2. バッジ獲得通知（削除すべき通知）</h3>
+            <p>この通知は<strong>表示されないべき</strong>です：</p>
+            <button onclick="testBadgeNotification()">バッジ獲得通知をテスト</button>
+        </div>
+
+        <div class="test-section">
+            <h2>🔍 実際のレッスンでテスト</h2>
+            <p>実際のレッスンページで通知を確認します：</p>
+            <ol>
+                <li>下のボタンでlocalStorageをクリア</li>
+                <li>レッスンページを開く</li>
+                <li>動画を最後まで再生</li>
+                <li>表示される通知を確認</li>
+            </ol>
+            <button class="secondary" onclick="clearStorage()">localStorageをクリア</button>
+            <button class="secondary" onclick="openLesson()">レッスン1を開く</button>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ 期待される動作</h2>
+            <div class="success">
+                <strong>✓ 表示されるべき通知:</strong>
+                <ul>
+                    <li>🎉 動画視聴完了！</li>
+                    <li>レッスンXXの動画を最後まで視聴しました</li>
+                    <li>バッジ獲得の進捗がアップデートされました</li>
+                </ul>
+            </div>
+            <div class="warning">
+                <strong>✗ 表示されないべき通知:</strong>
+                <ul>
+                    <li>⭐ バッジを獲得しました！</li>
+                    <li>最初の一歩</li>
+                    <li>その他のバッジ名や説明</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔧 トラブルシューティング</h2>
+
+            <h3>問題: 古い通知が表示される</h3>
+            <p><strong>原因:</strong> ブラウザのキャッシュが古いscript.jsを読み込んでいる</p>
+            <p><strong>解決策:</strong></p>
+            <ol>
+                <li>ハードリフレッシュ: <code>Cmd+Shift+R</code> (Mac) または <code>Ctrl+Shift+R</code> (Windows)</li>
+                <li>または下のボタンでキャッシュをクリア</li>
+            </ol>
+            <button class="secondary" onclick="clearCacheAndReload()">キャッシュクリア & リロード</button>
+
+            <h3>確認コマンド（開発者ツールのコンソールで実行）</h3>
+            <pre>// showBadgeNotification関数の内容を確認
+console.log(badgeManager.showBadgeNotification.toString());
+
+// 期待される結果: 最初のreturn文があるはず
+// 実際に通知を表示するコードが実行されないことを確認</pre>
+        </div>
+
+        <div class="test-section">
+            <h2>📝 テスト結果の記録</h2>
+            <textarea id="testResults" style="width: 100%; height: 150px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 6px; font-family: monospace;" placeholder="テスト結果をここに記録してください...&#10;&#10;例:&#10;✓ 動画完了メッセージが表示された&#10;✓ バッジ獲得通知は表示されなかった&#10;✗ 問題: まだバッジ獲得通知が表示される"></textarea>
+            <button style="margin-top: 10px;" onclick="saveTestResults()">結果を保存（localStorage）</button>
+            <button style="margin-top: 10px;" class="secondary" onclick="loadTestResults()">前回の結果を読み込む</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Check notification status
+        function checkNotificationStatus() {
+            const resultDiv = document.getElementById('statusResult');
+
+            let status = '<div class="info">';
+            status += '<strong>通知関数の状態:</strong><br><br>';
+
+            // Check if functions exist
+            if (typeof showVideoCompletionMessage !== 'undefined') {
+                status += '✓ <code>showVideoCompletionMessage</code>: 定義されています（正常）<br>';
+            } else {
+                status += '✗ <code>showVideoCompletionMessage</code>: 未定義（エラー）<br>';
+            }
+
+            if (typeof badgeManager !== 'undefined' && badgeManager.showBadgeNotification) {
+                const fnStr = badgeManager.showBadgeNotification.toString();
+                const isDisabled = fnStr.includes('return;') && fnStr.indexOf('return;') < 200;
+
+                if (isDisabled) {
+                    status += '✓ <code>badgeManager.showBadgeNotification</code>: 無効化されています（正常）<br>';
+                } else {
+                    status += '✗ <code>badgeManager.showBadgeNotification</code>: まだ有効です（要確認）<br>';
+                    status += '<br><div class="warning">警告: バッジ通知が無効化されていません。ブラウザのキャッシュをクリアしてください。</div>';
+                }
+            } else {
+                status += '✗ <code>badgeManager.showBadgeNotification</code>: 未定義（エラー）<br>';
+            }
+
+            status += '</div>';
+            resultDiv.innerHTML = status;
+        }
+
+        // Test video completion message
+        function testVideoCompletion() {
+            if (typeof showVideoCompletionMessage !== 'undefined') {
+                showVideoCompletionMessage(99);
+                alert('動画完了メッセージを表示しました。\n右上に緑色の枠の通知が表示されているはずです。');
+            } else {
+                alert('エラー: showVideoCompletionMessage関数が見つかりません');
+            }
+        }
+
+        // Test badge notification
+        function testBadgeNotification() {
+            if (typeof badgeManager !== 'undefined' && badgeManager.showBadgeNotification) {
+                const testBadge = {
+                    id: 'test',
+                    name: 'テストバッジ',
+                    description: 'これは表示されないべきです',
+                    icon: '⭐',
+                    color: '#ffd700'
+                };
+                badgeManager.showBadgeNotification(testBadge);
+
+                setTimeout(() => {
+                    alert('バッジ獲得通知のテストを実行しました。\n\n右上に通知が表示された場合は、キャッシュをクリアしてください。\n表示されなかった場合は、正常に無効化されています。');
+                }, 500);
+            } else {
+                alert('エラー: badgeManager.showBadgeNotification関数が見つかりません');
+            }
+        }
+
+        // Clear localStorage
+        function clearStorage() {
+            localStorage.removeItem('aiLearningCompletedLessons');
+            localStorage.removeItem('aiLearningCompletedVideos');
+            localStorage.removeItem('aiLearningBadges');
+            alert('localStorageをクリアしました。\n次にレッスンページで動画を見ると、新たに通知が表示されます。');
+        }
+
+        // Open lesson 1
+        function openLesson() {
+            window.open('howtoAI/01_ai-basics.html', '_blank');
+        }
+
+        // Clear cache and reload
+        function clearCacheAndReload() {
+            if (confirm('ブラウザのキャッシュをクリアしてリロードします。\n\n※ ブラウザによっては完全にクリアされない場合があります。\nその場合は、ブラウザの設定から手動でキャッシュをクリアしてください。')) {
+                // Clear caches if available
+                if ('caches' in window) {
+                    caches.keys().then(names => {
+                        names.forEach(name => caches.delete(name));
+                    });
+                }
+
+                // Reload with cache clearing
+                location.reload(true);
+            }
+        }
+
+        // Save test results
+        function saveTestResults() {
+            const results = document.getElementById('testResults').value;
+            localStorage.setItem('notificationTestResults', results);
+            alert('テスト結果を保存しました');
+        }
+
+        // Load test results
+        function loadTestResults() {
+            const results = localStorage.getItem('notificationTestResults');
+            if (results) {
+                document.getElementById('testResults').value = results;
+                alert('前回のテスト結果を読み込みました');
+            } else {
+                alert('保存されたテスト結果がありません');
+            }
+        }
+
+        // Auto-check on load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(checkNotificationStatus, 500);
+        });
+    </script>
+</body>
+</html>

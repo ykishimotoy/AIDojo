@@ -396,38 +396,24 @@ class BadgeManager {
         }
     }
 
-    // Show badge notification
+    // Show badge notification (disabled - only update badge display)
     showBadgeNotification(badge) {
-        const notification = document.createElement('div');
-        notification.className = 'badge-notification';
-        notification.innerHTML = `
-            <div class="badge-notification-content">
-                <div class="badge-icon" style="background: ${badge.color}">${badge.icon}</div>
-                <div class="badge-info">
-                    <h3>バッジを獲得しました！</h3>
-                    <h4>${badge.name}</h4>
-                    <p>${badge.description}</p>
-                </div>
-            </div>
-        `;
+        // Badge notification is disabled to avoid duplicate messages
+        // Only the video completion message will be shown
 
-        document.body.appendChild(notification);
-
-        // Add animation styles
-        this.addBadgeNotificationStyles();
-
-        // Remove after animation
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.5s ease forwards';
-            setTimeout(() => notification.remove(), 500);
-        }, 4000);
-
-        // Update badge display
+        // Update badge display (still needed for internal tracking)
         this.updateBadgeDisplay();
+
+        // All notification display code has been disabled
+        return;
     }
 
-    // Add badge notification styles
+    // Add badge notification styles (disabled)
     addBadgeNotificationStyles() {
+        // Badge notification styles are disabled
+        return;
+
+        // Original code disabled below
         if (!document.getElementById('badge-notification-styles')) {
             const style = document.createElement('style');
             style.id = 'badge-notification-styles';
