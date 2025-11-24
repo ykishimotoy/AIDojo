@@ -1216,13 +1216,21 @@
             }
 
             resetAllBadges() {
-                // Clear all badges
+                // Clear all badges and related data
                 this.completedLessons = [];
                 this.saveCompletedLessons();
+
+                // Also clear video completion tracker data
+                localStorage.removeItem('aiLearningCompletedVideos');
+
+                // Clear badge data
+                localStorage.removeItem('aiLearningBadges');
 
                 // Update display
                 this.updateAllBadges();
                 this.updateProgressSummary();
+
+                console.log('All progress has been reset');
             }
         }
 

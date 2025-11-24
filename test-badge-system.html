@@ -185,13 +185,19 @@
             }
         }
 
-        // Clear all progress
+        // Clear all progress (same logic as mypage.html reset)
         function clearAllProgress() {
-            if (confirm('本当に全ての進捗をクリアしますか？')) {
+            if (confirm('本当に全ての進捗をクリアしますか？\n\n※これはmypage.htmlのリセットボタンと同じ処理です')) {
                 localStorage.removeItem('aiLearningCompletedLessons');
                 localStorage.removeItem('aiLearningCompletedVideos');
                 localStorage.removeItem('aiLearningBadges');
-                alert('全ての進捗をクリアしました');
+
+                console.log('Cleared localStorage keys:');
+                console.log('- aiLearningCompletedLessons');
+                console.log('- aiLearningCompletedVideos');
+                console.log('- aiLearningBadges');
+
+                alert('全ての進捗をクリアしました\n\n次にレッスンページで動画を見ると、再度クリア判定が行われます。');
                 refreshStatus();
             }
         }
