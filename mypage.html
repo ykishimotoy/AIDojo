@@ -990,12 +990,12 @@
             }
 
             loadCompletedLessons() {
-                const saved = localStorage.getItem('completedLessons');
+                const saved = localStorage.getItem('aiLearningCompletedLessons');
                 return saved ? JSON.parse(saved) : [];
             }
 
             saveCompletedLessons() {
-                localStorage.setItem('completedLessons', JSON.stringify(this.completedLessons));
+                localStorage.setItem('aiLearningCompletedLessons', JSON.stringify(this.completedLessons));
             }
 
             init() {

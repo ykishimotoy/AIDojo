@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>バッジシステムテスト - すごいAI道場</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #000814;
+            border-bottom: 3px solid #f46434;
+            padding-bottom: 15px;
+        }
+        h2 {
+            color: #4a90e2;
+            margin-top: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f8f8;
+            border-radius: 8px;
+        }
+        button {
+            background: #f46434;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #d84a1b;
+            transform: translateY(-2px);
+        }
+        button.secondary {
+            background: #4a90e2;
+        }
+        button.secondary:hover {
+            background: #3a7bc8;
+        }
+        button.danger {
+            background: #e74c3c;
+        }
+        button.danger:hover {
+            background: #c0392b;
+        }
+        .status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+        }
+        .status.info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+        .status.success {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .badge-number {
+            background: #27ae60;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .badge-number.completed {
+            background: #ffd700;
+            color: #000814;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 バッジシステムテスト</h1>
+        <p>このページでは、レッスンページとマイページのバッジシステムの連動をテストできます。</p>
+
+        <div class="test-section">
+            <h2>📊 現在の状態</h2>
+            <div class="status info" id="currentStatus">
+                読み込み中...
+            </div>
+            <div class="badge-list" id="badgeList"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🧪 テスト機能</h2>
+            <p>以下のボタンでバッジシステムをテストできます：</p>
+
+            <div style="margin: 20px 0;">
+                <button onclick="simulateVideoCompletion(1)">レッスン01完了をシミュレート</button>
+                <button onclick="simulateVideoCompletion(8)">レッスン08完了をシミュレート</button>
+                <button onclick="simulateVideoCompletion(14)">レッスン14完了をシミュレート</button>
+                <button onclick="simulateVideoCompletion(19)">レッスン19完了をシミュレート</button>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <button class="secondary" onclick="completeAllAIGeneral()">AI全般を全て完了</button>
+                <button class="secondary" onclick="completeAllStartup()">起業・ビジコンを全て完了</button>
+                <button class="secondary" onclick="completeAllCreative()">クリエイティブを全て完了</button>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <button class="danger" onclick="clearAllProgress()">全ての進捗をクリア</button>
+                <button class="secondary" onclick="refreshStatus()">状態を更新</button>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <a href="mypage.html" style="text-decoration: none;">
+                    <button class="secondary">マイページで確認</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📝 動作確認手順</h2>
+            <ol>
+                <li>「レッスン01完了をシミュレート」ボタンをクリック</li>
+                <li>「状態を更新」ボタンで完了リストを確認</li>
+                <li>「マイページで確認」ボタンでmypage.htmlを開く</li>
+                <li>マイページでレッスン01のバッジが解放されているか確認</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>🔍 localStorageの内容</h2>
+            <button onclick="showLocalStorage()">localStorageを表示</button>
+            <div class="status info" id="localStorageContent" style="margin-top: 10px; display: none;">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Simulate video completion
+        function simulateVideoCompletion(lessonNumber) {
+            if (typeof trackVideoCompletion === 'function') {
+                trackVideoCompletion(lessonNumber);
+                alert(`レッスン${String(lessonNumber).padStart(2, '0')}を完了しました！`);
+                refreshStatus();
+            } else {
+                alert('エラー: trackVideoCompletion関数が見つかりません');
+            }
+        }
+
+        // Complete all lessons in a category
+        function completeAllAIGeneral() {
+            for (let i = 1; i <= 7; i++) {
+                simulateVideoCompletion(i);
+            }
+        }
+
+        function completeAllStartup() {
+            for (let i = 8; i <= 13; i++) {
+                simulateVideoCompletion(i);
+            }
+        }
+
+        function completeAllCreative() {
+            for (let i = 14; i <= 18; i++) {
+                simulateVideoCompletion(i);
+            }
+        }
+
+        // Clear all progress
+        function clearAllProgress() {
+            if (confirm('本当に全ての進捗をクリアしますか？')) {
+                localStorage.removeItem('aiLearningCompletedLessons');
+                localStorage.removeItem('aiLearningCompletedVideos');
+                localStorage.removeItem('aiLearningBadges');
+                alert('全ての進捗をクリアしました');
+                refreshStatus();
+            }
+        }
+
+        // Refresh status display
+        function refreshStatus() {
+            const statusDiv = document.getElementById('currentStatus');
+            const badgeListDiv = document.getElementById('badgeList');
+
+            const completedLessons = JSON.parse(localStorage.getItem('aiLearningCompletedLessons') || '[]');
+
+            statusDiv.innerHTML = `
+                <strong>完了済みレッスン数:</strong> ${completedLessons.length} / 19<br>
+                <strong>完了済みレッスン:</strong> ${completedLessons.length > 0 ? completedLessons.sort((a, b) => a - b).join(', ') : 'なし'}
+            `;
+
+            // Display badges
+            badgeListDiv.innerHTML = '';
+            for (let i = 1; i <= 19; i++) {
+                const badge = document.createElement('div');
+                badge.className = completedLessons.includes(i) ? 'badge-number completed' : 'badge-number';
+                badge.textContent = String(i).padStart(2, '0');
+                badgeListDiv.appendChild(badge);
+            }
+        }
+
+        // Show localStorage contents
+        function showLocalStorage() {
+            const div = document.getElementById('localStorageContent');
+            const content = {
+                'aiLearningCompletedLessons': localStorage.getItem('aiLearningCompletedLessons'),
+                'aiLearningCompletedVideos': localStorage.getItem('aiLearningCompletedVideos'),
+                'aiLearningBadges': localStorage.getItem('aiLearningBadges')
+            };
+
+            div.style.display = 'block';
+            div.innerHTML = '<pre>' + JSON.stringify(content, null, 2) + '</pre>';
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', refreshStatus);
+    </script>
+</body>
+</html>

@@ -367,12 +367,12 @@ class BadgeManager {
             this.awardBadge('ten_lessons');
         }
 
-        // Section completion badges
+        // Section completion badges (updated to match actual lesson structure)
         const sections = {
-            introduction: { start: 1, end: 4, badgeId: 'introduction_complete' },
-            machineLearning: { start: 5, end: 10, badgeId: 'machine_learning_complete' },
-            deepLearning: { start: 11, end: 16, badgeId: 'deep_learning_complete' },
-            practical: { start: 17, end: 22, badgeId: 'practical_complete' }
+            aiGeneral: { start: 1, end: 7, badgeId: 'introduction_complete' },
+            startup: { start: 8, end: 13, badgeId: 'machine_learning_complete' },
+            creative: { start: 14, end: 18, badgeId: 'deep_learning_complete' },
+            community: { start: 19, end: 19, badgeId: 'practical_complete' }
         };
 
         for (const [section, data] of Object.entries(sections)) {
@@ -390,8 +390,8 @@ class BadgeManager {
             }
         }
 
-        // Master badge (all 22 lessons)
-        if (completedCount === 22) {
+        // Master badge (all 19 lessons)
+        if (completedCount === 19) {
             this.awardBadge('all_complete');
         }
     }
@@ -550,7 +550,7 @@ class BadgeManager {
             earned: this.earnedBadges.length,
             total: Object.keys(this.badges).length,
             lessonsCompleted: this.completedLessons.length,
-            totalLessons: 22
+            totalLessons: 19
         };
     }
 }
