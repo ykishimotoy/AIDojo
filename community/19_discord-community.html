@@ -239,6 +239,27 @@
             width: 100%;
             box-sizing: border-box;
         }
+        .discord-join-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 20px 50px;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(155, 89, 182, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .discord-join-button:hover {
+            background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5);
+        }
+        .discord-join-button:active {
+            transform: translateY(-1px);
+        }
         @media (max-width: 768px) {
             .lesson-page {
                 margin: 100px 15px 40px;
@@ -285,6 +306,10 @@
             }
             .accordion-content.active {
                 padding: 20px;
+            }
+            .discord-join-button {
+                font-size: 1.1rem;
+                padding: 15px 35px;
             }
         }
         @media (max-width: 480px) {
@@ -335,6 +360,12 @@
             .accordion-content.active {
                 padding: 15px;
             }
+            .discord-join-button {
+                font-size: 1rem;
+                padding: 12px 25px;
+                white-space: normal;
+                line-height: 1.4;
+            }
         }
     </style>
 </head>
@@ -374,6 +405,58 @@
             <p style="margin-top: 20px;">💡動画をピクチャインピクチャ機能で再生しながら、学習を進めてください。</p>
         </div>
 
+        <div class="content-section">
+            <h2>🎯 Discordコミュニティに参加する3つのメリット</h2>
+
+            <div style="background: #f4ecf7; padding: 25px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="color: #9b59b6; margin-top: 0;">1. 📖 ここでは語れなかった、AIサムライ岸本の具体的なエピソードを聞ける</h3>
+                <p>動画では時間の都合で話せなかった、岸本の実体験や失敗談、成功の裏話など、より深い学びを得られます。リアルな現場の声は、あなたの挑戦を後押ししてくれるはずです。</p>
+            </div>
+
+            <div style="background: #f4ecf7; padding: 25px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="color: #9b59b6; margin-top: 0;">2. 🎨 自分の出力結果を安心して投稿できるし、見てもらえる</h3>
+                <p>「こんなの投稿して大丈夫かな…」と不安になる必要はありません。ここは初心者も上級者も、みんなが試行錯誤している場所。あなたの作品を温かく受け入れ、建設的なフィードバックをくれる仲間がいます。SNSとは違う、安心できる空間です。</p>
+            </div>
+
+            <div style="background: #f4ecf7; padding: 25px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="color: #9b59b6; margin-top: 0;">3. 🔥 何より、学習のモチベーション維持や挑戦のきっかけを得られる</h3>
+                <p>一人で学習を続けるのは、本当に難しい。でも、同じ目標を持つ仲間がいれば違います。他の人の作品を見て刺激を受けたり、「自分もやってみよう」と思える瞬間が必ず訪れます。挫折しそうな時も、コミュニティがあなたを支えてくれます。</p>
+            </div>
+        </div>
+
+        <div class="content-section" style="text-align: center; background: linear-gradient(135deg, #f4ecf7 0%, #e8daef 100%); padding: 40px 30px; border-radius: 12px; margin: 40px 0;">
+            <h2 style="font-size: 1.8rem; color: #9b59b6; margin-bottom: 25px; border: none; padding: 0;">💬 初めての方へ：安心して飛び込んできてください</h2>
+
+            <div style="text-align: left; max-width: 700px; margin: 0 auto 30px;">
+                <p style="font-size: 1.15rem; line-height: 2; color: #625147; margin-bottom: 20px;">
+                    「Discordって使ったことないし…」「まだAI初心者だから参加しづらいな…」「質問したら迷惑かも…」
+                </p>
+                <p style="font-size: 1.15rem; line-height: 2; color: #625147; margin-bottom: 20px;">
+                    <strong style="color: #9b59b6; font-size: 1.25rem;">そんな心配は一切不要です。</strong>
+                </p>
+                <p style="font-size: 1.15rem; line-height: 2; color: #625147; margin-bottom: 20px;">
+                    このコミュニティは、<strong>「初心者こそ歓迎」</strong>がモットーです。誰もが最初は初心者でした。わからないことを質問するのは当然ですし、むしろその質問が他の誰かの学びにもなります。
+                </p>
+                <p style="font-size: 1.15rem; line-height: 2; color: #625147; margin-bottom: 20px;">
+                    最初は見ているだけでもOK。他の人の投稿や質問を見ているうちに、「自分も投稿してみようかな」と思えるタイミングが必ず来ます。その時が、あなたの挑戦の始まりです。
+                </p>
+                <p style="font-size: 1.15rem; line-height: 2; color: #625147; margin-bottom: 20px;">
+                    <strong style="color: #9b59b6;">まずは一歩、踏み出してみませんか？</strong>
+                </p>
+                <p style="font-size: 1.15rem; line-height: 2; color: #625147; margin-bottom: 0;">
+                    あなたがこの道場で学んだことを活かし、成長していく姿を見られることを、私たちは心から楽しみにしています。コミュニティで会いましょう！
+                </p>
+            </div>
+
+            <a href="https://discord.gg/sugoi-ai-dojo" target="_blank" class="discord-join-button">
+                🚀 すごいAI道場 Discordに参加する
+            </a>
+
+            <p style="margin-top: 20px; font-size: 0.95rem; color: #7d3c98;">
+                ※クリックするとDiscordの招待ページに移動します（無料）
+            </p>
+        </div>
+
         <div class="reference-links">
             <h3>参考リンク - 実際に使ってみよう</h3>
             <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
@@ -388,33 +471,179 @@
             </button>
             <div class="accordion-content" id="textContent">
                 <div class="content-section">
-                    <h2>このレッスンについて</h2>
-                    <p>このレッスンでは、Discordコミュニティ入会ページについて詳しく学びます。</p>
-                    
+                    <h2>📱 Discordとは？</h2>
+                    <p>Discordは、テキスト・音声・ビデオでコミュニケーションができる無料のコミュニケーションツールです。もともとゲーマー向けに開発されましたが、現在は学習コミュニティ、趣味のグループ、ビジネスチームなど、幅広い用途で使われています。</p>
+
                     <div class="highlight-box">
-                        <p><strong>学習のポイント</strong></p>
+                        <p><strong>Discordの特徴</strong></p>
                         <ul style="margin: 10px 0;">
-                            <li>基本的な使い方と操作方法</li>
-                            <li>効果的なプロンプトの書き方</li>
-                            <li>実践的なテクニック</li>
-                            <li>注意点とベストプラクティス</li>
+                            <li><strong>完全無料：</strong>基本機能はすべて無料で利用可能</li>
+                            <li><strong>マルチデバイス：</strong>スマホ、タブレット、PCのどれでも使える</li>
+                            <li><strong>リアルタイム：</strong>チャット、音声通話、画面共有が簡単</li>
+                            <li><strong>整理された会話：</strong>チャンネルごとにトピックを分けて議論できる</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="content-section">
-                    <h2>実践的な活用方法</h2>
-                    <p>AIツールを効果的に活用するためのコツを理解しましょう。</p>
-                    
+                    <h2>🚀 Discordの始め方（初回登録）</h2>
+
+                    <h3>1. アカウント作成</h3>
+                    <ol>
+                        <li><strong>招待リンクをクリック：</strong>上の「Discordに参加する」ボタンをクリック</li>
+                        <li><strong>アカウント登録：</strong>メールアドレス、ユーザー名、パスワードを入力</li>
+                        <li><strong>メール認証：</strong>届いた認証メールのリンクをクリックして認証完了</li>
+                    </ol>
+
+                    <h3>2. アプリのインストール（推奨）</h3>
+                    <p>ブラウザでも使えますが、アプリの方が使いやすいです：</p>
                     <ul>
-                        <li><strong>試行錯誤を恐れない：</strong>最初から完璧を目指さず、何度も試す</li>
-                        <li><strong>具体的な指示：</strong>プロンプトは詳細に記述する</li>
-                        <li><strong>反復改善：</strong>生成結果を見て、指示を調整する</li>
+                        <li><strong>PC：</strong><a href="https://discord.com/download" target="_blank">discord.com/download</a> から公式アプリをダウンロード</li>
+                        <li><strong>スマホ：</strong>App Store（iOS）またはGoogle Play（Android）で「Discord」を検索してインストール</li>
+                    </ul>
+
+                    <h3>3. サーバーに参加</h3>
+                    <p>招待リンクから自動的に「すごいAI道場」サーバーに参加できます。左側のサーバーリストに道場のアイコンが表示されれば成功です。</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>💬 Discordの基本操作</h2>
+
+                    <h3>画面の見方</h3>
+                    <ul>
+                        <li><strong>左端：サーバーリスト</strong> - 参加しているサーバー（コミュニティ）の一覧</li>
+                        <li><strong>左側：チャンネルリスト</strong> - サーバー内のチャンネル（話題ごとの部屋）</li>
+                        <li><strong>中央：メッセージエリア</strong> - 会話が表示される場所</li>
+                        <li><strong>右側：メンバーリスト</strong> - 現在オンラインのメンバー</li>
+                    </ul>
+
+                    <h3>メッセージの送り方</h3>
+                    <ol>
+                        <li>送りたいチャンネルを左側のリストからクリック</li>
+                        <li>画面下部のメッセージ入力欄にテキストを入力</li>
+                        <li>Enterキーを押すか、送信ボタンをクリック</li>
+                    </ol>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 便利な機能</strong></p>
+                        <ul style="margin: 10px 0;">
+                            <li><strong>返信：</strong>メッセージにカーソルを合わせて「返信」アイコンをクリック</li>
+                            <li><strong>リアクション：</strong>メッセージに絵文字で反応できる</li>
+                            <li><strong>ファイル添付：</strong>画像や動画をドラッグ&ドロップで投稿</li>
+                            <li><strong>メンション：</strong>@ユーザー名 で特定の人に通知を送れる</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>📝 チャンネルの種類と使い方</h2>
+                    <p>「すごいAI道場」サーバーには、用途別にいくつかのチャンネルがあります：</p>
+
+                    <ul>
+                        <li><strong>📢 お知らせチャンネル：</strong>重要な情報やイベント告知（通知をオンにしておくと便利）</li>
+                        <li><strong>💬 雑談チャンネル：</strong>気軽な会話や自己紹介</li>
+                        <li><strong>❓ 質問チャンネル：</strong>AIやツールに関する質問</li>
+                        <li><strong>🎨 作品投稿チャンネル：</strong>AI生成作品の共有とフィードバック</li>
+                        <li><strong>📚 学習記録チャンネル：</strong>学習の進捗や気づきをシェア</li>
                     </ul>
 
                     <div class="highlight-box">
-                        <p><strong>💡 今すぐ試してみよう！</strong></p>
-                        <p>実際にツールを使って、簡単な作品を作ってみましょう。最初は小さなプロジェクトから始めることをお勧めします。</p>
+                        <p><strong>チャンネル選びのコツ</strong></p>
+                        <p>最初はどこに投稿すればいいか迷うかもしれませんが、大丈夫。間違ったチャンネルに投稿しても、誰も怒りません。わからなければ「雑談」チャンネルから始めましょう。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>⚙️ 通知設定のカスタマイズ</h2>
+                    <p>Discordは通知が多くなりがちなので、自分に合った設定にしましょう：</p>
+
+                    <h3>サーバー全体の通知設定</h3>
+                    <ol>
+                        <li>サーバー名を右クリック（スマホは長押し）</li>
+                        <li>「通知設定」を選択</li>
+                        <li>「メンションされた時のみ」を選ぶと、自分が呼ばれた時だけ通知が来る</li>
+                    </ol>
+
+                    <h3>特定チャンネルの通知設定</h3>
+                    <ul>
+                        <li><strong>お知らせチャンネル：</strong>通知オン（重要情報を見逃さない）</li>
+                        <li><strong>雑談チャンネル：</strong>通知オフまたはメンションのみ</li>
+                        <li><strong>作品投稿チャンネル：</strong>お好みで設定</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>🎯 最初にやるべきこと</h2>
+                    <p>Discordに参加したら、以下のステップで慣れていきましょう：</p>
+
+                    <ol>
+                        <li><strong>自己紹介をしてみる</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>名前（ニックネーム）</li>
+                                <li>AIに興味を持ったきっかけ</li>
+                                <li>学びたいこと・やってみたいこと</li>
+                            </ul>
+                        </li>
+                        <li><strong>他の人の投稿を見る</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>どんな作品が投稿されているか</li>
+                                <li>どんな質問があるか</li>
+                                <li>コミュニティの雰囲気を感じる</li>
+                            </ul>
+                        </li>
+                        <li><strong>リアクションをつけてみる</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>いきなり文章を書くのが難しければ、まずは絵文字で反応</li>
+                                <li>「いいね」的な感覚で気軽にOK</li>
+                            </ul>
+                        </li>
+                        <li><strong>質問や作品投稿をしてみる</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>完璧を求めなくてOK</li>
+                                <li>「こんなこと聞いていいのかな…」と思うことほど、他の人も知りたがっている</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="highlight-box">
+                        <p><strong>🌟 大切なこと</strong></p>
+                        <p>コミュニティは、参加する一人ひとりが作り上げるものです。あなたの質問、作品、感想が、コミュニティをより豊かにします。まずは「見ているだけ」でも全く問題ありません。自分のペースで、少しずつ参加していきましょう。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>📖 よくある質問（FAQ）</h2>
+
+                    <h3>Q. Discordの利用は本当に無料ですか？</h3>
+                    <p>A. はい、完全無料です。「Discord Nitro」という有料プランもありますが、基本的な機能はすべて無料で使えます。</p>
+
+                    <h3>Q. 本名を登録する必要がありますか？</h3>
+                    <p>A. いいえ、ニックネームやハンドルネームでOKです。プライバシーは自分で管理しましょう。</p>
+
+                    <h3>Q. 音声チャットに参加しないといけませんか？</h3>
+                    <p>A. いいえ、テキストチャットだけの参加で全く問題ありません。音声は自由参加です。</p>
+
+                    <h3>Q. 質問が初歩的すぎて恥ずかしいのですが…</h3>
+                    <p>A. 初歩的な質問ほど、実は多くの人が知りたがっています。遠慮せず質問してください。</p>
+
+                    <h3>Q. 毎日チェックしないといけませんか？</h3>
+                    <p>A. いいえ、自分のペースで大丈夫です。週に1回、月に1回でも、あなたのタイミングで参加してください。</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>🎓 まとめ：コミュニティで共に成長しよう</h2>
+                    <p>Discordは、単なるチャットツールではありません。それは、同じ目標を持つ仲間と繋がり、共に学び、成長していく場所です。</p>
+                    <p>このコミュニティで、あなたは：</p>
+                    <ul>
+                        <li>✅ 新しい知識とスキルを得られる</li>
+                        <li>✅ 挑戦を続けるモチベーションを維持できる</li>
+                        <li>✅ 自分の作品を共有し、フィードバックをもらえる</li>
+                        <li>✅ 同じ道を歩む仲間と出会える</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>🚀 次のステップ</strong></p>
+                        <p>動画を見終わったら、ぜひ上のボタンからDiscordに参加してください。そして、まずは「自己紹介チャンネル」で挨拶してみましょう。コミュニティで、あなたをお待ちしています！</p>
                     </div>
                 </div>
     </div></div><div class="navigation-buttons">
