@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(python3:*)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(chmod:*)",
+      "Bash(./refactor-lessons.sh)"
     ],
     "deny": [],
     "ask": []
