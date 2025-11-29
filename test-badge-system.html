@@ -4,13 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>バッジシステムテスト - すごいAI道場</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 800px;
-            margin: 50px auto;
+            margin: 100px auto 50px;
             padding: 20px;
             background: #f5f5f5;
+        }
+
+        /* Tutorial button in header */
+        .nav-tutorial {
+            color: #000814 !important;
+            background: transparent !important;
+            border: none !important;
+            padding: 8px 20px !important;
+            border-radius: 6px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            text-decoration: none !important;
+        }
+
+        .nav-tutorial:hover {
+            background: #6c757d !important;
+            color: white !important;
+            transform: translateY(-2px) !important;
         }
         .container {
             background: white;
@@ -94,6 +113,25 @@
     </style>
 </head>
 <body>
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-logo">すごいAI道場</div>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#ai-general" class="nav-ai">AI全般</a></li>
+                <li><a href="index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                <li><a href="index.html#creative" class="nav-creative">クリエイティブ</a></li>
+                <li><a href="index.html#community" class="nav-community">コミュニティ</a></li>
+                <li><a href="mypage.html" class="nav-mypage">マイページ</a></li>
+                <li><a href="tutorial.html" class="nav-tutorial">チュートリアル</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
         <h1>🧪 バッジシステムテスト</h1>
         <p>このページでは、レッスンページとマイページのバッジシステムの連動をテストできます。</p>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チュートリアル - すごいAI道場</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .lesson-page {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            padding: 40px;
+            background: white;
+            border: 3px solid #6c757d;
+            border-radius: 8px;
+        }
+
+        .lesson-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #6c757d;
+        }
+
+        .lesson-title-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-number-badge {
+            display: inline-block;
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #495057;
+            margin: 0;
+        }
+
+        .lesson-description {
+            font-size: 1.2rem;
+            color: #6c757d;
+            line-height: 1.8;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 30px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe,
+        .video-container #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-section {
+            margin: 40px 0;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: #495057;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #6c757d;
+        }
+
+        .content-section h3 {
+            font-size: 1.4rem;
+            color: #495057;
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .reference-links {
+            background: #e9ecef;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #6c757d;
+            margin: 30px 0;
+        }
+
+        .reference-links h3 {
+            font-size: 1.3rem;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        .reference-links a {
+            display: inline-block;
+            color: #495057;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #6c757d;
+            border-radius: 6px;
+            margin: 5px 10px 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .reference-links a:hover {
+            background: #6c757d;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-btn.prev {
+            background: #e0e0e0;
+            color: #495057;
+        }
+
+        .nav-btn.prev:hover {
+            background: #c0c0c0;
+            transform: translateX(-5px);
+        }
+
+        .nav-btn.next {
+            background: #6c757d;
+            color: white;
+        }
+
+        .nav-btn.next:hover {
+            background: #5a6268;
+            transform: translateX(5px);
+        }
+
+        .nav-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-btn.disabled:hover {
+            transform: none;
+        }
+
+
+        .highlight-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #6c757d;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #495057;
+        }
+
+        /* Prevent layout shift from scrollbar */
+        html {
+            overflow-y: scroll;
+        }
+
+        /* Accordion Styles */
+        .accordion-container {
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .accordion-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #6c757d 0%, #868e96 100%);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+        }
+
+        .accordion-toggle:hover {
+            background: linear-gradient(135deg, #5a6268 0%, #6c757d 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(108, 117, 125, 0.4);
+        }
+
+        .accordion-toggle:active {
+            transform: translateY(0);
+        }
+
+        .accordion-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .accordion-toggle.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f8f9fa;
+            border-radius: 0 0 8px 8px;
+            margin-top: -5px;
+            width: 100%;
+        }
+
+        .accordion-content.active {
+            max-height: 5000px;
+            transition: max-height 0.8s ease-in;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .accordion-content .content-section {
+            margin: 0;
+            width: 100%;
+        }
+
+        .accordion-content .content-section h2:first-child {
+            margin-top: 0;
+        }
+
+        /* Prevent width changes during animation */
+        .lesson-page {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .lesson-page {
+                margin: 100px 15px 40px;
+                padding: 20px 15px;
+            }
+
+            .lesson-title-row {
+                gap: 15px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .lesson-title {
+                font-size: 1.8rem;
+            }
+
+            .lesson-description {
+                font-size: 1rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .reference-links {
+                padding: 20px;
+            }
+
+            .reference-links a {
+                display: block;
+                margin: 8px 0;
+            }
+
+            .accordion-toggle {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .accordion-content.active {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-page {
+                margin: 90px 10px 30px;
+                padding: 15px 10px;
+            }
+
+            .lesson-title-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .lesson-number-badge {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .lesson-description {
+                font-size: 0.95rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.3rem;
+                padding-left: 10px;
+            }
+
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .content-section p,
+            .content-section li {
+                font-size: 0.95rem;
+            }
+
+            .highlight-box {
+                padding: 15px;
+            }
+
+            .reference-links {
+                padding: 15px;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .accordion-toggle {
+                padding: 12px 15px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+
+            .accordion-content.active {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-logo">すごいAI道場</div>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#ai-general" class="nav-ai">AI全般</a></li>
+                <li><a href="index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                <li><a href="index.html#creative" class="nav-creative">クリエイティブ</a></li>
+                <li><a href="index.html#community" class="nav-community">コミュニティ</a></li>
+                <li><a href="mypage.html" class="nav-mypage">マイページ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="lesson-page">
+        <div class="lesson-header">
+            <div class="lesson-title-row">
+                <span class="lesson-number-badge">チュートリアル</span>
+                <h1 class="lesson-title">使い方ガイド</h1>
+            </div>
+            <p class="lesson-description">動画を見ながらAIツールを実際に操作してみましょう</p>
+        </div>
+
+        <div class="content-section">
+            <h2>学習動画</h2>
+            <div class="video-container">
+                <!-- YouTube埋め込み - enablejsapi=1とidが必要 -->
+                <div id="player"></div>
+            </div>
+            <p style="margin-top: 20px;">💡動画をピクチャインピクチャ機能で再生しながら、学習を進めてください。</p>
+        </div>
+
+        <div class="reference-links">
+            <h3>参考リンク - 実際に使ってみよう</h3>
+            <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
+            <a href="https://claude.ai/" target="_blank">Claude</a>
+            <a href="https://gemini.google.com/" target="_blank">Gemini</a>
+        </div>
+
+        <div class="accordion-container">
+            <button class="accordion-toggle" id="textContentToggle">
+                <span class="accordion-icon">▶</span>
+                <span>テキストでの詳細解説を表示</span>
+            </button>
+            <div class="accordion-content" id="textContent">
+                <div class="content-section">
+                    <h2>この道場の使い方</h2>
+                    <div class="highlight-box">
+                        <p><strong>推奨：ピクチャインピクチャ（PiP）で動画を再生しながら実践</strong></p>
+                        <p>動画をピクチャインピクチャモードで再生すると、画面の隅に小さなウィンドウで動画が表示されます。この状態で、別のタブやウィンドウでChatGPT、Claude、GeminiなどのAIツールを開いて、実際に操作してみましょう。</p>
+                    </div>
+
+                    <h3>ピクチャインピクチャ（PiP）モードの使い方</h3>
+                    <ul>
+                        <li><strong>パソコンの場合：</strong>動画プレーヤー上で右クリック（または2本指タップ）し、「ピクチャインピクチャ」を選択</li>
+                        <li><strong>スマートフォン・タブレットの場合：</strong>動画再生中にホームボタンを押すと自動的にPiPモードになります（機種・アプリにより異なります）</li>
+                    </ul>
+
+                    <h3>実践的な学習の流れ</h3>
+                    <ol>
+                        <li><strong>動画をPiPモードで再生：</strong>画面の隅に動画を表示させます</li>
+                        <li><strong>AIツールを別タブで開く：</strong>ChatGPT、Claude、Geminiのいずれかを開きます</li>
+                        <li><strong>動画を見ながら実際に操作：</strong>動画で紹介されている内容を、自分の手で試してみます</li>
+                        <li><strong>試行錯誤を繰り返す：</strong>見るだけでなく、実際に手を動かすことで理解が深まります</li>
+                    </ol>
+                </div>
+
+                <div class="content-section">
+                    <h2>AIツールの開き方</h2>
+                    <p>上部の「参考リンク」にある3つのAIツールを新しいタブで開きましょう。それぞれのツールには特徴があります：</p>
+
+                    <h3>主要なAIツール</h3>
+                    <ul>
+                        <li><strong>ChatGPT：</strong>最も有名で使いやすいAIチャットツール。幅広いタスクに対応</li>
+                        <li><strong>Claude：</strong>長い文章の読解や複雑な質問への回答に優れたAIツール</li>
+                        <li><strong>Gemini：</strong>Googleが提供するAIツール。最新情報の検索にも対応</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>💡 まずはどれか1つから始めましょう</strong></p>
+                        <p>最初は3つ全てを試す必要はありません。まずはChatGPTから始めるのがおすすめです。慣れてきたら他のツールも試してみましょう。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>実際に試してみよう</h2>
+                    <p>動画をPiPモードで再生しながら、以下のステップで実践してみましょう：</p>
+
+                    <h3>ステップ1：AIツールにアクセス</h3>
+                    <p>上記のリンクから、ChatGPT、Claude、Geminiのいずれか1つを新しいタブで開きます。</p>
+
+                    <h3>ステップ2：簡単な質問をしてみる</h3>
+                    <div class="highlight-box">
+                        <p><strong>最初の質問例：</strong></p>
+                        <p>「こんにちは。あなたはどんなことができますか？初心者にもわかりやすく3つ教えてください。」</p>
+                    </div>
+
+                    <h3>ステップ3：動画で学んだことを実践</h3>
+                    <p>動画で紹介される様々なプロンプト（AIへの指示文）を、自分の手で入力して試してみましょう。失敗しても大丈夫です。試行錯誤が学びにつながります。</p>
+
+                    <h3>ステップ4：自分なりにアレンジ</h3>
+                    <p>動画の例をそのまま真似するだけでなく、自分の状況に合わせてアレンジしてみましょう。例えば：</p>
+                    <ul>
+                        <li>自分の仕事や興味のある分野に置き換えてみる</li>
+                        <li>指示の詳細度を変えて、結果がどう変わるか試してみる</li>
+                        <li>同じ質問を異なるAIツールで試して比較してみる</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>困ったときは</h2>
+                    <p>学習中に困ったことがあれば、以下の方法を試してみましょう：</p>
+
+                    <ul>
+                        <li><strong>動画を一時停止して見直す：</strong>理解できなかった部分は何度でも見返せます</li>
+                        <li><strong>AIツールに聞いてみる：</strong>「〇〇がわかりません。初心者向けに説明してください」と質問</li>
+                        <li><strong>別の表現で試してみる：</strong>同じ意図でも言い方を変えると、異なる回答が得られることがあります</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>重要：失敗は成功のもと</strong></p>
+                        <p>AIとの対話は試行錯誤の繰り返しです。最初からうまくいかなくても、それが普通です。何度も試すことで、自然とコツがつかめてきます。</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>学習のポイント</h2>
+                    <p>効果的に学習を進めるために、以下のポイントを意識しましょう：</p>
+
+                    <ul>
+                        <li><strong>手を動かすことが最重要：</strong>動画を見るだけでなく、必ず自分で試してみましょう</li>
+                        <li><strong>小さく始める：</strong>最初は簡単な質問から始めて、徐々に複雑な使い方に挑戦</li>
+                        <li><strong>記録を取る：</strong>うまくいった質問方法はメモしておくと後で役立ちます</li>
+                        <li><strong>継続が力になる：</strong>毎日少しずつでも触れることで、自然と使いこなせるようになります</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="index.html" class="nav-btn prev">
+                ← トップページへ
+            </a>
+            <a href="howtoAI/01_ai-basics.html" class="nav-btn next">
+                レッスンを始める →
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 すごいAI道場. All rights reserved.</p>
+            <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionToggle = document.getElementById('textContentToggle');
+            const accordionContent = document.getElementById('textContent');
+
+            if (accordionToggle && accordionContent) {
+                accordionToggle.addEventListener('click', function() {
+                    // Toggle active class
+                    this.classList.toggle('active');
+                    accordionContent.classList.toggle('active');
+
+                    // Update button text
+                    const buttonText = this.querySelector('span:last-child');
+                    if (accordionContent.classList.contains('active')) {
+                        buttonText.textContent = 'テキストでの詳細解説を非表示';
+                    } else {
+                        buttonText.textContent = 'テキストでの詳細解説を表示';
+                    }
+
+                    // Smooth scroll to accordion if opening
+                    if (accordionContent.classList.contains('active')) {
+                        setTimeout(() => {
+                            accordionToggle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
+                });
+            }
+        });
+
+        // YouTube Player for this lesson
+        let player;
+        const VIDEO_ID = 'dQw4w9WgXcQ'; // Replace with actual YouTube video ID
+
+        // YouTube IFrame API Ready
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'playsinline': 1,
+                    'rel': 0
+                }
+            });
+        }
+
+        // Load YouTube API if not already loaded
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        } else {
+            // API already loaded, initialize player
+            onYouTubeIframeAPIReady();
+        }
+    </script>
+</body>
+</html>
