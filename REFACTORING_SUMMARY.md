@@ -16,7 +16,7 @@
 **HTML (20ファイル):**
 - `tutorial.html` - インラインスタイル削除、category-tutorialクラス追加
 - `howtoAI/01_ai-basics.html` 〜 `07_ai-certifications.html` (7ファイル) - category-aiクラス追加
-- `business/08_startup-basics.html` 〜 `13_ai-tools-business.html` (6ファイル) - category-startupクラス追加
+- `startup/08_startup-basics.html` 〜 `13_ai-tools-business.html` (6ファイル) - category-startupクラス追加
 - `creative/14_creative-intro.html` 〜 `18_publishing.html` (5ファイル) - category-creativeクラス追加
 - `community/19_discord-community.html` (1ファイル) - category-communityクラス追加
 

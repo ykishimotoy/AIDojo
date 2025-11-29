@@ -302,7 +302,7 @@ AIDojo/
 │   ├── 02_prompt-engineering.html       # レッスン2
 │   └── ... (07まで)
 │
-├── business/                            # 起業・ビジコンカテゴリ
+├── startup/                            # 起業・ビジコンカテゴリ
 │   ├── 08_startup-basics.html          # レッスン8
 │   └── ... (13まで)
 │
