@@ -170,9 +170,24 @@ class VideoCompletionTracker {
         if (!this.completedVideos.includes(lessonNumber)) {
             this.completedVideos.push(lessonNumber);
             this.saveCompletedVideos();
+
+            // マイページ用のストレージにも保存（バッジシステム対応）
+            this.saveToLessonsStorage(lessonNumber);
+
             return true;
         }
         return false;
+    }
+
+    // マイページのバッジシステム用にaiLearningCompletedLessonsにも保存
+    saveToLessonsStorage(lessonNumber) {
+        const saved = localStorage.getItem('aiLearningCompletedLessons');
+        const completedLessons = saved ? JSON.parse(saved) : [];
+
+        if (!completedLessons.includes(lessonNumber)) {
+            completedLessons.push(lessonNumber);
+            localStorage.setItem('aiLearningCompletedLessons', JSON.stringify(completedLessons));
+        }
     }
 
     isVideoCompleted(lessonNumber) {
