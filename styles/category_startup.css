@@ -1,0 +1,12 @@
+/* ========================================
+   Startup Category - すごいAI道場
+   起業・ビジコンカテゴリ（青）専用スタイル
+   ======================================== */
+
+body.category-startup,
+body[data-category="startup"] {
+    --category-color: #4a90e2;
+    --category-color-dark: #3a7bc8;
+    --category-color-light: #6ba3e8;
+    --category-bg-light: #e3f2fd;
+}

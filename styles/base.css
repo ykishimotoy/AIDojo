@@ -1,0 +1,678 @@
+/* ========================================
+   Base Styles - すごいAI道場
+   全ページ共通の基本スタイル
+   ======================================== */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    background: #fcfcfc;
+    color: #000814;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 60px 0 40px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 70px; /* Fixed nav heightを考慮 */
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.95;
+    letter-spacing: 1px;
+}
+
+/* Main Content */
+main {
+    padding: 40px 20px;
+}
+
+/* Category Sections (index page) */
+.category-section {
+    margin-bottom: 80px;
+    padding: 40px;
+    background: white;
+    border: 3px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.section-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    color: #000814;
+}
+
+.section-description {
+    font-size: 1.1rem;
+    color: #625147;
+    margin-bottom: 30px;
+    padding-left: 80px;
+}
+
+/* Lesson Grid (index page) */
+.lesson-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* Lesson Cards (index page) */
+.lesson-card {
+    background: white;
+    border: 3px solid #625147;
+    padding: 10%;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.lesson-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-color: #f46434;
+}
+
+.lesson-number {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f46434;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.lesson-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #000814;
+    line-height: 1.3;
+}
+
+.lesson-card p {
+    color: #625147;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.lesson-link {
+    display: inline-block;
+    background: #f46434;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.lesson-link:hover {
+    background: #d84a1b;
+    transform: scale(1.05);
+}
+
+/* Category-specific colors (index page) */
+#ai-general .lesson-card:hover {
+    border-color: #f46434;
+}
+
+#ai-general .lesson-number {
+    background: #f46434;
+}
+
+#ai-general .lesson-link {
+    background: #f46434;
+}
+
+#ai-general .lesson-link:hover {
+    background: #d84a1b;
+}
+
+#startup .lesson-card:hover {
+    border-color: #4a90e2;
+}
+
+#startup .lesson-number {
+    background: #4a90e2;
+}
+
+#startup .lesson-link {
+    background: #4a90e2;
+}
+
+#startup .lesson-link:hover {
+    background: #357abd;
+}
+
+#creative .lesson-card:hover {
+    border-color: #27ae60;
+}
+
+#creative .lesson-number {
+    background: #27ae60;
+}
+
+#creative .lesson-link {
+    background: #27ae60;
+}
+
+#creative .lesson-link:hover {
+    background: #1e8449;
+}
+
+#community .lesson-card:hover {
+    border-color: #9b59b6;
+}
+
+#community .lesson-number {
+    background: #9b59b6;
+}
+
+#community .lesson-link {
+    background: #9b59b6;
+}
+
+#community .lesson-link:hover {
+    background: #7d3c98;
+}
+
+/* Badges Section (mypage) */
+.badges-section {
+    margin: 60px 0;
+    padding: 40px;
+    background: white;
+    border: 3px solid #625147;
+    border-radius: 8px;
+}
+
+.badges-section h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #000814;
+}
+
+.badges-section .section-description {
+    text-align: center;
+    padding-left: 0;
+    margin-bottom: 30px;
+    color: #625147;
+}
+
+.badges-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    min-height: 100px;
+    margin-bottom: 30px;
+}
+
+.badge-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    border: 2px solid #d0d0d0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.badge-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: #f46434;
+}
+
+.badge-icon-small {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.badge-name {
+    font-weight: 600;
+    color: #000814;
+    font-size: 1.1rem;
+}
+
+.badge-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+}
+
+.badge-stats span {
+    font-size: 1.1rem;
+    color: #625147;
+}
+
+.badge-stats strong {
+    color: #f46434;
+    font-size: 1.2rem;
+}
+
+.badges-container:empty::before {
+    content: 'まだバッジを獲得していません。レッスンを完了してバッジを集めましょう！';
+    display: block;
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-style: italic;
+    grid-column: 1 / -1;
+}
+
+/* Progress Section (mypage) */
+.progress-section {
+    margin: 60px 0;
+    padding: 40px;
+    background: white;
+    border: 3px solid #625147;
+    border-radius: 8px;
+}
+
+.progress-section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #000814;
+}
+
+.progress-container {
+    display: grid;
+    gap: 25px;
+}
+
+.progress-item {
+    display: grid;
+    grid-template-columns: 120px 1fr 80px;
+    align-items: center;
+    gap: 20px;
+}
+
+.progress-item span:first-child {
+    font-weight: 600;
+    color: #000814;
+}
+
+.progress-bar {
+    background: #e0e0e0;
+    border-radius: 10px;
+    height: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f46434 0%, #ff8c66 100%);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
+.progress-text {
+    text-align: right;
+    font-weight: bold;
+    color: #625147;
+}
+
+/* Footer */
+footer {
+    background: #000814;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+}
+
+footer p {
+    margin: 10px 0;
+    opacity: 0.9;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+}
+
+/* Loading Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.category-section {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Accessibility */
+.lesson-link:focus,
+.main-nav a:focus {
+    outline: none;
+}
+
+/* Print Styles */
+@media print {
+    .main-nav,
+    footer {
+        display: none;
+    }
+
+    .lesson-card {
+        page-break-inside: avoid;
+    }
+}
+
+/* ========================================
+   Responsive Design - Base
+   ======================================== */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    header {
+        margin-top: 70px;
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .lesson-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .category-section {
+        padding: 30px;
+    }
+}
+
+/* Mobile and Small Tablet (max-width: 768px) */
+@media (max-width: 768px) {
+    header {
+        padding: 40px 0 30px;
+        margin-top: 60px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    main {
+        padding: 20px 15px;
+    }
+
+    .category-section {
+        padding: 20px;
+        margin-bottom: 40px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .section-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .section-description {
+        padding-left: 0;
+        font-size: 1rem;
+    }
+
+    .lesson-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .lesson-card {
+        min-height: 180px;
+    }
+
+    .lesson-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .badges-section {
+        padding: 25px 20px;
+    }
+
+    .badges-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .badges-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .badge-stats {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .progress-section {
+        padding: 25px 20px;
+    }
+
+    .progress-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .progress-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .progress-text {
+        text-align: left;
+    }
+
+    footer {
+        padding: 30px 20px;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    header {
+        padding: 30px 0 25px;
+        margin-top: 55px;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    main {
+        padding: 15px 10px;
+    }
+
+    .category-section {
+        padding: 15px;
+        margin-bottom: 30px;
+    }
+
+    .section-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .section-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+
+    .lesson-card {
+        padding: 6%;
+        min-height: 160px;
+    }
+
+    .lesson-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .lesson-card p {
+        font-size: 0.95rem;
+    }
+
+    .lesson-number {
+        width: 35px;
+        height: 35px;
+        font-size: 0.85rem;
+    }
+
+    .lesson-link {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    .badges-section h2,
+    .progress-section h2 {
+        font-size: 1.4rem;
+    }
+
+    .badge-stats span {
+        font-size: 1rem;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .lesson-card:hover {
+        transform: none;
+    }
+
+    .lesson-card:active {
+        transform: scale(0.98);
+    }
+
+    .lesson-link:hover {
+        transform: none;
+    }
+
+    .lesson-link:active {
+        transform: scale(0.95);
+    }
+}
+
+/* Landscape Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    header {
+        padding: 20px 0 15px;
+        margin-top: 50px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .lesson-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,12 @@
+/* ========================================
+   Community Category - すごいAI道場
+   コミュニティカテゴリ（紫）専用スタイル
+   ======================================== */
+
+body.category-community,
+body[data-category="community"] {
+    --category-color: #9b59b6;
+    --category-color-dark: #7d3c98;
+    --category-color-light: #af7ac5;
+    --category-bg-light: #f4ecf7;
+}

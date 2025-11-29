@@ -700,79 +700,11 @@ function animateCardsOnScroll() {
     cards.forEach(card => observer.observe(card));
 }
 
-// Header scroll hide/show functionality
-let lastScrollTop = 0;
-let scrollTimeout;
+// Header scroll hide/show functionality - 削除（common.jsに統合）
+// handleHeaderScroll()はcommon.jsで定義されているため、ここでは不要
 
-function handleHeaderScroll() {
-    const nav = document.querySelector('.main-nav');
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-    // Clear previous timeout
-    if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-    }
-
-    // Add slight delay to make animation smoother
-    scrollTimeout = setTimeout(() => {
-        if (currentScroll > lastScrollTop && currentScroll > 100) {
-            // Scrolling down & past threshold
-            nav.classList.add('nav-hidden');
-            nav.classList.remove('nav-visible');
-        } else if (currentScroll < lastScrollTop) {
-            // Scrolling up
-            nav.classList.remove('nav-hidden');
-            nav.classList.add('nav-visible');
-        }
-
-        // At top of page, always show
-        if (currentScroll <= 100) {
-            nav.classList.remove('nav-hidden');
-            nav.classList.add('nav-visible');
-        }
-
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    }, 10);
-}
-
-// Hamburger Menu Functionality
-function initHamburgerMenu() {
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-
-    if (!hamburger || !navMenu) return;
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-
-        // Prevent body scroll when menu is open
-        if (navMenu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    });
-
-    // Close menu when clicking on a link
-    const navLinks = navMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
-}
+// Hamburger Menu Functionality - 削除（common.jsに統合）
+// initHamburgerMenu()はcommon.jsで定義されているため、ここでは不要
 
 // Video Completion Tracking
 class VideoCompletionTracker {
@@ -931,8 +863,7 @@ function init() {
     // Load saved progress
     loadProgress();
 
-    // Initialize hamburger menu
-    initHamburgerMenu();
+    // Note: initHamburgerMenu() is now handled by common.js after header injection
 
     // Initialize YouTube API
     initYouTubeAPI();
@@ -957,8 +888,7 @@ function init() {
     // Add scroll listener for nav highlight
     window.addEventListener('scroll', highlightNavOnScroll);
 
-    // Add scroll listener for header hide/show
-    window.addEventListener('scroll', handleHeaderScroll);
+    // Note: Header hide/show scroll listener is now handled by common.js
 
     // Add active style
     addNavActiveStyle();

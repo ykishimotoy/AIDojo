@@ -1,0 +1,12 @@
+/* ========================================
+   AI General Category - すごいAI道場
+   AI一般カテゴリ（オレンジ）専用スタイル
+   ======================================== */
+
+body.category-ai,
+body[data-category="ai"] {
+    --category-color: #f46434;
+    --category-color-dark: #d84a1b;
+    --category-color-light: #ff6b4a;
+    --category-bg-light: #fff9e6;
+}

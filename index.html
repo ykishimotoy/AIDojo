@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>すごいAI道場 - 生成AIを使いこなすための実践学習サイト</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/nav.css">
 </head>
 <body>
     <header>
@@ -14,23 +15,7 @@
         </div>
     </header>
 
-    <nav class="main-nav">
-        <div class="container nav-container">
-            <div class="nav-logo">すごいAI道場</div>
-            <button class="hamburger" id="hamburger" aria-label="メニュー">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#ai-general" class="nav-ai">AI全般</a></li>
-                <li><a href="#startup" class="nav-startup">起業・ビジコン</a></li>
-                <li><a href="#creative" class="nav-creative">クリエイティブ</a></li>
-                <li><a href="#community" class="nav-community">コミュニティ</a></li>
-                <li><a href="mypage.html" class="nav-mypage">マイページ</a></li>
-            </ul>
-        </div>
-    </nav>
+    <div id="site-header"></div>
 
     <main class="container">
         <!-- AI General Section -->
@@ -203,6 +188,7 @@
         </div>
     </footer>
 
+    <script src="common.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

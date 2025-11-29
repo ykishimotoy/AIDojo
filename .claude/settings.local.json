@@ -4,7 +4,10 @@
       "Bash(python3:*)",
       "Bash(done)",
       "Bash(chmod:*)",
-      "Bash(./refactor-lessons.sh)"
+      "Bash(./refactor-lessons.sh)",
+      "Bash(mkdir:*)",
+      "Bash(tree:*)",
+      "Bash(open http://localhost:8080/index.html)"
     ],
     "deny": [],
     "ask": []

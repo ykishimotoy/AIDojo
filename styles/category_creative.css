@@ -1,0 +1,12 @@
+/* ========================================
+   Creative Category - すごいAI道場
+   クリエイティブカテゴリ（緑）専用スタイル
+   ======================================== */
+
+body.category-creative,
+body[data-category="creative"] {
+    --category-color: #27ae60;
+    --category-color-dark: #1e8e4f;
+    --category-color-light: #2ecc71;
+    --category-bg-light: #d5f4e6;
+}
