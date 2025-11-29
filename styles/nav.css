@@ -124,6 +124,12 @@
     color: white;
 }
 
+.main-nav a.nav-tutorial:hover,
+.main-nav a.nav-tutorial.active {
+    background: #495057;
+    color: white;
+}
+
 /* Mobile Menu Overlay */
 .menu-overlay {
     display: none;
@@ -227,6 +233,12 @@
         background: #ffd700;
         color: white;
     }
+
+    .main-nav a.nav-tutorial:hover,
+    .main-nav a.nav-tutorial.active {
+        background: #495057;
+        color: white;
+    }
 }
 
 /* Small Mobile (max-width: 480px) */
@@ -273,6 +285,11 @@
 
     .main-nav a.nav-mypage:active {
         background: #ffd700;
+        color: white;
+    }
+
+    .main-nav a.nav-tutorial:active {
+        background: #495057;
         color: white;
     }
 }

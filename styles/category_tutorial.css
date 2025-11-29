@@ -5,8 +5,8 @@
 
 body.category-tutorial,
 body[data-category="tutorial"] {
-    --category-color: #6c757d;
-    --category-color-dark: #5a6268;
-    --category-color-light: #868e96;
+    --category-color: #495057;
+    --category-color-dark: #343a40;
+    --category-color-light: #6c757d;
     --category-bg-light: #f8f9fa;
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チュートリアルボタンテスト</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/nav.css">
+    <style>
+        body {
+            padding: 100px 20px;
+        }
+        .test-info {
+            background: #f0f0f0;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .color-box {
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            margin: 10px;
+            border: 2px solid #000;
+        }
+        .tutorial-gray {
+            background: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <div class="test-info">
+        <h1>チュートリアルボタン ホバーテスト</h1>
+        <p>上のヘッダーの「チュートリアル」ボタンにマウスを載せてください。</p>
+        <p><strong>期待される色:</strong></p>
+        <div class="color-box tutorial-gray"></div>
+        <p>#495057 (濃い灰色)</p>
+        
+        <h2>デバッグ方法:</h2>
+        <ol>
+            <li>ブラウザで <strong>Cmd + Shift + R</strong> (Mac) または <strong>Ctrl + Shift + R</strong> (Windows) でハードリフレッシュ</li>
+            <li>チュートリアルボタンを右クリック → 「検証」</li>
+            <li>Developer Toolsの「Styles」タブで <code>.main-nav a.nav-tutorial:hover</code> を確認</li>
+            <li><code>background: #495057</code> が適用されているか確認</li>
+        </ol>
+    </div>
+
+    <script src="common.js"></script>
+</body>
+</html>
