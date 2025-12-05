@@ -13,6 +13,7 @@
         <div class="container">
             <h1>すごいAI道場</h1>
             <p class="subtitle">生成AIを使いこなすための実践学習サイト</p>
+            <p class="beta-notice">現在β版公開中、順次レッスンを公開予定！</p>
         </div>
     </header>
 
@@ -224,6 +225,28 @@
     </div>
 
     <style>
+        .beta-notice {
+            background: linear-gradient(135deg, #f46434 0%, #ff8c42 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-top: 15px;
+            box-shadow: 0 4px 6px rgba(244, 100, 52, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
         .coming-soon-button {
             display: inline-block;
             padding: 12px 24px;
