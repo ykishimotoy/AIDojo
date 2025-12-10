@@ -7,7 +7,8 @@
       "Bash(./refactor-lessons.sh)",
       "Bash(mkdir:*)",
       "Bash(tree:*)",
-      "Bash(open http://localhost:8080/index.html)"
+      "Bash(open http://localhost:8080/index.html)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
