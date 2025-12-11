@@ -24,20 +24,26 @@
         }
         .reference-links .community-button {
             display: inline-block;
-            padding: 12px 24px;
-            background: #9b59b6 !important;
-            color: #fff !important;
+            color: #9b59b6;
             text-decoration: none;
-            border: 2px solid #9b59b6 !important;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s ease;
-            font-size: 1rem;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #9b59b6;
+            border-radius: 6px;
+            margin: 5px 10px 5px 0;
+            transition: all 0.3s ease;
         }
         .reference-links .community-button:hover {
-            background: #8e44ad !important;
-            border-color: #8e44ad !important;
+            background: #9b59b6;
+            color: white;
             transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .reference-links .community-button {
+                display: block;
+                margin: 8px 0;
+            }
         }
     </style>
 </head>
