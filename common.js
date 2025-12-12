@@ -214,7 +214,8 @@ function showVideoCompletionMessage(lessonNumber) {
     message.innerHTML = `
         <div class="completion-content">
             <div class="completion-icon">🎉</div>
-            <h3>レッスン${String(lessonNumber).padStart(2, '0')}の鍔バッジをゲット！</h3>
+            <h3>鍔バッジをゲット！</h3>
+            <p>マイページをご確認ください！</p>
         </div>
     `;
 
