@@ -36,6 +36,20 @@
     font-weight: 700;
     color: #000814;
     display: none;
+    text-decoration: none;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.nav-logo-text {
+    color: #000814;
 }
 
 .hamburger {
@@ -156,7 +170,7 @@
 /* Mobile and Small Tablet (max-width: 768px) */
 @media (max-width: 768px) {
     .nav-logo {
-        display: block;
+        display: flex;
     }
 
     .hamburger {

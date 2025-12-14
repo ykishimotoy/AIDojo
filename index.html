@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>すごいAI道場 - 生成AIを使いこなすための実践学習サイト</title>
+
+    <!-- OGP / SNS共有用メタタグ -->
+    <meta property="og:title" content="すごいAI道場 - 生成AIを使いこなすための実践学習サイト">
+    <meta property="og:description" content="登録不要・完全無料で学べるAI学習サイト">
+    <meta property="og:image" content="images/main_square.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="images/main_square.png">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/nav.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -468,6 +476,49 @@
                     initTutorialPlayer();
                 }
             }
+        })();
+
+        // Header Parallax Effect
+        (function() {
+            const header = document.querySelector('header');
+            if (!header) return;
+
+            function updateParallax() {
+                // ヘッダーの高さと位置を取得
+                const headerHeight = header.offsetHeight;
+                const headerTop = header.offsetTop;
+
+                // 現在のスクロール位置
+                const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+                // ヘッダーが画面内にある場合のみパララックスを適用
+                if (scrollY <= headerHeight + headerTop) {
+                    // スクロール進行度を計算 (0 = 上端, 1 = ヘッダー通過)
+                    const scrollProgress = scrollY / (headerHeight + headerTop);
+
+                    // 背景画像の位置を計算
+                    // 0% (上半分) から 100% (下半分) に移動
+                    const backgroundPositionY = scrollProgress * 100;
+
+                    // 背景位置を更新
+                    header.style.backgroundPosition = `center ${backgroundPositionY}%`;
+                }
+            }
+
+            // スクロールイベントにリスナーを追加（パフォーマンス考慮でthrottle）
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateParallax();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // 初期位置を設定
+            updateParallax();
         })();
     </script>
 </body>

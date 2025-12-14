@@ -17,7 +17,10 @@ function loadHeader() {
         const headerHTML = `
             <nav class="main-nav">
                 <div class="container nav-container">
-                    <div class="nav-logo">すごいAI道場</div>
+                    <a href="${basePath}index.html" class="nav-logo">
+                        <img src="${basePath}images/main_square.png" alt="すごいAI道場" class="nav-logo-icon">
+                        <span class="nav-logo-text">すごいAI道場</span>
+                    </a>
                     <button class="hamburger" id="hamburger" aria-label="メニュー">
                         <span></span>
                         <span></span>
