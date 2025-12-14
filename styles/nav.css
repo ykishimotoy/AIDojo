@@ -42,8 +42,8 @@
 }
 
 .nav-logo-icon {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -167,8 +167,8 @@
    Responsive Design - Navigation
    ======================================== */
 
-/* Mobile and Small Tablet (max-width: 768px) */
-@media (max-width: 768px) {
+/* Mobile and Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
     .nav-logo {
         display: flex;
     }
