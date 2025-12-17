@@ -70,10 +70,28 @@
         <div class="reference-links">
             <h3>参考リンク - 実際に使ってみよう</h3>
             <a href="../worksheets/ビジネスアイデア基礎_ワークシート.pdf" target="_blank" download>ワークシートのダウンロード</a>
-            <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
-            <a href="https://claude.ai/" target="_blank">Claude</a>
             <a href="https://gemini.google.com/" target="_blank">Gemini</a>
+            <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
             <a href="https://discord.gg/Ve2tQeN7cw" target="_blank" class="community-button">コミュニティ参加</a>
+        </div>
+
+        <div class="prompt-section">
+            <h3>コピペ用プロンプト</h3>
+
+            <div class="prompt-box">
+                <span class="prompt-title">プロンプト1：Geminiでの手書きビジネスモデルの清書</span>
+                <div class="prompt-content">この手書きのビジネスモデル図を、プレゼン用のスライド用の図として画像生成せよ。
+文字は全て日本語で書け。</div>
+            </div>
+
+            <div class="prompt-box">
+                <span class="prompt-title">プロンプト2：アイデア改善</span>
+                <div class="prompt-content"># 命令書
+あなたはプロの経営コンサルタントです。以下のビジネスモデルのアイデアを分析し、顧客セグメント、提供価値、収益モデルの観点から、構造化された分かりやすい文章にまとめてください。
+
+# 私のアイデア
+【ここに、手書きしたビジネスモデルの説明や写真を貼り付ける】</div>
+            </div>
         </div>
 
         <div class="accordion-container">
@@ -233,7 +251,7 @@
 
         let player;
         const LESSON_NUMBER = 9;
-        const VIDEO_ID = 'aICfDX0P26Q';
+        const VIDEO_ID = 'GNhxJ1Ym5dU';
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {

@@ -447,4 +447,71 @@
     .accordion-content.active {
         padding: 15px;
     }
+
+    .prompt-section {
+        padding: 20px;
+    }
+
+    .prompt-box {
+        padding: 15px;
+    }
+
+    .prompt-content {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+}
+
+/* ========================================
+   Prompt Section Styles
+   ======================================== */
+
+/* Prompt Section Container */
+.prompt-section {
+    background: #f8f8f8;
+    padding: 25px;
+    border-radius: 8px;
+    border-left: 5px solid var(--category-color, #625147);
+    margin: 30px 0;
+}
+
+.prompt-section h3 {
+    font-size: 1.3rem;
+    color: #000814;
+    margin-bottom: 20px;
+}
+
+/* Individual Prompt Box */
+.prompt-box {
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    border: 2px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.prompt-box:last-child {
+    margin-bottom: 0;
+}
+
+/* Prompt Title */
+.prompt-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--category-color, #625147);
+    margin-bottom: 12px;
+    display: block;
+}
+
+/* Prompt Content */
+.prompt-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #625147;
+    white-space: pre-wrap;
+    font-family: 'Courier New', Consolas, monospace;
+    background: #fafafa;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #e8e8e8;
 }
