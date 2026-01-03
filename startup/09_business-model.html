@@ -45,6 +45,24 @@
                 margin: 8px 0;
             }
         }
+        .copy-button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        .copy-button:hover {
+            background: #3a7bc8;
+        }
+        .copy-button.copied {
+            background: #27ae60;
+        }
     </style>
 </head>
 <body class="category-startup">
@@ -82,6 +100,7 @@
                 <span class="prompt-title">プロンプト1：Geminiでの手書きビジネスモデルの清書</span>
                 <div class="prompt-content">この手書きのビジネスモデル図を、プレゼン用のスライド用の図として画像生成せよ。
 文字は全て日本語で書け。</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
             </div>
 
             <div class="prompt-box">
@@ -91,6 +110,7 @@
 
 # 私のアイデア
 【ここに、手書きしたビジネスモデルの説明や写真を貼り付ける】</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
             </div>
         </div>
 
@@ -223,6 +243,26 @@
 
     <script src="../common.js"></script>
     <script>
+        function copyPromptToClipboard(button) {
+            const promptBox = button.closest('.prompt-box');
+            const promptContent = promptBox.querySelector('.prompt-content');
+            const text = promptContent.textContent;
+
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = button.textContent;
+                button.textContent = 'コピーしました！';
+                button.classList.add('copied');
+
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('コピーに失敗しました:', err);
+                alert('コピーに失敗しました。手動でコピーしてください。');
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const accordionToggle = document.getElementById('textContentToggle');
             const accordionContent = document.getElementById('textContent');

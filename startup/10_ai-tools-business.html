@@ -62,6 +62,24 @@
             color: white;
             transform: translateY(-2px);
         }
+        .copy-button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        .copy-button:hover {
+            background: #3a7bc8;
+        }
+        .copy-button.copied {
+            background: #27ae60;
+        }
     </style>
 </head>
 <body class="category-startup">
@@ -113,6 +131,7 @@
 ・自分がAIをできなかったけど、そこからAIをできるようになった。その「当時の自分が喉から手が出るほど欲しかった経験」を、広く使ってほしい。
 ・そうやって札幌が、なんだか皆AIをできるという場になったら楽しい。
 ・何より自分がお祭り好き、絶対楽しいじゃん！</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
                 <a href="../worksheets/bizmodel.jpg" download="bizmodel.jpg" class="download-button">サンプル用ビジネスモデル画像のダウンロード</a>
             </div>
         </div>
@@ -293,6 +312,26 @@
 
     <script src="../common.js"></script>
     <script>
+        function copyPromptToClipboard(button) {
+            const promptBox = button.closest('.prompt-box');
+            const promptContent = promptBox.querySelector('.prompt-content');
+            const text = promptContent.textContent;
+
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = button.textContent;
+                button.textContent = 'コピーしました！';
+                button.classList.add('copied');
+
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('コピーに失敗しました:', err);
+                alert('コピーに失敗しました。手動でコピーしてください。');
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const accordionToggle = document.getElementById('textContentToggle');
             const accordionContent = document.getElementById('textContent');
