@@ -1,12 +1,12 @@
 /* ========================================
    Tutorial Category - すごいAI道場
-   チュートリアルカテゴリ（灰）専用スタイル
+   チュートリアルカテゴリ（赤）専用スタイル
    ======================================== */
 
 body.category-tutorial,
 body[data-category="tutorial"] {
-    --category-color: #495057;
-    --category-color-dark: #343a40;
-    --category-color-light: #6c757d;
-    --category-bg-light: #f8f9fa;
+    --category-color: #dc3545;
+    --category-color-dark: #b52a37;
+    --category-color-light: #e76f7a;
+    --category-bg-light: #fdf2f3;
 }

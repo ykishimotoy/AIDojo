@@ -32,7 +32,7 @@ function loadHeader() {
                         <li><a href="${basePath}index.html#creative" class="nav-creative">クリエイティブ</a></li>
                         <li><a href="${basePath}index.html#community" class="nav-community">コミュニティ</a></li>
                         <li><a href="${basePath}mypage.html" class="nav-mypage">マイページ</a></li>
-                        <li><a href="${basePath}tutorial.html" class="nav-tutorial">チュートリアル</a></li>
+                        <li><a href="${basePath}index.html#tutorial" class="nav-tutorial">チュートリアル</a></li>
                     </ul>
                 </div>
             </nav>

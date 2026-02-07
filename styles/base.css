@@ -237,19 +237,19 @@ main {
 }
 
 #tutorial .lesson-card:hover {
-    border-color: #495057;
+    border-color: #dc3545;
 }
 
 #tutorial .lesson-number {
-    background: #495057;
+    background: #dc3545;
 }
 
 #tutorial .lesson-link {
-    background: #495057;
+    background: #dc3545;
 }
 
 #tutorial .lesson-link:hover {
-    background: #343a40;
+    background: #b52a37;
 }
 
 #community .lesson-card:hover {

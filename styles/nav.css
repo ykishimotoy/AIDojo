@@ -140,7 +140,7 @@
 
 .main-nav a.nav-tutorial:hover,
 .main-nav a.nav-tutorial.active {
-    background: #495057;
+    background: #dc3545;
     color: white;
 }
 
@@ -250,7 +250,7 @@
 
     .main-nav a.nav-tutorial:hover,
     .main-nav a.nav-tutorial.active {
-        background: #495057;
+        background: #dc3545;
         color: white;
     }
 }
@@ -303,7 +303,7 @@
     }
 
     .main-nav a.nav-tutorial:active {
-        background: #495057;
+        background: #dc3545;
         color: white;
     }
 }
