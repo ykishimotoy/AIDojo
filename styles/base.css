@@ -236,6 +236,22 @@ main {
     background: #1e8449;
 }
 
+#tutorial .lesson-card:hover {
+    border-color: #495057;
+}
+
+#tutorial .lesson-number {
+    background: #495057;
+}
+
+#tutorial .lesson-link {
+    background: #495057;
+}
+
+#tutorial .lesson-link:hover {
+    background: #343a40;
+}
+
 #community .lesson-card:hover {
     border-color: #9b59b6;
 }
