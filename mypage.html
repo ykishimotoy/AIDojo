@@ -6,6 +6,7 @@
     <title>マイページ - すごいAI道場</title>
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         .mypage-container {
             max-width: 1200px;
@@ -50,6 +51,10 @@
             border-left-color: #4a90e2;
         }
 
+        .badge-category.startup-advanced {
+            border-left-color: #1d4ed8;
+        }
+
         .badge-category.creative {
             border-left-color: #27ae60;
         }
@@ -83,6 +88,10 @@
 
         .category-icon.startup {
             background: #4a90e2;
+        }
+
+        .category-icon.startup-advanced {
+            background: #1d4ed8;
         }
 
         .category-icon.creative {
@@ -131,6 +140,11 @@
         .badge-category.startup .badge-item:hover {
             border-color: #4a90e2;
             box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+        }
+
+        .badge-category.startup-advanced .badge-item:hover {
+            border-color: #1d4ed8;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.2);
         }
 
         .badge-category.creative .badge-item:hover {
@@ -603,6 +617,11 @@
                 box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
             }
 
+            .badge-category.startup-advanced .badge-item:hover {
+                border-color: #1d4ed8;
+                box-shadow: 0 4px 15px rgba(29, 78, 216, 0.2);
+            }
+
             .badge-category.creative .badge-item:hover {
                 border-color: #27ae60;
                 box-shadow: 0 4px 15px rgba(39, 174, 96, 0.2);
@@ -695,6 +714,11 @@
                 box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2);
             }
 
+            .badge-category.startup-advanced .badge-item:hover {
+                border-color: #1d4ed8;
+                box-shadow: 0 2px 8px rgba(29, 78, 216, 0.2);
+            }
+
             .badge-category.creative .badge-item:hover {
                 border-color: #27ae60;
                 box-shadow: 0 2px 8px rgba(39, 174, 96, 0.2);
@@ -735,11 +759,11 @@
             </div>
         </div>
 
-        <!-- AI全般 Category -->
+        <!-- AI基礎 Category -->
         <div class="badge-category ai-general">
             <div class="category-header">
                 <div class="category-icon ai-general">AI</div>
-                <h2>AI全般</h2>
+                <h2>AI基礎</h2>
             </div>
             <div class="badge-grid" id="aiGeneralBadges">
                 <!-- Lessons 1-7 -->
@@ -795,14 +819,14 @@
             </div>
         </div>
 
-        <!-- 起業・ビジコン Category -->
+        <!-- 起業・ビジコン基礎 Category -->
         <div class="badge-category startup">
             <div class="category-header">
                 <div class="category-icon startup">起</div>
-                <h2>起業・ビジコン</h2>
+                <h2>起業・ビジコン基礎</h2>
             </div>
             <div class="badge-grid" id="startupBadges">
-                <!-- Lessons 8-13 -->
+                <!-- Lessons 8-10 -->
                 <div class="badge-item" data-lesson="8" data-badge-image="images/BizBasics.png">
                     <div class="badge-circle locked">
                         <span class="badge-number">08</span>
@@ -824,6 +848,17 @@
                     <div class="badge-label">AIツール活用</div>
                     <span class="badge-status locked">未取得</span>
                 </div>
+            </div>
+        </div>
+
+        <!-- 起業・ビジコン応用 Category -->
+        <div class="badge-category startup-advanced">
+            <div class="category-header">
+                <div class="category-icon startup-advanced">応</div>
+                <h2>起業・ビジコン応用</h2>
+            </div>
+            <div class="badge-grid" id="startupAdvancedBadges">
+                <!-- Lessons 11-13 -->
                 <div class="badge-item" data-lesson="11" data-badge-image="images/BizCanvas.png">
                     <div class="badge-circle locked">
                         <span class="badge-number">11</span>
@@ -954,7 +989,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 すごいAI道場. All rights reserved.</p>
+            <p>&copy; 2026 すごいAI道場. All rights reserved.</p>
             <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
         </div>
     </footer>
@@ -967,7 +1002,7 @@
             constructor() {
                 this.completedLessons = this.loadCompletedLessons();
                 this.spells = {
-                    'あかいもも': { category: 'AI全般', lessons: [1, 2, 3, 4, 5, 6, 7] },
+                    'あかいもも': { category: 'AI基礎', lessons: [1, 2, 3, 4, 5, 6, 7] },
                     'あおいはすかっぷ': { category: '起業・ビジコン', lessons: [8, 9, 10, 11, 12, 13] },
                     'みどりのみかん': { category: 'クリエイティブ', lessons: [14, 15, 16, 17, 18] },
                     'むらさきのぶどう': { category: 'コミュニティ', lessons: [19] }

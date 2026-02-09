@@ -27,12 +27,12 @@ function loadHeader() {
                         <span></span>
                     </button>
                     <ul class="nav-menu" id="navMenu">
-                        <li><a href="${basePath}index.html#ai-general" class="nav-ai">AI全般</a></li>
-                        <li><a href="${basePath}index.html#startup" class="nav-startup">起業・ビジコン</a></li>
+                        <li><a href="${basePath}index.html#ai-general" class="nav-ai">AI基礎</a></li>
+                        <li><a href="${basePath}index.html#startup" class="nav-startup">起業基礎</a></li>
+                        <li><a href="${basePath}index.html#startup-advanced" class="nav-startup-advanced">起業応用</a></li>
                         <li><a href="${basePath}index.html#creative" class="nav-creative">クリエイティブ</a></li>
                         <li><a href="${basePath}index.html#community" class="nav-community">コミュニティ</a></li>
                         <li><a href="${basePath}mypage.html" class="nav-mypage">マイページ</a></li>
-                        <li><a href="${basePath}index.html#tutorial" class="nav-tutorial">チュートリアル</a></li>
                     </ul>
                 </div>
             </nav>

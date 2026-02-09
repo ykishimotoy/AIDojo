@@ -299,7 +299,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 札幌すごいAI会. All rights reserved.</p>
+            <p>&copy; 2026 札幌すごいAI会. All rights reserved.</p>
             <p>生成AIを使いこなし、あなたの能力を100倍に拡張する</p>
         </div>
     </footer>
@@ -307,6 +307,10 @@
     <script src="../common.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // レッスン19にアクセスした時点でバッジを獲得
+            if (typeof trackVideoCompletion !== 'undefined') {
+                trackVideoCompletion(19);
+            }
             const accordionToggle = document.getElementById('textContentToggle');
             const accordionContent = document.getElementById('textContent');
 

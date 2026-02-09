@@ -220,6 +220,22 @@ main {
     background: #357abd;
 }
 
+#startup-advanced .lesson-card:hover {
+    border-color: #1d4ed8;
+}
+
+#startup-advanced .lesson-number {
+    background: #1d4ed8;
+}
+
+#startup-advanced .lesson-link {
+    background: #1d4ed8;
+}
+
+#startup-advanced .lesson-link:hover {
+    background: #1a3fa8;
+}
+
 #creative .lesson-card:hover {
     border-color: #27ae60;
 }

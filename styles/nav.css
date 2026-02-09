@@ -120,6 +120,12 @@
     color: white;
 }
 
+.main-nav a.nav-startup-advanced:hover,
+.main-nav a.nav-startup-advanced.active {
+    background: #1d4ed8;
+    color: white;
+}
+
 .main-nav a.nav-creative:hover,
 .main-nav a.nav-creative.active {
     background: #27ae60;
@@ -135,12 +141,6 @@
 .main-nav a.nav-mypage:hover,
 .main-nav a.nav-mypage.active {
     background: #ffd700;
-    color: white;
-}
-
-.main-nav a.nav-tutorial:hover,
-.main-nav a.nav-tutorial.active {
-    background: #dc3545;
     color: white;
 }
 
@@ -171,6 +171,10 @@
 @media (max-width: 1024px) {
     .nav-logo {
         display: flex;
+    }
+
+    .nav-logo-icon {
+        display: none;
     }
 
     .hamburger {
@@ -230,6 +234,12 @@
         color: white;
     }
 
+    .main-nav a.nav-startup-advanced:hover,
+    .main-nav a.nav-startup-advanced.active {
+        background: #1d4ed8;
+        color: white;
+    }
+
     .main-nav a.nav-creative:hover,
     .main-nav a.nav-creative.active {
         background: #27ae60;
@@ -245,12 +255,6 @@
     .main-nav a.nav-mypage:hover,
     .main-nav a.nav-mypage.active {
         background: #ffd700;
-        color: white;
-    }
-
-    .main-nav a.nav-tutorial:hover,
-    .main-nav a.nav-tutorial.active {
-        background: #dc3545;
         color: white;
     }
 }
@@ -287,6 +291,11 @@
         color: white;
     }
 
+    .main-nav a.nav-startup-advanced:active {
+        background: #1d4ed8;
+        color: white;
+    }
+
     .main-nav a.nav-creative:active {
         background: #27ae60;
         color: white;
@@ -299,11 +308,6 @@
 
     .main-nav a.nav-mypage:active {
         background: #ffd700;
-        color: white;
-    }
-
-    .main-nav a.nav-tutorial:active {
-        background: #dc3545;
         color: white;
     }
 }
