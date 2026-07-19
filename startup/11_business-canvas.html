@@ -76,6 +76,18 @@
             <a href="https://discord.gg/Ve2tQeN7cw" target="_blank" class="community-button">コミュニティ参加</a>
         </div>
 
+        <div class="prompt-section">
+            <h3>コピペ用プロンプト</h3>
+
+            <div class="prompt-box">
+                <span class="prompt-title">サンプルプロンプト：ビジネスモデルキャンバスの作成</span>
+                <div class="prompt-content">あなたは経験豊富なビジネスコンサルタントです。以下のビジネスアイデアについて、ビジネスモデルキャンバスの9要素を埋めてください：
+[あなたのビジネスアイデアの説明]
+各要素について、具体的で実現可能な内容を提案してください。</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+            </div>
+        </div>
+
         <div class="accordion-container">
             <button class="accordion-toggle" id="textContentToggle">
                 <span class="accordion-icon">▶</span>
@@ -299,6 +311,26 @@
 
     <script src="../common.js"></script>
     <script>
+        function copyPromptToClipboard(button) {
+            const promptBox = button.closest('.prompt-box');
+            const promptContent = promptBox.querySelector('.prompt-content');
+            const text = promptContent.textContent;
+
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = button.textContent;
+                button.textContent = 'コピーしました！';
+                button.classList.add('copied');
+
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('コピーに失敗しました:', err);
+                alert('コピーに失敗しました。手動でコピーしてください。');
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const accordionToggle = document.getElementById('textContentToggle');
             const accordionContent = document.getElementById('textContent');
@@ -326,7 +358,7 @@
 
         let player;
         const LESSON_NUMBER = 11;
-        const VIDEO_ID = 'aICfDX0P26Q';
+        const VIDEO_ID = 'ntKpvsRIehc';
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {

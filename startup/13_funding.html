@@ -75,6 +75,40 @@
             <a href="https://discord.gg/Ve2tQeN7cw" target="_blank" class="community-button">コミュニティ参加</a>
         </div>
 
+        <div class="prompt-section">
+            <h3>コピペ用プロンプト</h3>
+
+            <div class="prompt-box">
+                <span class="prompt-title">プロンプト1：クラファン</span>
+                <div class="prompt-content">あなたはクラウドファンディングの専門家です。[あなたのアイデア]のクラウドファンディングページの構成を提案してください。魅力的な説明文と、支援者が共感するストーリーを含めてください。</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+            </div>
+
+            <div class="prompt-box">
+                <span class="prompt-title">プロンプト2：自己資金</span>
+                <div class="prompt-content">自己資金で[あなたのビジネス]を始めたいです。初期投資を最小限に抑えながら、最初の顧客を獲得するための具体的なステップを教えてください。無料または低コストで使えるツールも含めて提案してください。</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+            </div>
+
+            <div class="prompt-box">
+                <span class="prompt-title">プロンプト3：日本政策金融公庫の融資</span>
+                <div class="prompt-content">日本政策金融公庫の新創業融資制度に申し込むための事業計画書を作成したいです。[あなたのビジネス]について、5年間の収支計画、市場規模の推定、競合分析を含めた計画書の構成と内容を提案してください。</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+            </div>
+
+            <div class="prompt-box">
+                <span class="prompt-title">プロンプト4：起業コンテスト用ピッチ</span>
+                <div class="prompt-content">3分間のピッチ原稿を作成してください。[あなたのアイデア]について、
+1.解決する社会課題の深刻さ
+2.革新的な解決策
+3.市場規模と収益性
+4.競合優位性
+5.チームの強み
+を簡潔に説明する内容で。聞き手の心を動かすストーリー仕立てでお願いします。</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+            </div>
+        </div>
+
         <div class="accordion-container">
             <button class="accordion-toggle" id="textContentToggle">
                 <span class="accordion-icon">▶</span>
@@ -324,6 +358,26 @@
 
     <script src="../common.js"></script>
     <script>
+        function copyPromptToClipboard(button) {
+            const promptBox = button.closest('.prompt-box');
+            const promptContent = promptBox.querySelector('.prompt-content');
+            const text = promptContent.textContent;
+
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = button.textContent;
+                button.textContent = 'コピーしました！';
+                button.classList.add('copied');
+
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('コピーに失敗しました:', err);
+                alert('コピーに失敗しました。手動でコピーしてください。');
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const accordionToggle = document.getElementById('textContentToggle');
             const accordionContent = document.getElementById('textContent');
@@ -351,7 +405,7 @@
 
         let player;
         const LESSON_NUMBER = 13;
-        const VIDEO_ID = 'aICfDX0P26Q';
+        const VIDEO_ID = 'yc6eWfE6k6Y';
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
