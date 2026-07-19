@@ -45,6 +45,47 @@
                 margin: 8px 0;
             }
         }
+        .copy-button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        .copy-button:hover {
+            background: #219653;
+        }
+        .copy-button.copied {
+            background: #4a90e2;
+        }
+        .download-button {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        .download-button:hover {
+            background: #219653;
+        }
+        .sample-image-thumb {
+            display: block;
+            max-width: 320px;
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #e8e8e8;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body class="category-creative">
@@ -74,6 +115,22 @@
             <a href="https://x.com/ykishimotoy/status/2050409094163599516" target="_blank">江州西さん制作ノウハウ</a>
             <a href="https://x.com/Akajishiya/status/2057388154609619376" target="_blank">赤獅子屋さんメッセージノウハウ</a>
             <a href="https://discord.gg/Ve2tQeN7cw" target="_blank" class="community-button">コミュニティ参加</a>
+        </div>
+
+        <div class="prompt-section">
+            <h3>コピペ用プロンプト＆サンプル画像</h3>
+
+            <div class="prompt-box">
+                <span class="prompt-title">ChatGPTに入れるプロンプト（出てきたプロンプトを、下のサンプル画像とともにKlingに入れる）</span>
+                <div class="prompt-content">Kling用のプロンプトを英語で生成。Image1 のおじいさんが蒸気機関車の中で大変そうに働いている</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+            </div>
+
+            <div class="prompt-box">
+                <span class="prompt-title">サンプル画像（おじいちゃんの3面図）</span>
+                <img src="../images/grandpa_sample.png" alt="サンプル画像：おじいさんの3面図" class="sample-image-thumb">
+                <a href="../images/grandpa_sample.png" download="grandpa_sample.png" class="download-button">画像をダウンロード</a>
+            </div>
         </div>
 
         <div class="accordion-container">
@@ -159,7 +216,7 @@
                     <p style="text-align: center;"><img src="../images/grandpa_sample.png" alt="サンプル画像：おじいさん" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);"></p>
 
                     <ol>
-                        <li>ChatGPTにサンプル画像をアップロードし、次のように入力：<br><strong>「Kling用のプロンプトを生成。Image1 のおじいさんが蒸気機関車の中で大変そうに働いている」</strong></li>
+                        <li>ChatGPTにサンプル画像をアップロードし、次のように入力：<br><strong>「Kling用のプロンプトを英語で生成。Image1 のおじいさんが蒸気機関車の中で大変そうに働いている」</strong>（上のコピペ用カードが使えます）</li>
                         <li>出力されたプロンプトをKlingに貼り付け、サンプル画像をレファレンス画像（1コマ目）として渡して生成</li>
                         <li>設定の目安：5秒、720p解像度、音やMultishotはオフ</li>
                     </ol>
@@ -192,10 +249,20 @@
                 </div>
 
                 <div class="content-section">
-                    <h2>動画生成AIの限界</h2>
-                    <p>現時点での主な課題は、<strong>音声やセリフの生成</strong>です。</p>
+                    <h2>効果音・ボイス・BGMの扱い</h2>
+                    <p>SeedanceもKlingも、映像と同時に<strong>効果音やボイス（セリフ）を生成できます</strong>。蒸気機関車の走行音や人物の掛け声などが、映像に合った形で付いてきます。</p>
 
-                    <p>特に日本語の音声は、同時生成されると不自然になることが多いです（英語はほぼ問題なし）。この問題は、別生成した音を動画の喋りの部分に載せる「<strong>リップシンク</strong>」機能で改善できます。</p>
+                    <p>BGMも同時に出せますが、<strong>「BGMは入れない」とプロンプトで指定しておくのがおすすめ</strong>です。BGMが混ざった音声から、後の編集でボイス・効果音だけを抽出するのは困難だからです。BGMは別途用意して、編集時に重ねましょう。</p>
+
+                    <h3>日本語セリフの壁</h3>
+                    <p>英語のボイスはほぼそのまま使えるレベルで出ます。一方、<strong>日本語に正確な発音をさせるのは非常に難しい</strong>のが現状です。日本語は文脈で読み方が変わるためです（例：化け物、化粧、化合物、妖怪七変化──同じ「化」でも読みが全部違う）。</p>
+
+                    <p>そこで私は、次の方法を使っています。</p>
+                    <ol>
+                        <li>日本語セリフをそのまま喋らせて生成する（発音が変でも、喋ることは喋る）</li>
+                        <li>編集でその音声を無音にし、<strong>口パク（口の動き）だけを保持</strong>する</li>
+                        <li>別ツール（<strong>Irodori-TTS</strong>）で生成した日本語ボイスを、口パクに合わせて当て込む</li>
+                    </ol>
 
                     <div class="highlight-box">
                         <p><strong>💡 音声生成について</strong></p>
@@ -220,20 +287,7 @@
                     <p>難しそうに聞こえますが、要は<strong>10秒程度のシーンを複数、意味が通るように並べるだけ</strong>です。</p>
 
                     <h3>おすすめの動画編集ソフト</h3>
-                    <p>初めての方には、無料の<strong>ShotCut</strong>というソフトがおすすめです。切って貼って動画を作ってみてください。動画で実際のやり方をお見せします。</p>
-
-                    <p>私自身はMacの<strong>Final Cut Pro</strong>を愛用しています。</p>
-
-                    <div class="highlight-box">
-                        <p><strong>💡 ShotCutで出来ること</strong></p>
-                        <ul style="margin: 10px 0;">
-                            <li>複数の動画を繋げる（結合）</li>
-                            <li>不要な部分をカット</li>
-                            <li>音楽やナレーションを追加</li>
-                            <li>テロップ（字幕）を挿入</li>
-                            <li>トランジション効果で場面転換を滑らかに</li>
-                        </ul>
-                    </div>
+                    <p>無料で始めるなら<strong>ShotCut</strong>がおすすめです。私自身はMacの<strong>Final Cut Pro</strong>を愛用しています。</p>
                 </div>
 
                 <div class="content-section">
@@ -279,6 +333,26 @@
 
     <script src="../common.js"></script>
     <script>
+        function copyPromptToClipboard(button) {
+            const promptBox = button.closest('.prompt-box');
+            const promptContent = promptBox.querySelector('.prompt-content');
+            const text = promptContent.textContent;
+
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = button.textContent;
+                button.textContent = 'コピーしました！';
+                button.classList.add('copied');
+
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('コピーに失敗しました:', err);
+                alert('コピーに失敗しました。手動でコピーしてください。');
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const accordionToggle = document.getElementById('textContentToggle');
             const accordionContent = document.getElementById('textContent');
