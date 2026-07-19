@@ -45,6 +45,24 @@
                 margin: 8px 0;
             }
         }
+        .copy-button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        .copy-button:hover {
+            background: #219653;
+        }
+        .copy-button.copied {
+            background: #4a90e2;
+        }
     </style>
 </head>
 <body class="category-creative">
@@ -98,9 +116,10 @@
                     <h2>いきなり体験してみよう</h2>
                     <p>まずは難しいことを考えずに、<strong>実際に作ってみましょう</strong>。ChatGPTとGemini、それぞれに以下のプロンプトを入れてみてください。</p>
 
-                    <div class="highlight-box">
-                        <p><strong>やってみよう：以下のプロンプトをコピペしよう</strong></p>
-                        <p style="margin: 10px 0; font-size: 1.05em;">「IT系企業の会議室で、日本人が楽しく語らっている様子」</p>
+                    <div class="prompt-box">
+                        <span class="prompt-title">やってみよう：ChatGPTとGeminiの両方にコピペ</span>
+                        <div class="prompt-content">IT系企業の会議室で、日本人が楽しく語らっている様子</div>
+                        <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
                     </div>
 
                     <p>それぞれ<strong>1分くらい</strong>で画像が生成されるはずです。両方の結果を見比べてみましょう。雑なプロンプトでも、ここまでの画像が作れるのが今のAIの実力です。</p>
@@ -155,10 +174,16 @@
                     <div class="highlight-box">
                         <p><strong>やり方</strong></p>
                         <ol style="margin: 10px 0;">
-                            <li>ChatGPTやClaudeに「画像生成用のプロンプトを作成せよ。ファンタジー風景の感じで」のように依頼する</li>
+                            <li>ChatGPTやClaudeに「画像生成用のプロンプトを作成せよ」と依頼する</li>
                             <li>AIが詳細なプロンプトを生成してくれる</li>
                             <li><strong>新しいチャット</strong>を開いて、生成されたプロンプトで画像を生成する</li>
                         </ol>
+                    </div>
+
+                    <div class="prompt-box">
+                        <span class="prompt-title">やってみよう：プロンプト作成を依頼する</span>
+                        <div class="prompt-content">画像生成用のプロンプトを作成せよ。ファンタジー風景の感じで</div>
+                        <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
                     </div>
 
                     <p>自分でゼロからプロンプトを考えるより、はるかに高品質な画像が生成されます。Geminiで試してみましょう。</p>
@@ -178,9 +203,10 @@
                     <h2>アイコン作成</h2>
                     <p>実務で使えるアイコンを作るなら<strong>ChatGPTがオススメ</strong>です。背景透過ができるのが決め手です。</p>
 
-                    <div class="highlight-box">
-                        <p><strong>やってみよう：以下のプロンプトをChatGPTに入れてみよう</strong></p>
-                        <p style="margin: 10px 0;">「ピクトグラムを作成。色は緑色。パソコンがうまく動いて喜んでいる人。背景は透過させる。」</p>
+                    <div class="prompt-box">
+                        <span class="prompt-title">やってみよう：ChatGPTに入れてみよう</span>
+                        <div class="prompt-content">ピクトグラムを作成。色は緑色。パソコンがうまく動いて喜んでいる人。背景は透過させる。</div>
+                        <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
                     </div>
 
                     <p>背景透過は両者とも対応していますが、<strong>透かしが入らないChatGPTを使うのが無難</strong>です。生成された画像は透過PNGとしてダウンロードでき、そのままスライドや資料に貼れます。</p>
@@ -210,22 +236,24 @@
                 </div>
 
                 <div class="content-section">
-                    <h2>動画生成AIとのつながり</h2>
-                    <p>実は、ここで作った画像は<strong>動画の素材としても使えます</strong>。</p>
-                    <p>動画生成AIでは、「1コマ目の画像を指定して、その画像を動かす」ということができます。つまり：</p>
+                    <h2>動画生成AIとのつながり：レファレンス画像を作る</h2>
+                    <p>実は、ここで作った画像は<strong>動画生成の素材としても使えます</strong>。動画生成AIに、人物・物・背景の<strong>レファレンス（参照）用画像</strong>を渡すと、その見た目を保ったまま動画を作ってくれるのです。</p>
 
-                    <ol>
-                        <li>理想の1コマ目の画像を画像生成AIで作る</li>
-                        <li>その画像を動画生成AIに渡して動かす</li>
-                    </ol>
+                    <p>かつては「動画の1コマ目の画像を作り、それを動かす」というやり方が主流でした。しかし動画生成AI側が進化した今は、<strong>1コマ目を固定するより、レファレンス画像を渡してAIに自由に作らせた方が、生成結果の精度が高くなります</strong>。構図や動きはAIに任せて、人物や物の「見た目」だけを画像で指定するイメージです。</p>
 
-                    <p>詳しくは次回の動画生成AIレッスンで実践します。今のうちに「画像生成は動画生成の準備にもなる」と覚えておきましょう。</p>
+                    <div class="prompt-box">
+                        <span class="prompt-title">やってみよう：レファレンス用の3面図を作る</span>
+                        <div class="prompt-content">コーカソイド系の白髪で白髭で眼鏡のおじいさんの画像を生成。動画生成AIで使用するための3面図。</div>
+                        <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+                    </div>
+
+                    <p>正面・横・後ろの3面図にしておくと、AIがキャラクターを立体的に理解でき、動画にしたとき見た目の一貫性が保ちやすくなります。詳しくは次回の動画生成AIレッスンで実践します。今のうちに「画像生成は動画生成の準備にもなる」と覚えておきましょう。</p>
                 </div>
 
                 <div class="content-section">
                     <h2>まとめ</h2>
                     <p>画像生成AIは<strong>ChatGPT Images 2.0とGemini Nano Banana 2の2強</strong>。まずは透かしの入らないChatGPTから使い始め、編集や速さが欲しくなったらGeminiも試す——これが現時点の最適解です。</p>
-                    <p>アートな画像はもちろん、<strong>実務で使えるアイコンや素材、動画の1コマ目</strong>まで作れます。「これできるかな？」と思ったことは、<strong>大抵できます</strong>。まずは気軽に試してみてください。</p>
+                    <p>アートな画像はもちろん、<strong>実務で使えるアイコンや素材、動画生成用のレファレンス画像</strong>まで作れます。「これできるかな？」と思ったことは、<strong>大抵できます</strong>。まずは気軽に試してみてください。</p>
 
                     <div class="highlight-box">
                         <p><strong>⚠️ 著作権に関する注意</strong></p>
@@ -253,6 +281,26 @@
 
     <script src="../common.js"></script>
     <script>
+        function copyPromptToClipboard(button) {
+            const promptBox = button.closest('.prompt-box');
+            const promptContent = promptBox.querySelector('.prompt-content');
+            const text = promptContent.textContent;
+
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = button.textContent;
+                button.textContent = 'コピーしました！';
+                button.classList.add('copied');
+
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('コピーに失敗しました:', err);
+                alert('コピーに失敗しました。手動でコピーしてください。');
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const accordionToggle = document.getElementById('textContentToggle');
             const accordionContent = document.getElementById('textContent');
