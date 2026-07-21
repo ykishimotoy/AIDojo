@@ -96,26 +96,34 @@
             <h3>コピペ用プロンプト</h3>
 
             <div class="prompt-box">
-                <span class="prompt-title">プロンプト1：まずは体験（ChatGPTとGeminiの両方に入れて比較）</span>
-                <div class="prompt-content">IT系企業の会議室で、日本人が楽しく語らっている様子</div>
+                <span class="prompt-title">プロンプト1：サンプル画像生成</span>
+                <div class="prompt-content">画像生成。IT系企業の会議室で、日本人が楽しく語らっている様子。</div>
                 <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
             </div>
 
             <div class="prompt-box">
-                <span class="prompt-title">プロンプト2：プロンプト作成をAIに依頼</span>
-                <div class="prompt-content">画像生成用のプロンプトを作成せよ。ファンタジー風景の感じで</div>
+                <span class="prompt-title">プロンプト2：画像生成用のプロンプト生成</span>
+                <div class="prompt-content">画像生成用のプロンプトを生成せよ。ファンタジー風景の感じで。[自分が思うイメージを追加]</div>
                 <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
             </div>
 
             <div class="prompt-box">
-                <span class="prompt-title">プロンプト3：アイコン作成（ChatGPTで背景透過）</span>
+                <span class="prompt-title">プロンプト3：背景透過ピクトグラムの生成</span>
                 <div class="prompt-content">ピクトグラムを作成。色は緑色。パソコンがうまく動いて喜んでいる人。背景は透過させる。</div>
                 <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
             </div>
 
             <div class="prompt-box">
-                <span class="prompt-title">プロンプト4：動画生成用のレファレンス3面図</span>
-                <div class="prompt-content">コーカソイド系の白髪で白髭で眼鏡のおじいさんの画像を生成。動画生成AIで使用するための3面図。</div>
+                <span class="prompt-title">プロンプト4：インフォグラフィック生成</span>
+                <div class="prompt-content">インフォグラフィックにして。
+※著作権上問題になる要素の画像生成は禁止。
+[気になる会社のwikipediaのURLを貼り付け、またはインフォグラフィック化したい資料PDFファイルなどを添付]</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+            </div>
+
+            <div class="prompt-box">
+                <span class="prompt-title">プロンプト5：動画用のレファレンス画像作り</span>
+                <div class="prompt-content">コーカソイド系の白髪で白髭で眼鏡のおじいさんの画像を生成。動画生成AIで使用するための3面図。文字の生成は禁止。</div>
                 <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
             </div>
         </div>
@@ -146,7 +154,7 @@
 
                     <div class="prompt-box">
                         <span class="prompt-title">やってみよう：ChatGPTとGeminiの両方にコピペ</span>
-                        <div class="prompt-content">IT系企業の会議室で、日本人が楽しく語らっている様子</div>
+                        <div class="prompt-content">画像生成。IT系企業の会議室で、日本人が楽しく語らっている様子。</div>
                         <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
                     </div>
 
@@ -210,7 +218,7 @@
 
                     <div class="prompt-box">
                         <span class="prompt-title">やってみよう：プロンプト作成を依頼する</span>
-                        <div class="prompt-content">画像生成用のプロンプトを作成せよ。ファンタジー風景の感じで</div>
+                        <div class="prompt-content">画像生成用のプロンプトを生成せよ。ファンタジー風景の感じで。[自分が思うイメージを追加]</div>
                         <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
                     </div>
 
@@ -249,7 +257,15 @@
                         <p>資料やテキストをAIにぶちこんで、「インフォグラフィックにして」の一言でOK。情報を図解化した画像が生成されます。</p>
                     </div>
 
-                    <p>日本語の文字が正確に描けるようになったことで、この使い方が一気に実用的になりました。文字とレイアウトが多い図解は、特に<strong>ChatGPTの得意分野</strong>です。</p>
+                    <div class="prompt-box">
+                        <span class="prompt-title">やってみよう：資料をインフォグラフィックにする</span>
+                        <div class="prompt-content">インフォグラフィックにして。
+※著作権上問題になる要素の画像生成は禁止。
+[気になる会社のwikipediaのURLを貼り付け、またはインフォグラフィック化したい資料PDFファイルなどを添付]</div>
+                        <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+                    </div>
+
+                    <p>気になる会社のWikipediaのURLを貼り付けたり、図解化したい資料のPDFファイルを添付したりして、このプロンプトと一緒に送るだけです。日本語の文字が正確に描けるようになったことで、この使い方が一気に実用的になりました。文字とレイアウトが多い図解は、特に<strong>ChatGPTの得意分野</strong>です。</p>
                 </div>
 
                 <div class="content-section">
@@ -271,7 +287,7 @@
 
                     <div class="prompt-box">
                         <span class="prompt-title">やってみよう：レファレンス用の3面図を作る</span>
-                        <div class="prompt-content">コーカソイド系の白髪で白髭で眼鏡のおじいさんの画像を生成。動画生成AIで使用するための3面図。</div>
+                        <div class="prompt-content">コーカソイド系の白髪で白髭で眼鏡のおじいさんの画像を生成。動画生成AIで使用するための3面図。文字の生成は禁止。</div>
                         <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
                     </div>
 
@@ -356,7 +372,7 @@
 
         let player;
         const LESSON_NUMBER = 15;
-        const VIDEO_ID = 'R54ZVFD1nBI';
+        const VIDEO_ID = 'TYQizJGeqoU';
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {

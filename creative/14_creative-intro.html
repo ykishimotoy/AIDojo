@@ -45,6 +45,24 @@
                 margin: 8px 0;
             }
         }
+        .copy-button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        .copy-button:hover {
+            background: #219653;
+        }
+        .copy-button.copied {
+            background: #4a90e2;
+        }
     </style>
 </head>
 <body class="category-creative">
@@ -73,6 +91,41 @@
             <a href="https://discord.gg/Ve2tQeN7cw" target="_blank" class="community-button">コミュニティ参加</a>
         </div>
 
+        <div class="prompt-section">
+            <h3>コピペ用プロンプト</h3>
+
+            <div class="prompt-box">
+                <span class="prompt-title">プロンプト：高画質画像の生成</span>
+                <div class="prompt-content">画像生成。AI忍者を従えたAIサムライを高画質で生成せよ。</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>AIの組み合わせで、ここまで作れる</h2>
+            <p>実際に、この「組み合わせ」で作られた作品を3つご覧ください。いずれも<strong>個人レベルで制作できる</strong>ものです。</p>
+
+            <h3>作品例1：宇宙灯台守（ショートフィルム）</h3>
+            <p>私がAIで制作したショートフィルムです。ストーリー・映像・音楽、すべてAIとの共同作業で作りました。</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/oEXRL-_JLHk" title="宇宙灯台守" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <h3>作品例2：才無し侯爵令嬢（アニメ）</h3>
+            <p>アニメ調の作品もこのクオリティで作れます。</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/eFKQr4CYDcs" title="才無し侯爵令嬢" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <h3>作品例3：企業CM</h3>
+            <p>アート作品だけでなく、企業CMのような実務寄りの映像も作れます。</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/5LewG23dpaQ" title="企業CM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <p>作り方は、この後のレッスンで順番に学んでいきます。</p>
+        </div>
+
         <div class="accordion-container">
             <button class="accordion-toggle" id="textContentToggle">
                 <span class="accordion-icon">▶</span>
@@ -97,31 +150,6 @@
                     </div>
 
                     <p>このように、<strong>複数のAIツールを連携させることで、プロ顔負けの作品</strong>を作ることができます。</p>
-                </div>
-
-                <div class="content-section">
-                    <h2>AIの組み合わせで、ここまで作れる</h2>
-                    <p>実際に、この「組み合わせ」で作られた作品を3つご覧ください。いずれも<strong>個人レベルで制作できる</strong>ものです。</p>
-
-                    <h3>作品例1：宇宙灯台守（ショートフィルム）</h3>
-                    <p>私がAIで制作したショートフィルムです。ストーリー・映像・音楽、すべてAIとの共同作業で作りました。</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/oEXRL-_JLHk" title="宇宙灯台守" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-
-                    <h3>作品例2：才無し侯爵令嬢（アニメ）</h3>
-                    <p>アニメ調の作品もこのクオリティで作れます。</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/eFKQr4CYDcs" title="才無し侯爵令嬢" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-
-                    <h3>作品例3：企業CM</h3>
-                    <p>アート作品だけでなく、企業CMのような実務寄りの映像も作れます。</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/5LewG23dpaQ" title="企業CM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-
-                    <p>作り方は、この後のレッスンで順番に学んでいきます。</p>
                 </div>
 
                 <div class="content-section">
@@ -243,6 +271,26 @@
 
     <script src="../common.js"></script>
     <script>
+        function copyPromptToClipboard(button) {
+            const promptBox = button.closest('.prompt-box');
+            const promptContent = promptBox.querySelector('.prompt-content');
+            const text = promptContent.textContent;
+
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = button.textContent;
+                button.textContent = 'コピーしました！';
+                button.classList.add('copied');
+
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('コピーに失敗しました:', err);
+                alert('コピーに失敗しました。手動でコピーしてください。');
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const accordionToggle = document.getElementById('textContentToggle');
             const accordionContent = document.getElementById('textContent');
@@ -270,7 +318,7 @@
 
         let player;
         const LESSON_NUMBER = 14;
-        const VIDEO_ID = 'EGP4tWWZDiY';
+        const VIDEO_ID = 'mJ390dOTUuo';
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
