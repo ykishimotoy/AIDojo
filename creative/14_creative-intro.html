@@ -95,8 +95,14 @@
             <h3>コピペ用プロンプト</h3>
 
             <div class="prompt-box">
-                <span class="prompt-title">プロンプト：高画質画像の生成</span>
+                <span class="prompt-title">プロンプト1：高画質画像の生成</span>
                 <div class="prompt-content">画像生成。AI忍者を従えたAIサムライを高画質で生成せよ。</div>
+                <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
+            </div>
+
+            <div class="prompt-box">
+                <span class="prompt-title">プロンプト2：プロンプト作成をAIに依頼</span>
+                <div class="prompt-content">[ツール名]用のプロンプトを作成して。テーマは[あなたのテーマ]で。[あなたの思う雰囲気の描写]を作りたい。</div>
                 <button class="copy-button" onclick="copyPromptToClipboard(this)">コピー</button>
             </div>
         </div>
