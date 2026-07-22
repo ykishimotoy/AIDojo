@@ -39,8 +39,27 @@
             color: white;
             transform: translateY(-2px);
         }
+        .reference-links .film-festival-button {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            border: 2px solid #d35400;
+            border-radius: 6px;
+            margin: 5px 10px 5px 0;
+            box-shadow: 0 2px 8px rgba(211, 84, 0, 0.35);
+            transition: all 0.3s ease;
+        }
+        .reference-links .film-festival-button:hover {
+            background: linear-gradient(135deg, #d35400, #ba4a00);
+            box-shadow: 0 4px 12px rgba(211, 84, 0, 0.45);
+            transform: translateY(-2px);
+        }
         @media (max-width: 768px) {
-            .reference-links .community-button {
+            .reference-links .community-button,
+            .reference-links .film-festival-button {
                 display: block;
                 margin: 8px 0;
             }
@@ -112,9 +131,34 @@
             <h3>参考リンク - 実際に使ってみよう</h3>
             <a href="https://kling.ai/app" target="_blank">Kling</a>
             <a href="https://runwayml.com/ja" target="_blank">Seedance（Runway経由）</a>
+            <a href="https://zenn.dev/acntechjp/articles/530307d5e9c459" target="_blank">Irodori-TTS解説</a>
             <a href="https://x.com/ykishimotoy/status/2050409094163599516" target="_blank">江州西さん制作ノウハウ</a>
             <a href="https://x.com/Akajishiya/status/2057388154609619376" target="_blank">赤獅子屋さんメッセージノウハウ</a>
             <a href="https://discord.gg/Ve2tQeN7cw" target="_blank" class="community-button">コミュニティ参加</a>
+            <a href="https://film-2026-summer.sugoiai.org/" target="_blank" class="film-festival-button">🎬 AI映画祭</a>
+        </div>
+
+        <div class="content-section">
+            <h2>AIの組み合わせで、ここまで作れる</h2>
+            <p>実際に、この「組み合わせ」で作られた作品を3つご覧ください。いずれも<strong>個人レベルで制作できる</strong>ものです。</p>
+
+            <h3>作品例1：宇宙灯台守（ショートフィルム）</h3>
+            <p>私がAIで制作したショートフィルムです。ストーリー・映像・音楽、すべてAIとの共同作業で作りました。</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/oEXRL-_JLHk" title="宇宙灯台守" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <h3>作品例2：才無し侯爵令嬢（アニメ）</h3>
+            <p>アニメ調の作品もこのクオリティで作れます。</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/eFKQr4CYDcs" title="才無し侯爵令嬢" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <h3>作品例3：企業CM</h3>
+            <p>アート作品だけでなく、企業CMのような実務寄りの映像も作れます。</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/5LewG23dpaQ" title="企業CM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
 
         <div class="prompt-section">
@@ -145,25 +189,7 @@
 
                     <p>なお、動画生成はスマホよりもPCでの作業を強くおすすめします。</p>
 
-                    <p>このレッスンは、AI動画制作をこれから始めてみたい方向けの内容です。まずは、<strong>個人レベルでもここまで作れる</strong>という例を3つご覧ください。</p>
-
-                    <h3>作品例1：宇宙灯台守（ショートフィルム）</h3>
-                    <p>私がAIで制作した作品です。宇宙で孤独に暮らす老人の物語を、動画生成AIだけで映像化しました。</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/oEXRL-_JLHk" title="宇宙灯台守" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-
-                    <h3>作品例2：才無し侯爵令嬢（アニメ）</h3>
-                    <p>アニメ調の作品もこのクオリティで作れます。</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/eFKQr4CYDcs" title="才無し侯爵令嬢" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-
-                    <h3>作品例3：企業CM</h3>
-                    <p>実務寄りの例として、企業CMもAIで作れます。</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/5LewG23dpaQ" title="企業CM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
+                    <p>このレッスンは、AI動画制作をこれから始めてみたい方向けの内容です。<strong>個人レベルでもここまで作れる</strong>という例は、上の「作品例」の3本をご覧ください。</p>
                 </div>
 
                 <div class="content-section">
